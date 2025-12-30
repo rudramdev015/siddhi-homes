@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SiLeetcode, SiCplusplus } from 'react-icons/si';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
-import './Leetcode.css'; 
+import './Leetcode.css';
 
 const Leetcode = () => {
   const [leetCodeStats, setLeetCodeStats] = useState(null);
@@ -22,68 +22,36 @@ const Leetcode = () => {
 
         setLeetCodeStats(data);
 
-        // --- DYNAMIC DAILY COUNT LOGIC ---
-        const now = new Date();
-        const adjustedDate = new Date(now.getTime() - (4 * 60 * 60 * 1000));
-        const leetCodeDayString = adjustedDate.toISOString().split('T')[0];
+        // --- REAL DAILY COUNT FROM SUBMISSION CALENDAR ---
+        const calendar = data.submissionCalendar || {};
 
-        const currentTotalSolved = data.totalSolved;
-        
-        const storageKey = 'leetcode-preview-dailyStats'; 
-        const seedFlagKey = 'leetcode-preview-statsSeeded';
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        if (!localStorage.getItem(seedFlagKey)) {
-            const desiredTodayCount = 1;
-            const desiredYesterdayCount = 188;
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
 
-            const todayStartSolved = currentTotalSolved - desiredTodayCount;
-            const yesterdayStartSolved = todayStartSolved - desiredYesterdayCount;
+        let todaySolved = 0;
+        let yesterdaySolved = 0;
 
-            setDailyStats({
-                yesterday: desiredYesterdayCount,
-                today: desiredTodayCount,
-            });
+        Object.entries(calendar).forEach(([timestamp, count]) => {
+          const date = new Date(Number(timestamp) * 1000);
+          date.setHours(0, 0, 0, 0);
 
-            const seedData = {
-                yesterdaySolved: desiredYesterdayCount,
-                yesterdayStartSolved: yesterdayStartSolved,
-                todayStartDate: leetCodeDayString,
-                todayStartSolved: todayStartSolved,
-            };
-            localStorage.setItem(storageKey, JSON.stringify(seedData));
-            localStorage.setItem(seedFlagKey, 'true');
+          if (date.getTime() === today.getTime()) {
+            todaySolved += count;
+          }
 
-        } else {
-            let storedData = null;
-            try {
-                storedData = JSON.parse(localStorage.getItem(storageKey));
-            } catch (e) {
-                console.error("Could not parse localStorage data:", e);
-                localStorage.removeItem(storageKey);
-            }
+          if (date.getTime() === yesterday.getTime()) {
+            yesterdaySolved += count;
+          }
+        });
 
-            if (storedData && storedData.todayStartDate === leetCodeDayString) {
-                setDailyStats({
-                    yesterday: storedData.yesterdaySolved,
-                    today: currentTotalSolved - storedData.todayStartSolved,
-                });
-            } else {
-                const yesterdayCount = storedData ? (storedData.todayStartSolved - storedData.yesterdayStartSolved) : 0;
+        setDailyStats({
+          yesterday: yesterdaySolved,
+          today: todaySolved,
+        });
 
-                setDailyStats({
-                    yesterday: yesterdayCount,
-                    today: storedData ? (currentTotalSolved - storedData.todayStartSolved) : 0,
-                });
-
-                const newDayData = {
-                    yesterdaySolved: yesterdayCount,
-                    yesterdayStartSolved: storedData ? storedData.todayStartSolved : currentTotalSolved,
-                    todayStartDate: leetCodeDayString,
-                    todayStartSolved: currentTotalSolved,
-                };
-                localStorage.setItem(storageKey, JSON.stringify(newDayData));
-            }
-        }
 
       } catch (err) {
         setError(err.message);
@@ -168,9 +136,9 @@ const Leetcode = () => {
     return (
       <>
         <circle className="leetcode-preview-arc-background" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} style={{ strokeDasharray: `${arcLength} ${circumference}` }} />
-        <motion.circle initial={{ strokeDasharray: `0 ${circumference}`}} animate={{ strokeDasharray: `${easyDash} ${circumference}`}} transition={{ duration: 2.5, ease: "easeInOut" }} className="leetcode-preview-progress-arc leetcode-preview-easy" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} />
-        <motion.circle initial={{ strokeDasharray: `0 ${circumference}`}} animate={{ strokeDasharray: `${mediumDash} ${circumference}`}} transition={{ duration: 2.5, ease: "easeInOut", delay: 0.5 }} className="leetcode-preview-progress-arc leetcode-preview-medium" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} style={{ strokeDashoffset: mediumOffset }} />
-        <motion.circle initial={{ strokeDasharray: `0 ${circumference}`}} animate={{ strokeDasharray: `${hardDash} ${circumference}`}} transition={{ duration: 2.5, ease: "easeInOut", delay: 1.0 }} className="leetcode-preview-progress-arc leetcode-preview-hard" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} style={{ strokeDashoffset: hardOffset }} />
+        <motion.circle initial={{ strokeDasharray: `0 ${circumference}` }} animate={{ strokeDasharray: `${easyDash} ${circumference}` }} transition={{ duration: 2.5, ease: "easeInOut" }} className="leetcode-preview-progress-arc leetcode-preview-easy" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} />
+        <motion.circle initial={{ strokeDasharray: `0 ${circumference}` }} animate={{ strokeDasharray: `${mediumDash} ${circumference}` }} transition={{ duration: 2.5, ease: "easeInOut", delay: 0.5 }} className="leetcode-preview-progress-arc leetcode-preview-medium" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} style={{ strokeDashoffset: mediumOffset }} />
+        <motion.circle initial={{ strokeDasharray: `0 ${circumference}` }} animate={{ strokeDasharray: `${hardDash} ${circumference}` }} transition={{ duration: 2.5, ease: "easeInOut", delay: 1.0 }} className="leetcode-preview-progress-arc leetcode-preview-hard" cx="100" cy="100" r={radius} strokeWidth={strokeWidth} transform={`rotate(${rotation} 100 100)`} style={{ strokeDashoffset: hardOffset }} />
       </>
     );
   };
@@ -191,13 +159,13 @@ const Leetcode = () => {
       {/* Background Lines */}
       <div className="leetcode-preview-bg-lines-container">
         <svg className="leetcode-preview-bg-svg" viewBox="0 0 1440 1024" preserveAspectRatio="none">
-          <path 
-            d="M-50,200 C300,50 600,600 1500,100" 
-            stroke="#00ff00" strokeOpacity="0.15" strokeWidth="1" fill="none" 
+          <path
+            d="M-50,200 C300,50 600,600 1500,100"
+            stroke="#00ff00" strokeOpacity="0.15" strokeWidth="1" fill="none"
           />
-          <path 
-            d="M-100,600 C400,800 1000,300 1600,900" 
-            stroke="#00ff00" strokeOpacity="0.12" strokeWidth="1" fill="none" 
+          <path
+            d="M-100,600 C400,800 1000,300 1600,900"
+            stroke="#00ff00" strokeOpacity="0.12" strokeWidth="1" fill="none"
           />
         </svg>
       </div>
@@ -244,14 +212,14 @@ const Leetcode = () => {
               <div className="leetcode-preview-language-logo"><SiCplusplus size={32} className="leetcode-preview-cpp-icon" /><span className="leetcode-preview-language-name">C++</span></div>
             </div>
             <div className="leetcode-preview-stats-row">
-               <div className="leetcode-preview-daily-stats-item">
-                  <span className="leetcode-preview-daily-stats-label">Yesterday's Solved</span>
-                  <span className="leetcode-preview-daily-stats-value"><CountUp end={dailyStats.yesterday} duration={3} /></span>
-               </div>
-               <div className="leetcode-preview-daily-stats-item">
-                  <span className="leetcode-preview-daily-stats-label">Solved Today</span>
-                  <span className={`leetcode-preview-daily-stats-value ${dailyStats.today > 0 ? 'leetcode-preview-active' : ''}`}><CountUp end={dailyStats.today} duration={3} /></span>
-               </div>
+              <div className="leetcode-preview-daily-stats-item">
+                <span className="leetcode-preview-daily-stats-label">Yesterday's Solved</span>
+                <span className="leetcode-preview-daily-stats-value"><CountUp end={dailyStats.yesterday} duration={3} /></span>
+              </div>
+              <div className="leetcode-preview-daily-stats-item">
+                <span className="leetcode-preview-daily-stats-label">Solved Today</span>
+                <span className={`leetcode-preview-daily-stats-value ${dailyStats.today > 0 ? 'leetcode-preview-active' : ''}`}><CountUp end={dailyStats.today} duration={3} /></span>
+              </div>
             </div>
           </motion.div>
         </main>
