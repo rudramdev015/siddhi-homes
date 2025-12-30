@@ -1,0 +1,374 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaShapes, FaRocket, FaCalendarAlt, FaCode, FaServer, FaUserTie } from 'react-icons/fa';
+import './Journey.css';
+
+const journeyData = [
+  {
+    id: '01',
+    theme: 'theme-red',
+    year: '2021',
+    flapContent: <FaShapes />,
+    title: 'Hello World',
+    description: 'Enrolled in B.Tech. Wrote my first lines of code. The start of a long journey.',
+  },
+  {
+    id: '02',
+    theme: 'theme-yellow',
+    year: '2022',
+    flapContent: <span style={{fontSize:'1rem', fontWeight:'bold'}}>LOGIC</span>,
+    title: 'Data Structures',
+    description: 'Mastered C++ and DSA. Solved complex problems to build strong logic.',
+  },
+  {
+    id: '03',
+    theme: 'theme-purple',
+    year: '2023',
+    flapContent: <span style={{fontSize:'1rem', fontWeight:'bold'}}>WEB</span>,
+    title: 'Frontend Dev',
+    description: 'React, CSS, and Animations. Creating beautiful interfaces.',
+  },
+  {
+    id: '04',
+    theme: 'theme-red',
+    year: '2023 Late',
+    flapContent: <FaRocket />,
+    title: 'LeetCode Grind',
+    description: 'Ranked globally. 500+ problems solved. Algorithms became easy.',
+  },
+  {
+    id: '05',
+    theme: 'theme-yellow',
+    year: '2024',
+    flapContent: <FaServer />,
+    title: 'Full Stack',
+    description: 'Node.js, Express & Mongo. Building backend systems that scale.',
+  },
+  {
+    id: '06',
+    theme: 'theme-purple',
+    year: '2025',
+    flapContent: <FaUserTie />,
+    title: 'Professional',
+    description: 'System Design & Architecture. Ready for the industry.',
+  },
+];
+
+const Journey = () => {
+  return (
+    <section className="journey-container">
+
+      <div className="journey-grid">
+        {journeyData.map((item, index) => {
+
+          const wrapperVariants = {
+            closed: { height: 180 },
+            open: { height: 520 }
+          };
+
+          const cardVariants = {
+            closed: {
+              bottom: -50,
+              x: "-50%",
+              opacity: 0,
+              scale: 0.8
+            },
+            open: {
+              bottom: 110,
+              x: "-50%",
+              rotate: index % 2 === 0 ? -3 : 3,
+              opacity: 1,
+              scale: 1,
+              transition: {
+                delay: 0.8,
+                type: "spring",
+                stiffness: 40,
+                bounce: 0.3
+              }
+            }
+          };
+
+          return (
+            <motion.div
+              key={item.id}
+              className="pocket-wrapper"
+              initial="closed"
+              whileInView="open"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={wrapperVariants}
+            >
+
+              {/* BACK */}
+              <div className={`pocket-back ${item.theme}`} />
+
+              {/* FLAP */}
+              <div className={`pocket-flap ${item.theme}`}>
+                <div className="flap-shape"></div>
+              </div>
+
+              {/* CARD */}
+              <motion.div
+                className="content-card"
+                variants={cardVariants}
+              >
+                <div className="card-top">
+                  <span className="card-year"><FaCalendarAlt /> {item.year}</span>
+                  <FaCode style={{ color: '#ccc' }} />
+                </div>
+                <div className="card-body">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </motion.div>
+
+              {/* FRONT */}
+              <div className={`pocket-front ${item.theme}`}>
+                <div className="bottom-icon-container">
+                  {item.flapContent}
+                </div>
+              </div>
+
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+export default Journey;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Handlee&display=swap');
+
+/* --- THEME VARIABLES --- */
+.journey-container {
+    --bg-color: #fff0f5; 
+    --font-main: 'Poppins', sans-serif;
+    --font-hand: 'Handlee', cursive;
+
+    /* Gradients */
+    --red-gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8e72 100%);
+    --yellow-gradient: linear-gradient(135deg, #fce38a 0%, #fade4b 100%);
+    --purple-gradient: linear-gradient(135deg, #e040fb 0%, #c026d3 100%);
+}
+
+.journey-container * { box-sizing: border-box; }
+
+/* MAIN SECTION */
+.journey-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 6rem 1rem 10rem 1rem;
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.8) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.8) 0%, transparent 20%);
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.journey-header { text-align: center; margin-bottom: 5rem; z-index: 2; }
+.journey-title {
+    font-size: 3rem; font-weight: 700; color: #333;
+    margin-bottom: 0.5rem; letter-spacing: -1px;
+}
+.journey-subtitle { color: #888; font-size: 1.1rem; }
+
+/* --- GRID LAYOUT --- */
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 80px 40px; 
+    align-items: end; 
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* --- THE WRAPPER --- */
+.pocket-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    z-index: 1;
+    perspective: 1000px; 
+}
+
+/* --- LAYER 1: BACK WALL --- */
+.pocket-back {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: 100%; 
+    background: var(--theme-bg);
+    border-radius: 24px;
+    z-index: 0; /* Always at the back */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+.pocket-back::after {
+    content: ''; position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 18px;
+    pointer-events: none;
+}
+
+/* --- LAYER 2: FLAP (Top) --- */
+/* Z-Index is handled by JS Animation */
+.pocket-flap {
+    position: absolute;
+    top: 0; 
+    left: 0; width: 100%; 
+    height: 120px; /* Adjusted to 120px for better proportion */
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    transform-origin: top center;
+}
+
+.flap-shape {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--theme-bg);
+    border-radius: 24px 24px 40px 40px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    filter: brightness(0.95);
+}
+.flap-shape::after {
+    content: ''; position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 2px dashed rgba(255,255,255,0.5);
+    border-radius: 18px 18px 32px 32px;
+    border-top: none;
+}
+
+/* --- LAYER 3: CARD --- */
+.content-card {
+    position: absolute;
+    left: 50%;
+    
+    width: 88%; 
+    height: 300px; 
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    
+    /* Z-INDEX: 10. Middle Layer */
+    z-index: 10; 
+    
+    display: flex; flex-direction: column;
+    transform-origin: bottom center;
+}
+
+.card-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+    padding-top: 10px; 
+}
+.card-year {
+    font-family: var(--font-hand); color: #888; font-weight: bold;
+    display: flex; align-items: center; gap: 5px; font-size: 1rem;
+}
+.card-body { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+.card-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; line-height: 1.2; color: #333; }
+.card-body p { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+
+/* --- LAYER 4: FRONT POUCH (Bottom) --- */
+.pocket-front {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: 160px; 
+    background: var(--theme-bg);
+    border-radius: 0 0 24px 24px;
+    
+    /* Z-INDEX: 20. 
+       When Closed: Flap (30) > Front (20).
+       When Open: Front (20) > Card (10) > Flap (5). */
+    z-index: 20; 
+    
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+    pointer-events: none;
+    
+    display: flex; align-items: center; justify-content: center;
+}
+.pocket-front::after {
+    content: ''; position: absolute;
+    top: 0; left: 8px; right: 8px; bottom: 8px;
+    border: 2px dashed rgba(255,255,255,0.5);
+    border-top: none;
+    border-radius: 0 0 18px 18px;
+}
+.bottom-icon-container {
+    color: rgba(255,255,255, 0.9);
+    font-size: 2.5rem;
+    margin-top: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+
+/* --- THEMES --- */
+.theme-red { --theme-bg: var(--red-gradient); }
+.theme-red .card-year { color: #ff6b4a; }
+
+.theme-yellow { --theme-bg: var(--yellow-gradient); }
+.theme-yellow .pocket-front::after, .theme-yellow .flap-shape::after { border-color: rgba(126, 34, 206, 0.3); }
+.theme-yellow .flap-content { color: #7e22ce; }
+.theme-yellow .card-year { color: #eab308; }
+
+.theme-purple { --theme-bg: var(--purple-gradient); }
+.theme-purple .card-year { color: #d946ef; }
+
+
+/* ============================= */
+/* Z-INDEX SWAP FIX (IMPORTANT) */
+/* ============================= */
+
+/* CLOSED STATE (initial) */
+.pocket-wrapper {
+  --flap-z: 30;
+  --card-z: 10;
+}
+
+/* OPEN STATE (whileInView="open") */
+.pocket-wrapper[style*="height: 520px"] {
+  --flap-z: 1;
+  --card-z: 25;
+}
+
+/* APPLY Z-INDEX */
+.pocket-flap {
+  z-index: var(--flap-z);
+}
+
+.content-card {
+  z-index: var(--card-z);
+}
+
+.pocket-front {
+  z-index: 26;
+}

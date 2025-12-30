@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Handlee&display=swap');
+
+/* --- GLOBAL RESET & SCROLLBAR HIDING --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #050505;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- THEME VARIABLES --- */
+.my-journey-layout-container {
+    --bg-color: #050505; 
+    
+    --font-main: 'Poppins', sans-serif;
+    --font-hand: 'Handlee', cursive;
+    --font-title: 'Orbitron', sans-serif;
+    
+    /* --- 6 CARD COLOR PALETTE --- */
+
+    /* 1. ORANGE */
+    --orange-flap: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    --orange-front: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    --orange-accent: #f59e0b;
+
+    /* 2. YELLOW (Gold) */
+    --yellow-flap: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+    --yellow-front: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    --yellow-accent: #eab308;
+
+    /* 3. PURPLE */
+    --purple-flap: linear-gradient(135deg, #e879f9 0%, #d946ef 100%);
+    --purple-front: linear-gradient(135deg, #a21caf 0%, #86198f 100%);
+    --purple-accent: #d946ef;
+
+    /* 4. RED */
+    --red-flap: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    --red-front: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+    --red-accent: #ef4444;
+
+    /* 5. BLUE */
+    --blue-flap: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    --blue-front: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    --blue-accent: #3b82f6;
+
+    /* 6. GREEN */
+    --green-flap: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    --green-front: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    --green-accent: #22c55e;
+}
+
+.my-journey-layout-container * { box-sizing: border-box; }
+
+/* MAIN SECTION */
+.my-journey-layout-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip; 
+    
+    min-height: 100vh;
+    padding: 5rem 1rem 5rem 1rem;
+    
+    background-color: var(--bg-color);
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- BACKGROUND SVG LINES --- */
+.my-journey-layout-bg-lines-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+}
+.my-journey-layout-bg-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* HEADER */
+.my-journey-layout-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    z-index: 2;
+}
+
+.my-journey-layout-title {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    
+    background: linear-gradient(90deg, #ffffff 40%, #00ff00 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.my-journey-layout-subtitle {
+    color: #b0b0b0;
+    font-size: 1.1rem;
+}
+
+/* --- GRID LAYOUT --- */
+.my-journey-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 80px 40px; 
+    align-items: end; 
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    z-index: 2;
+}
+
+/* --- THE WRAPPER --- */
+.my-journey-layout-pocket-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    z-index: 1;
+    perspective: 1000px; 
+}
+
+/* --- LAYER 1: BACK WALL (Matches Bottom Front) --- */
+.my-journey-layout-pocket-back {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: 100%; 
+    
+    /* Variable Set by Theme Class */
+    background: var(--theme-front-bg); 
+    
+    border-radius: 24px;
+    z-index: 0; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    /* Slight brightness drop to create depth behind the front pouch */
+    filter: brightness(0.8);
+}
+
+.my-journey-layout-pocket-back::after {
+    content: ''; position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    
+    /* Dashes match the theme accent color */
+    border: 2px dashed var(--theme-dash-color);
+    
+    border-radius: 18px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* --- LAYER 2: FLAP (Top) --- */
+.my-journey-layout-pocket-flap {
+    position: absolute;
+    top: 0; 
+    left: 0; width: 100%; 
+    height: 120px; 
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    transform-origin: top center;
+}
+
+.my-journey-layout-flap-shape {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--theme-flap-bg);
+    border-radius: 24px 24px 40px 40px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.my-journey-layout-flap-shape::after {
+    content: ''; position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-radius: 18px 18px 32px 32px;
+    border-top: none;
+}
+
+/* --- LAYER 3: CARD (DARK THEME) --- */
+.my-journey-layout-content-card {
+    position: absolute;
+    left: 50%;
+    
+    width: 88%; 
+    height: 300px; 
+    
+    background: #1a1a1a;
+    
+    /* Top Border: Matches Theme */
+    border-top: 5px solid var(--card-accent);
+    /* Side Borders: Subtle Dark */
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    
+    z-index: 10; 
+    
+    display: flex; flex-direction: column;
+    transform-origin: bottom center;
+}
+
+.my-journey-layout-card-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 10px;
+    
+    /* MIDDLE BORDER TOP (SEPARATOR) IS WHITE */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    
+    padding-top: 10px; 
+}
+.my-journey-layout-card-year {
+    font-family: var(--font-hand); 
+    color: var(--card-accent); 
+    font-weight: bold;
+    display: flex; align-items: center; gap: 5px; font-size: 1rem;
+}
+.my-journey-layout-card-body { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+.my-journey-layout-card-body h3 { 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    margin-bottom: 10px; 
+    line-height: 1.2; 
+    color: #ffffff; /* White Text */
+}
+.my-journey-layout-card-body p { 
+    font-size: 0.9rem; 
+    color: #b0b0b0; /* Light Grey Text */
+    line-height: 1.6; 
+}
+
+
+/* --- LAYER 4: FRONT POUCH (Bottom) --- */
+.my-journey-layout-pocket-front {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: 160px; 
+    background: var(--theme-front-bg);
+    border-radius: 0 0 24px 24px;
+    
+    z-index: 20; 
+    
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.25);
+    pointer-events: none;
+    
+    display: flex; align-items: center; justify-content: center;
+}
+.my-journey-layout-pocket-front::after {
+    content: ''; position: absolute;
+    top: 0; left: 8px; right: 8px; bottom: 8px;
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-top: none;
+    border-radius: 0 0 18px 18px;
+}
+.my-journey-layout-bottom-icon-container {
+    color: rgba(255,255,255, 0.95);
+    font-size: 2.5rem;
+    margin-top: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+
+/* --- 6 THEME DEFINITIONS --- */
+
+/* 1. ORANGE */
+.my-journey-layout-theme-orange { 
+    --theme-flap-bg: var(--orange-flap); 
+    --theme-front-bg: var(--orange-front);
+    --theme-dash-color: var(--orange-accent);
+}
+.my-journey-layout-theme-orange-card { --card-accent: var(--orange-accent); }
+
+/* 2. YELLOW */
+.my-journey-layout-theme-yellow { 
+    --theme-flap-bg: var(--yellow-flap); 
+    --theme-front-bg: var(--yellow-front);
+    --theme-dash-color: #fff; /* White dash looks better on dark yellow */
+}
+.my-journey-layout-theme-yellow-card { --card-accent: var(--yellow-accent); }
+
+/* 3. PURPLE */
+.my-journey-layout-theme-purple { 
+    --theme-flap-bg: var(--purple-flap); 
+    --theme-front-bg: var(--purple-front);
+    --theme-dash-color: var(--purple-accent);
+}
+.my-journey-layout-theme-purple-card { --card-accent: var(--purple-accent); }
+
+/* 4. RED */
+.my-journey-layout-theme-red { 
+    --theme-flap-bg: var(--red-flap); 
+    --theme-front-bg: var(--red-front);
+    --theme-dash-color: var(--red-accent);
+}
+.my-journey-layout-theme-red-card { --card-accent: var(--red-accent); }
+
+/* 5. BLUE */
+.my-journey-layout-theme-blue { 
+    --theme-flap-bg: var(--blue-flap); 
+    --theme-front-bg: var(--blue-front);
+    --theme-dash-color: var(--blue-accent);
+}
+.my-journey-layout-theme-blue-card { --card-accent: var(--blue-accent); }
+
+/* 6. GREEN */
+.my-journey-layout-theme-green { 
+    --theme-flap-bg: var(--green-flap); 
+    --theme-front-bg: var(--green-front);
+    --theme-dash-color: var(--green-accent);
+}
+.my-journey-layout-theme-green-card { --card-accent: var(--green-accent); }
+
+
+/* ============================= */
+/* Z-INDEX SWAP FIX */
+/* ============================= */
+
+/* CLOSED STATE (initial) */
+.my-journey-layout-pocket-wrapper {
+  --flap-z: 30;
+  --card-z: 10;
+}
+
+/* OPEN STATE */
+.my-journey-layout-pocket-wrapper[style*="height: 520px"] {
+  --flap-z: 1;
+  --card-z: 25;
+}
+
+/* APPLY Z-INDEX */
+.my-journey-layout-pocket-flap {
+  z-index: var(--flap-z);
+}
+
+.my-journey-layout-content-card {
+  z-index: var(--card-z);
+}
+
+.my-journey-layout-pocket-front {
+  z-index: 26;
+}

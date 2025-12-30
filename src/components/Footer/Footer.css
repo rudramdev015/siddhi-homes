@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* --- SCOPED VARIABLES --- */
+.jsparmar-footer-wrapper {
+    --jsparmar-primary-green: #00ff00;
+    --jsparmar-text-white: #ffffff;
+    --jsparmar-font-logo: 'Orbitron', sans-serif;
+    --jsparmar-bg-dark: #000000;
+    --jsparmar-border-color: rgba(0, 255, 0, 0.2);
+    --jsparmar-spark-color: rgba(0, 255, 0, 0.9);
+    --jsparmar-text-muted: rgba(255, 255, 255, 0.7);
+}
+
+/* --- MAIN WRAPPER --- */
+.jsparmar-footer-wrapper {
+    background-color: var(--jsparmar-bg-dark);
+    font-family: var(--jsparmar-font-logo);
+    color: var(--jsparmar-text-white);
+    padding: 4rem 5rem;
+    box-shadow: 0px -4px 20px rgb(255 255 255 / 40%);
+
+    /* 🔥 SHADOW FIX */
+    position: relative;
+    z-index: 10;
+}
+
+/* Invisible space so shadow never clips */
+.jsparmar-footer-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    pointer-events: none;
+}
+
+.jsparmar-footer-container {
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* --- TOP SECTION --- */
+.jsparmar-footer-top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.jsparmar-footer-text-content {
+    text-align: left;
+}
+
+.jsparmar-footer-crafted-by {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: var(--jsparmar-text-muted);
+    letter-spacing: 1px;
+}
+
+.jsparmar-footer-name {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.jsparmar-footer-name span {
+    background: linear-gradient(90deg, var(--jsparmar-text-white), var(--jsparmar-primary-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- SOCIAL ICONS --- */
+.jsparmar-footer-social-icons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.jsparmar-footer-social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    color: var(--jsparmar-text-white);
+    font-size: 1.2rem;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.jsparmar-footer-social-icons a:hover {
+    color: var(--jsparmar-primary-green);
+    border-color: var(--jsparmar-primary-green);
+    background: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), 0 0 5px var(--jsparmar-primary-green);
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* --- DIVIDER --- */
+.jsparmar-footer-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--jsparmar-border-color) 48%,
+        var(--jsparmar-spark-color) 50%,
+        var(--jsparmar-border-color) 52%,
+        transparent
+    );
+    margin: 3rem 0;
+}
+
+/* --- BOTTOM SECTION --- */
+.jsparmar-footer-bottom-section {
+    text-align: center;
+}
+
+.jsparmar-footer-bottom-section p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--jsparmar-text-muted);
+    letter-spacing: 0.5px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .jsparmar-footer-wrapper {
+        padding: 3rem 2rem;
+    }
+
+    .jsparmar-footer-top-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .jsparmar-footer-wrapper {
+        padding: 3rem 1.5rem;
+    }
+
+    .jsparmar-footer-name {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .jsparmar-footer-social-icons a {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+
+    .jsparmar-footer-bottom-section p {
+        font-size: 0.85rem;
+    }
+}

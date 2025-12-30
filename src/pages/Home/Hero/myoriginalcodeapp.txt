@@ -1,0 +1,189 @@
+import React from 'react';
+import './App.css';
+
+// 1. Import your images
+import heroBackgroundImage from './pages/Home/home-img/hero-img.png'; // <-- Place your background image in src/assets
+import personImage from './pages/Home/home-img/person.png';   // <-- Place your person image in src/assets
+
+function App() {
+  return (
+    <div className="App">
+      {/* 2. Apply the background image using an inline style */}
+      <section 
+        className="hero-section" 
+        style={{ backgroundImage: `url(${heroBackgroundImage})` }}
+      >
+        <div className="hero-content">
+          <h1>Welcome to Our Website</h1>
+          <p>Discover amazing things here.</p>
+          <button className="cta-button">Get Started</button>
+        </div>
+        
+        {/* 3. Add the person image */}
+        <img 
+          src={personImage} 
+          alt="Person" 
+          className="person-image" 
+        />
+      </section>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+/* Define color and font variables */
+:root {
+  --primary-green: #00ff00;
+  --text-light: #f4f4f4;
+  --font-logo: 'Orbitron', sans-serif;
+}
+
+/* Reset default browser styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  background-color: #000; /* Added a black background for consistency */
+}
+
+/* Make the main App container take up the full space */
+.App {
+  text-align: center;
+}
+
+/* Hero Section Styling */
+.hero-section {
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  /* MODIFIED: Align content to the top to avoid the person image */
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden; /* Prevents person image from overflowing if it's too big */
+}
+
+/* MODIFIED: Gradient overlay that fades to transparent */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  background: linear-gradient(180deg, rgba(51, 50, 50, 0.7), transparent);
+}
+
+/* Content within the Hero Section */
+.hero-content {
+  position: relative;
+  z-index: 2; /* Ensure text is above the person image */
+  /* MODIFIED: Added padding to push content down from the very top */
+  padding-top: 15vh;
+  width: 80%; /* Limit width to prevent text from going to screen edges */
+  max-width: 900px;
+}
+
+/* MODIFIED: Styling for the main heading with animation */
+.hero-content h1 {
+  font-family: var(--font-logo);
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  
+  /* Gradient text color to match the image */
+  background: linear-gradient(90deg, var(--text-light) 50%, var(--primary-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Typing Animation */
+  display: inline-block; /* Required for the animation to work correctly */
+  overflow: hidden; /* Ensures the text is not seen before the animation */
+  white-space: nowrap; /* Keeps the text on a single line */
+  border-right: 0.15em solid var(--primary-green); /* The typewriter cursor */
+  letter-spacing: .10em;
+  
+  /* Define the animation */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* Typing effect keyframes */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--primary-green); }
+}
+
+
+/* MODIFIED: Styling for the subheading */
+.hero-content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-light); /* Use the light text color variable */
+  line-height: 1.6; /* Improve readability */
+}
+
+/* Call-to-Action Button Styling (Code unchanged) */
+.cta-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+}
+
+/* NEW: Styling for the person image (Code unchanged) */
+.person-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+  width: auto; /* Maintains the image's aspect ratio */
+  z-index: 1;
+}

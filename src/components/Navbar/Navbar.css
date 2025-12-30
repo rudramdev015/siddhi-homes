@@ -1,0 +1,386 @@
+/* Navbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* --- SCOPED VARIABLES --- */
+.jsparmar-nav-wrapper {
+    --jsparmar-primary-green: #00ff00;
+    --jsparmar-text-white: #ffffff;
+    --jsparmar-font-logo: 'Orbitron', sans-serif;
+    --jsparmar-border-color: rgba(0, 255, 0, 0.2);
+    
+    font-family: var(--jsparmar-font-logo);
+}
+
+/* --- SCOPED RESET --- */
+.jsparmar-nav-wrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- NAVBAR HEADER (Z-INDEX 10) --- */
+.navbar-of-jsparmar-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; 
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: transparent; 
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.navbar-of-jsparmar-header.scrolled {
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0px 5px 35px #ffffff5c;
+}
+
+.navbar-of-jsparmar-container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5rem;
+    transition: padding 0.3s ease;
+}
+
+.navbar-of-jsparmar-left-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* --- LOGO --- */
+.navbar-of-jsparmar-logo {
+    color: #fff;
+    font-family: var(--jsparmar-font-logo);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.navbar-of-jsparmar-logo span {
+    background: linear-gradient(90deg, #fff, var(--jsparmar-primary-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- DESKTOP LINKS --- */
+.navbar-of-jsparmar-desktop-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a {
+    color: var(--jsparmar-text-white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--jsparmar-font-logo);
+    letter-spacing: 1px;
+    /* REMOVED: The "transition: color" was causing the blink. */
+    position: relative;
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--jsparmar-text-white), var(--jsparmar-primary-green));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a:hover {
+    color: var(--jsparmar-text-white);
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a.active {
+    background: linear-gradient(90deg, var(--jsparmar-text-white), var(--jsparmar-primary-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.navbar-of-jsparmar-desktop-nav ul li a.active::after {
+    transform: scaleX(0);
+}
+
+/* --- MOBILE HAMBURGER --- */
+.navbar-of-jsparmar-hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-of-jsparmar-hamburger.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.navbar-of-jsparmar-hamburger .bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--jsparmar-text-white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.navbar-of-jsparmar-hamburger:hover .bar {
+    background-color: var(--jsparmar-primary-green);
+}
+
+/* --- BLUR OVERLAY --- */
+.navbar-of-jsparmar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9998; 
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.navbar-of-jsparmar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- SIDEBAR MENU --- */
+.navbar-of-jsparmar-side-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.navbar-of-jsparmar-side-menu.active {
+    left: 0;
+}
+
+.navbar-of-jsparmar-side-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+.navbar-of-jsparmar-close-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--jsparmar-text-white);
+    font-family: var(--jsparmar-font-logo);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 1rem;
+}
+
+.navbar-of-jsparmar-close-btn:active {
+    border-color: #ffffff47;
+}
+
+.navbar-of-jsparmar-close-btn .arrow-icon {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    transform: rotate(-45deg);
+}
+
+/* --- SOCIAL MEDIA ROW --- */
+.navbar-of-jsparmar-social-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: rgb(255 255 255 / 10%); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-of-jsparmar-social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; 
+    text-decoration: none;
+    color: var(--jsparmar-text-white);
+    width: 50px;
+}
+
+.navbar-of-jsparmar-social-item .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.navbar-of-jsparmar-social-item .social-label {
+    font-family: var(--jsparmar-font-logo); 
+    font-size: 0.5rem;
+    font-weight: 700; 
+    letter-spacing: 0.5px; 
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.navbar-of-jsparmar-social-item:hover .social-icon {
+    background: transparent;
+    color: var(--jsparmar-primary-green);
+    border-color: var(--jsparmar-primary-green);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.navbar-of-jsparmar-social-item:hover .social-label {
+    color: var(--jsparmar-primary-green);
+}
+
+
+/* --- SIDEBAR LINKS --- */
+.navbar-of-jsparmar-side-links {
+    list-style: none;
+    width: 100%;
+}
+
+.navbar-of-jsparmar-side-links li {
+    width: 100%;
+}
+
+.navbar-of-jsparmar-side-links li a {
+    display: block;
+    width: 100%;
+    padding: 1.4rem 2rem;
+    font-family: var(--jsparmar-font-logo); 
+    font-size: 1.1rem;
+    font-weight: 700; 
+    letter-spacing: 1px;
+    color: var(--jsparmar-text-white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    position: relative;
+    /* CHANGED: Only transition the padding for the hover effect, not 'all' properties */
+    transition: padding-left 0.3s ease;
+}
+
+.navbar-of-jsparmar-side-links li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--jsparmar-text-white), var(--jsparmar-primary-green));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.navbar-of-jsparmar-side-links li a:hover {
+    color: var(--jsparmar-text-white);
+    background: transparent;
+    -webkit-text-fill-color: initial;
+    padding-left: 2.3rem;
+}
+
+.navbar-of-jsparmar-side-links li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar-of-jsparmar-side-links li a.active {
+    background-image: linear-gradient(
+        90deg, 
+        var(--jsparmar-text-white) 10%, 
+        var(--jsparmar-primary-green) 40%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    padding-left: 2.3rem;
+    text-shadow: none;
+    filter: none;
+}
+
+.navbar-of-jsparmar-side-links li a.active::after {
+    transform: scaleX(0);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media screen and (max-width: 900px) {
+    .navbar-of-jsparmar-container {
+        padding: 0 1rem; 
+    }
+
+    .navbar-of-jsparmar-desktop-nav {
+        display: none;
+    }
+
+    .navbar-of-jsparmar-hamburger {
+        display: flex;
+    }
+    
+    .navbar-of-jsparmar-logo {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-of-jsparmar-side-menu {
+        width: 85%;
+        max-width: 320px;
+    }
+}

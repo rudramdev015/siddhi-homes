@@ -1,0 +1,265 @@
+/* Import fonts to match the reference style */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;500&display=swap');
+
+/*
+  =========================================
+  CSS VARIABLES & KEYFRAMES
+  =========================================
+*/
+:root {
+  --animation-duration: 1s;
+  --animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --color-primary-glow: #00ff00;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*
+  =========================================
+  MAIN STYLES
+  =========================================
+*/
+.exploring-layout__wrapper {
+  background-color: #000000;
+  font-family: 'Poppins', sans-serif;
+  padding: 120px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.exploring-layout__container {
+  max-width: 1152px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.exploring-layout__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+/* --- TITLE: Cleaned up as requested --- */
+.exploring-layout__title-bleed {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.exploring-layout__title {
+  background: transparent;
+  padding: 1.2rem 0; /* Adjusted padding for better visual alignment */
+  margin: 0;
+  display: inline-block;
+  line-height: 1.2;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  /* REMOVED: text-transform: uppercase; */
+}
+
+.exploring-layout__title-text {
+  background: linear-gradient(90deg, #ffffff, var(--color-primary-glow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* REMOVED: margin-left: 0.8rem; to make the words touch */
+}
+
+.exploring-layout__subtitle {
+  font-size: 18px;
+  color: #c0c0c0;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.exploring-layout__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/*
+  =========================================
+  CARD STYLES WITH CORRECTED SWEEPING GLOW
+  =========================================
+*/
+.exploring-layout__card-border {
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.5s ease;
+  background: transparent;
+  padding: 1px;
+}
+
+.exploring-layout__card-border:hover {
+    transform: translateY(-6px);
+}
+
+/* This is the correct sweeping orb effect from your reference */
+.exploring-layout__card-border::before,
+.exploring-layout__card-border::after {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  z-index: 1;
+  transition: left 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              right 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* TOP ORB (White): Starts top-left */
+.exploring-layout__card-border::before {
+  top: -80px;
+  left: -80px;
+  background-image: radial-gradient(circle, #FFFFFF 0%, transparent 40%);
+}
+
+/* BOTTOM ORB (Green): Starts bottom-right */
+.exploring-layout__card-border::after {
+  bottom: -80px;
+  right: -80px;
+  background-image: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 40%);
+}
+
+/* On hover, move the TOP orb to the top-right */
+.exploring-layout__card-border:hover::before {
+  left: calc(100% - 80px);
+}
+
+/* On hover, move the BOTTOM orb to the bottom-left */
+.exploring-layout__card-border:hover::after {
+  right: calc(100% - 80px);
+}
+
+.exploring-layout__card {
+  background-color: rgba(17, 17, 17, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 17px;
+  padding: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exploring-layout__icon-container {
+  flex-shrink: 0;
+  color: #A1A1AA;
+  transition: color 0.3s ease;
+}
+
+.exploring-layout__card-border:hover .exploring-layout__icon-container {
+  color: #FFFFFF;
+}
+
+.exploring-layout__text-content {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #f4f4f4;
+}
+
+.exploring-layout__text-line {
+  display: block;
+}
+
+/* 
+  =========================================
+  ANIMATIONS
+  =========================================
+*/
+.animate-left,
+.animate-zoom {
+  opacity: 0;
+}
+.section-in-view .animate-left {
+  animation: slideInLeft var(--animation-duration) var(--animation-timing-function) forwards;
+}
+.section-in-view .animate-zoom {
+  animation: zoomIn 0.8s ease-out forwards;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.7s; }
+.delay-6 { animation-delay: 0.8s; }
+.delay-7 { animation-delay: 0.9s; }
+.delay-8 { animation-delay: 1.0s; }
+
+/* 
+  =========================================
+  RESPONSIVE DESIGN 
+  =========================================
+*/
+@media (max-width: 1024px) {
+  .exploring-layout__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exploring-layout__title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+    .exploring-layout__wrapper {
+        padding: 100px 20px;
+    }
+    .exploring-layout__title {
+        font-size: 2.2rem;
+    }
+    .exploring-layout__subtitle {
+        font-size: 17px;
+    }
+    .exploring-layout__card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+  .exploring-layout__wrapper {
+    padding: 80px 16px;
+  }
+  .exploring-layout__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .exploring-layout__title {
+    padding: 1rem 0;
+    font-size: 1.8rem;
+  }
+  .exploring-layout__subtitle {
+    font-size: 16px;
+  }
+}

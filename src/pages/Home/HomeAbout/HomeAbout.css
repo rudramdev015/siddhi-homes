@@ -1,0 +1,278 @@
+/* Import the Orbitron font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+/* --- THEME VARIABLES (Prefixed) --- */
+:root {
+  --home-about-part-primary-green: #00ff00;
+  --home-about-part-text-light: #f4f4f4;
+  --home-about-part-font-logo: 'Orbitron', sans-serif;
+  --home-about-part-bg-dark: #000;
+}
+
+/* --- SECTION CONTAINER (Added for max-width) --- */
+#home-about-part-section {
+  max-width: 1800px;
+  margin: 0 auto; /* This centers the section */
+  position: relative; /* Ensures child positioning is relative to this container */
+  width: 100%;
+}
+
+/* --- GENERAL STYLES --- */
+.home-about-part-body-styles {
+  margin: 0;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--home-about-part-bg-dark);
+  overflow-x: hidden; 
+}
+
+.home-about-part-split-container {
+  position: relative;
+  width: 100%;
+  /* Default Desktop Height is 100vh */
+  height: 100vh; 
+  overflow: hidden;
+}
+
+/* --- BACKGROUND IMAGE STYLES --- */
+.home-about-part-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Desktop behavior: Cover 100vh */
+  z-index: 0;
+}
+
+/* --- PANEL STYLES --- */
+.home-about-part-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  /* Controls the Slide In/Out Speed */
+  transition: transform 1.2s cubic-bezier(0.86, 0, 0.07, 1);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 1; /* Sit on top of image */
+}
+
+.home-about-part-left-panel {
+  left: 0;
+  background: rgb(0 0 0 / 14%);
+  clip-path: polygon(0 0, 65% 0, 45% 100%, 0 100%);
+  transform: translateX(-100%); /* Start hidden left */
+}
+
+.home-about-part-right-panel {
+  right: 0;
+  background: rgba(0, 255, 0, 0.1);
+  clip-path: polygon(65% 0, 100% 0, 100% 100%, 45% 100%);
+  transform: translateX(100%); /* Start hidden right */
+}
+
+/* Animation Trigger Class */
+.home-about-part-panel.home-about-part-visible {
+  transform: translateX(0);
+}
+
+/* --- TEXT CONTENT WRAPPERS --- */
+.home-about-part-panel-content {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  opacity: 0;
+  transform: translateY(20px);
+  box-sizing: border-box; 
+  
+  /* When reversing (going out): Fade out fast so it disappears before panel slides */
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* Text Visible State */
+.home-about-part-panel.home-about-part-visible .home-about-part-panel-content {
+  opacity: 1;
+  transform: translateY(0);
+  /* When entering: Delay fading in until panel has slid in */
+  transition: opacity 0.8s ease-out 1.2s, transform 0.8s ease-out 1.2s;
+}
+
+/* --- DESKTOP POSITIONS (Your Diagonal Layout) --- */
+.home-about-part-content-left {
+  left: 0;
+  width: 45%; 
+  justify-content: center;
+  align-items: flex-start; /* Align Top */
+  padding-top: 25vh;       /* Spacing from Top */
+}
+
+.home-about-part-content-right {
+  right: 0;
+  width: 55%; 
+  justify-content: center;
+  align-items: flex-end;   /* Align Bottom */
+  padding-bottom: 25vh;    /* Spacing from Bottom */
+}
+
+/* --- TITLE STYLES --- */
+.home-about-part-content-left #home-about-part-title {
+  font-family: var(--home-about-part-font-logo);
+  font-size: 5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+  color: transparent;
+  background: linear-gradient(90deg, var(--home-about-part-text-light) 50%, var(--home-about-part-primary-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-about-part-right-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; 
+}
+
+.home-about-part-content-right #home-about-part-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 450px;
+  text-align: center;
+  margin: 0;
+  padding: 0 2rem;
+  color: var(--home-about-part-text-light);
+  font-weight: 500;
+}
+
+/* --- BUTTON STYLES --- */
+#home-about-part-read-more-btn {
+  font-family: var(--home-about-part-font-logo);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--home-about-part-text-light);
+  background-color: transparent;
+  border: 2px solid var(--home-about-part-primary-green);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); 
+  text-decoration: none; /* Add this to remove underline from the link */
+}
+
+#home-about-part-read-more-btn:hover {
+  background-color: var(--home-about-part-primary-green);
+  color: var(--home-about-part-bg-dark); 
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); 
+}
+
+/* 
+   ==========================================================================
+   --- RESPONSIVE SECTION ---
+   Keeps Diagonal Layout (Top/Bottom) but adapts to Image Height
+   ==========================================================================
+*/
+
+/* 1. MEDIUM DEVICES (Laptops/Tablets: 769px to 1200px) */
+@media screen and (max-width: 1200px) {
+  
+  /* Reduce padding to keep content inside the view */
+  .home-about-part-content-left {
+    padding-top: 15vh;
+  }
+  .home-about-part-content-right {
+    padding-bottom: 15vh;
+  }
+
+  /* Scale Text Down */
+  .home-about-part-content-left #home-about-part-title {
+    font-size: 3.5rem; 
+  }
+
+  .home-about-part-content-right #home-about-part-description {
+    font-size: 1rem;
+    max-width: 350px;
+  }
+}
+
+/* 2. SMALL DEVICES (Mobile: Max 768px) */
+@media screen and (max-width: 768px) {
+  
+  /* Force Auto Height so container matches image exactly */
+  .home-about-part-split-container {
+    height: auto !important; 
+    min-height: auto;
+  }
+
+  /* Image becomes static flow element to define height */
+  .home-about-part-bg-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Panels match the image height */
+  .home-about-part-panel {
+    height: 100%; 
+  }
+
+  /* Adjust Geometry slightly for mobile screens */
+  .home-about-part-left-panel {
+    clip-path: polygon(0 0, 65% 0, 35% 100%, 0 100%);
+  }
+  .home-about-part-right-panel {
+    clip-path: polygon(65% 0, 100% 0, 100% 100%, 35% 100%);
+  }
+
+  /* --- LEFT CONTENT (ABOUT ME) --- */
+  /* Maintain "Top" alignment (Diagonal) but use % padding */
+  .home-about-part-content-left {
+    width: 45%; 
+    align-items: flex-start; 
+    padding-top: 15%; 
+  }
+
+  .home-about-part-content-left #home-about-part-title {
+    font-size: 5vw; /* Responsive scaling */
+    margin-top: 0;
+    padding-left: 5px;
+  }
+
+  /* --- RIGHT CONTENT (TEXT) --- */
+  /* Maintain "Bottom" alignment (Diagonal) but use % padding */
+  .home-about-part-content-right {
+    width: 55%;
+    align-items: flex-end; 
+    padding-bottom: 15%;
+  }
+
+  .home-about-part-right-content-wrapper {
+    gap: 0.5rem; 
+    padding-right: 5px;
+    padding-left: 10px;
+  }
+
+  .home-about-part-content-right #home-about-part-description {
+    font-size: 2.5vw; /* Responsive scaling */
+    line-height: 1.2;
+    padding: 0;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  #home-about-part-read-more-btn {
+    font-size: 2vw;
+    padding: 1vw 2vw;
+    border-width: 1px;
+  }
+}

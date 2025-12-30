@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --my-resume-primary-green: #00ff00;
+  --my-resume-text-light: #f4f4f4;
+  --my-resume-font-logo: 'Orbitron', sans-serif;
+  --my-resume-font-body: 'Poppins', sans-serif;
+}
+
+/* Main Wrapper */
+.my-resume-app {
+  width: 100%;
+  background-color: #050505; /* Matches Hero Background */
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.my-resume-section {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 10;
+}
+
+/* --- THE CARD --- */
+.my-resume-card {
+  /* Premium Noise + Dark Gradient Background */
+  background-color: #111111;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ffilter id='noiseFilter'%3E%3FfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3/filter%3E%3rect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3/svg%3E"),
+    radial-gradient(circle at 80% 50%, rgba(0, 255, 0, 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, #1a1a1a 0%, #051405 100%);
+  background-blend-mode: overlay, normal, normal;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3.5rem 4rem;
+  
+  /* Layout */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  
+  /* Static Shadow (No Hover Action on Div as requested) */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* --- LEFT CONTENT --- */
+.my-resume-content {
+  flex: 1;
+  text-align: left;
+}
+
+/* THE HALF WHITE / HALF GREEN TEXT */
+.my-resume-heading {
+  font-family: var(--my-resume-font-logo);
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  /* Gradient Logic: White start, transition to Green */
+  background: linear-gradient(90deg, #ffffff 30%, var(--my-resume-primary-green) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  /* Fallback for browsers that don't support clip */
+  display: inline-block;
+}
+
+.my-resume-subtext {
+  font-family: var(--my-resume-font-body);
+  color: #b0b0b0;
+  font-size: 1.1rem;
+  margin: 0;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* --- RIGHT ACTIONS --- */
+.my-resume-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* General Button Styles */
+.my-resume-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 64px;
+  padding: 0 32px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.my-resume-icon svg {
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+}
+
+/* Primary Button (Green) */
+.my-resume-btn-primary {
+  background-color: var(--my-resume-primary-green);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+}
+
+/* Buttons still have hover effects (Interactive) */
+.my-resume-btn-primary:hover {
+  background-color: #00cc00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+}
+
+/* Outline Button */
+.my-resume-btn-outline {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: var(--my-resume-text-light);
+}
+
+.my-resume-btn-outline:hover {
+  border-color: var(--my-resume-primary-green);
+  color: var(--my-resume-primary-green);
+  background-color: rgba(0, 255, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Text inside buttons */
+.my-resume-btn-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.my-resume-label-small {
+  font-family: var(--my-resume-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.my-resume-label-large {
+  font-family: var(--my-resume-font-logo);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.my-resume-label-single {
+  font-family: var(--my-resume-font-logo);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   RESPONSIVE STYLES
+   ========================================= */
+
+/* 1. Tablet Landscape / Small Laptop (max 1200px) */
+@media screen and (max-width: 1200px) {
+  .my-resume-card {
+    padding: 3rem;
+  }
+  .my-resume-heading {
+    font-size: 2.4rem;
+  }
+}
+
+/* 2. Tablet Portrait (max 992px) */
+@media screen and (max-width: 992px) {
+  .my-resume-card {
+    flex-direction: column; /* Stack vertically */
+    text-align: center;
+    gap: 30px;
+    padding: 3rem 2rem;
+  }
+  
+  .my-resume-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .my-resume-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 3. Mobile (max 768px) */
+@media screen and (max-width: 768px) {
+  .my-resume-app {
+    padding: 2rem 1rem;
+  }
+
+  .my-resume-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .my-resume-heading {
+    font-size: 1.8rem;
+  }
+
+  .my-resume-subtext {
+    font-size: 1rem;
+  }
+
+  /* Keep buttons in a row for medium devices */
+  .my-resume-actions {
+    flex-direction: row; /* This is the default, but we state it for clarity */
+    width: auto;
+    gap: 15px;
+  }
+
+  .my-resume-btn {
+    width: auto; /* Allow buttons to size to their content */
+  }
+}
+
+/* 4. Small Mobile (max 480px) */
+@media screen and (max-width: 600px) {
+  /* Stack Buttons on Small Mobile */
+  .my-resume-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  
+  .my-resume-heading {
+    font-size: 1.5rem;
+  }
+
+  .my-resume-btn {
+    height: 56px;
+    padding: 0 20px;
+  }
+}

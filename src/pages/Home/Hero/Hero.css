@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+/* Define color and font variables for the DARK THEME */
+:root {
+  --home-hero-primary-green: #00ff00;
+  --home-hero-text-light: #f4f4f4;
+  --home-hero-font-logo: 'Orbitron', sans-serif;
+}
+
+/* Reset default browser styles */
+.home-hero-body,
+.home-hero-html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  background-color: #000;
+  overflow-x: hidden; 
+}
+
+/* Make the main App container take up the full space */
+.home-hero-App {
+  text-align: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hero Section Styling */
+.home-hero-section {
+  max-width: 1800px; /* MODIFIED: Added max-width */
+  margin: 0 auto;     /* MODIFIED: Added margin to center the section */
+  height: 100vh;
+  width: 100%; 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center;    /* Center horizontally */
+  
+  color: white;
+  position: relative;
+  overflow: hidden; 
+}
+
+/* Dark gradient overlay */
+.home-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 60%;
+  margin: auto;
+  background: linear-gradient(180deg, rgba(51, 50, 50, 0.7), transparent);
+  transition: all 0.3s ease;
+  z-index: 0;
+}
+
+/* 
+   --- CONTENT CONTAINER (Top Section) ---
+   Takes up the top 50% (adjusted) of the height. 
+*/
+.home-hero-content {
+  position: relative;
+  z-index: 2;
+  
+  /* HEIGHT LOGIC: Top 50% for text */
+  height: 50%; 
+  width: 80%;
+  max-width: 900px;
+  
+  /* Flexbox to push text to the bottom of the container */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Pushes text down towards the image */
+  
+  /* GAP LOGIC: This padding acts as the gap between text and image */
+  padding-bottom: 3vh; 
+  padding-top: 0; 
+}
+
+/* Styling for the main heading with animation */
+.home-hero-content h1 {
+  font-family: var(--home-hero-font-logo);
+  font-size: 4rem; /* Desktop size */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  
+  /* Gradient text color */
+  background: linear-gradient(90deg, var(--home-hero-text-light) 50%, var(--home-hero-primary-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* 
+     FIXED TYPING ANIMATION:
+     1. inline-block ensures it calculates width based on content.
+     2. We do NOT animate width. We animate `clip-path`.
+     3. This keeps the element centered and stable from the start.
+  */
+  display: inline-block;
+  white-space: nowrap;
+  letter-spacing: .10em;
+  
+  /* Start fully clipped (hidden from right side) */
+  clip-path: inset(0 100% 0 0);
+  
+  animation: home-hero-typing 3.5s steps(30, end) forwards;
+}
+
+/* 
+   Keyframes for typing effect (CLIP PATH METHOD) 
+   Instead of resizing the box (which causes shifting), 
+   we just uncover the text.
+*/
+@keyframes home-hero-typing {
+  from { 
+    clip-path: inset(0 100% 0 0); /* 100% hidden from right */
+  }
+  to { 
+    clip-path: inset(0 0 0 0);    /* 0% hidden (fully visible) */
+  }
+}
+
+/* Styling for the subheading */
+.home-hero-content p {
+  font-size: 1.5rem; /* Desktop size */
+  margin-bottom: 0; 
+  color: var(--home-hero-text-light);
+  line-height: 1.6;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: home-hero-fade-in-scale-up 1s ease-out 3.7s forwards;
+}
+
+/* Keyframes for paragraph animation */
+@keyframes home-hero-fade-in-scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 
+   --- PERSON IMAGE (Bottom Section) ---
+   Takes up the bottom 45% of the height.
+*/
+.home-hero-person-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  
+  /* HEIGHT LOGIC: Bottom 45% for image */
+  height: 45%; 
+  
+  width: auto;
+  z-index: 1;
+  transform: translateX(-50%) translateY(100%);
+  animation: home-hero-slide-up 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}
+
+@keyframes home-hero-slide-up {
+  to {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* =========================================
+   RESPONSIVE STYLES
+   ========================================= */
+
+/* 1. Medium Laptops (Max 1440px) */
+@media screen and (max-width: 1440px) {
+  .home-hero-content h1 {
+    font-size: 3.5rem; 
+  }
+  .home-hero-content p {
+    font-size: 1.35rem;
+  }
+}
+
+/* 2. Small Laptops / Tablets Landscape (Max 1200px) */
+@media screen and (max-width: 1200px) {
+  .home-hero-content h1 {
+    font-size: 3rem; 
+  }
+  .home-hero-content p {
+    font-size: 1.25rem;
+  }
+  .home-hero-section::before {
+    width: 85%;
+  }
+}
+
+/* 3. Tablets Portrait (Max 992px) */
+@media screen and (max-width: 992px) {
+  .home-hero-content {
+    width: 90%;
+    height: 60%; 
+  }
+  .home-hero-person-image {
+    height: 40%;
+  }
+  .home-hero-content h1 {
+    font-size: 2.2rem; 
+  }
+  .home-hero-content p {
+    font-size: 1.1rem;
+  }
+}
+
+/* 4. Mobile Devices (Max 768px) */
+@media screen and (max-width: 768px) {
+  
+  /* Overlay */
+  .home-hero-section::before {
+    width: calc(100% - 2rem); 
+    left: 1rem;
+    right: 1rem; 
+    margin: auto;
+    height: 70%;
+  }
+
+  /* Content Container for Mobile */
+  .home-hero-content {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    
+    /* Give text more room on mobile (60% height) */
+    height: 60%; 
+    justify-content: flex-end; 
+    padding-bottom: 10vh; 
+  }
+
+  /* Font Sizes */
+  .home-hero-content h1 {
+    font-size: 1.5rem; 
+  }
+
+  .home-hero-content p {
+    font-size: 1rem; 
+  }
+
+  /* Image for Mobile */
+  .home-hero-person-image {
+    height: 40%;
+  }
+}
+
+/* 5. Very Small Phones */
+@media screen and (max-width: 380px) {
+  .home-hero-content h1 {
+    font-size: 1.3rem; 
+  }
+  .home-hero-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* 6. Landscape Mobile (Short Height) */
+@media screen and (max-height: 500px) {
+  .home-hero-content {
+    justify-content: center; 
+    height: 100%;
+    padding-bottom: 0;
+  }
+  .home-hero-person-image {
+    height: 50%;
+    opacity: 0.2; 
+  }
+}

@@ -1,0 +1,272 @@
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './App.css';
+
+// Register the ScrollTrigger plugin with GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+// Define your work experience data
+const experienceData = [
+  {
+    id: 'training',
+    stage: 'Training',
+    title: 'Foundational Skills Development',
+    description: 'Completed an intensive training program focused on advanced JavaScript, React architecture, and modern web development principles.'
+  },
+  {
+    id: 'virtual-internship',
+    stage: 'Virtual Internship',
+    title: 'Remote Project Collaboration',
+    description: 'Collaborated with a distributed team on a real-world project, mastering remote work tools like Slack, Jira, and Git.'
+  },
+  {
+    id: 'internship',
+    stage: 'Internship',
+    title: 'Hands-On Industry Experience',
+    description: 'Contributed to the main codebase, participated in code reviews, and helped debug and deploy a new feature at a dynamic tech company.'
+  },
+  {
+    id: 'currently',
+    stage: 'Currently',
+    title: 'Full-Stack Developer',
+    description: 'Actively seeking and contributing to challenging projects, focusing on creating scalable, user-friendly applications and driving innovation.'
+  }
+];
+
+function App() {
+  const main = useRef();
+
+  useLayoutEffect(() => {
+    // A safe way to create GSAP animations in React
+    const ctx = gsap.context(() => {
+      // Grab all the elements we need to animate
+      const circles = gsap.utils.toArray('.circle');
+      const stages = gsap.utils.toArray('.stage-item');
+      const texts = gsap.utils.toArray('.text-content');
+
+      // Create a master timeline that is controlled by the scrollbar
+      const masterTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: main.current,
+          pin: true,
+          scrub: 1.2, // A slightly different scrub value can affect the "feel"
+          start: 'top top',
+          end: '+=4000', // Increased scroll distance for a slower feel
+        },
+      });
+
+      // --- Animation for the first section (initial state) ---
+      // MODIFIED: 'x' value changed for a steeper diagonal path
+      masterTimeline.from(circles[0], { autoAlpha: 0, x: '-30vw', y: '50vh', ease: 'power2.out' });
+      masterTimeline.from(stages[0], { autoAlpha: 0, x: -100, ease: 'power2.out' }, '<0.2');
+      masterTimeline.from(texts[0], { autoAlpha: 0, x: 100, ease: 'power2.out' }, '<');
+
+      // --- Loop through the rest of the sections to create enter/exit animations ---
+      experienceData.forEach((exp, index) => {
+        if (index === 0) return; // Skip the first one as it's already animated in
+
+        // Add a pause between sections
+        masterTimeline.to({}, { duration: 0.5 }); 
+
+        // Animation to make the PREVIOUS section exit
+        // MODIFIED: 'x' value changed for a steeper diagonal path
+        masterTimeline.to(circles[index - 1], { autoAlpha: 0, x: '30vw', y: '-50vh', ease: 'power2.in' });
+        masterTimeline.to(stages[index - 1], { autoAlpha: 0, x: -100, ease: 'power2.in' }, '<');
+        masterTimeline.to(texts[index - 1], { autoAlpha: 0, x: 100, ease: 'power2.in' }, '<');
+
+        // Animation to make the CURRENT section enter
+        // MODIFIED: 'x' value changed for a steeper diagonal path
+        masterTimeline.from(circles[index], { autoAlpha: 0, x: '-30vw', y: '50vh', ease: 'power2.out' }, '<0.2');
+        masterTimeline.from(stages[index], { autoAlpha: 0, x: -100, ease: 'power2.out' }, '<0.2');
+        masterTimeline.from(texts[index], { autoAlpha: 0, x: 100, ease: 'power2.out' }, '<');
+      });
+
+    }, main); // Scope the context to the main ref
+
+    // Cleanup function to remove animations when the component unmounts
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div className="App">
+      <div className="placeholder-section"></div>
+      
+      <div className="experience-container" ref={main}>
+        <div className="diagonal-background"></div>
+        
+        <h1 className="main-title">Working Experience</h1>
+
+        <div className="left-stages-container">
+          {experienceData.map((item) => (
+            <div key={item.id} className="stage-item">
+              {item.stage}
+            </div>
+          ))}
+        </div>
+
+        <div className="circle-container">
+          {experienceData.map((item, index) => (
+            <div key={item.id} className="circle">
+              {index + 1}
+            </div>
+          ))}
+        </div>
+        
+        <div className="right-text-container">
+          {experienceData.map((item) => (
+            <div key={item.id} className="text-content">
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="placeholder-section"></div>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Basic Setup & Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --circle-size: clamp(120px, 15vw, 180px);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* These placeholders create the scrollable space around your fixed section */
+.placeholder-section {
+  height: 50vh;
+  width: 100%;
+}
+
+
+/* --- Main Container --- */
+.experience-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Crucial for containing the animations */
+}
+
+.diagonal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a0a0a;
+  clip-path: polygon(0 0, 55% 0, 45% 100%, 0% 100%);
+  z-index: 1;
+}
+
+.main-title {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  color: white;
+  z-index: 10;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+}
+
+
+/* --- Positioning Containers for Animating Elements --- */
+
+/* All animating elements will be absolutely positioned inside these containers */
+.left-stages-container, .circle-container, .right-text-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none; /* Allows clicks to pass through if needed */
+}
+
+/* --- Animating Elements (Circles, Stages, Text) --- */
+/* By default, all animating elements are invisible. GSAP will make them visible. */
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 60%, #f0f0f0 100%);
+  border: 10px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  visibility: hidden; /* Use visibility + autoAlpha in GSAP for better performance */
+}
+
+.stage-item {
+  position: absolute;
+  top: 50%;
+  left: 10vw;
+  transform: translateY(-50%);
+  color: white;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 600;
+  visibility: hidden;
+}
+
+.text-content {
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 450px;
+  visibility: hidden;
+}
+
+.text-content h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 15px;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.text-content p {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  line-height: 1.7;
+  color: #555;
+}
+

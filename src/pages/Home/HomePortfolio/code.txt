@@ -1,0 +1,290 @@
+import React from 'react';
+import './App.css';
+
+// Using more representative image URLs based on the new screenshot
+const images = {
+  math: 'https://images.pexels.com/photos/3781538/pexels-photo-3781538.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  history: 'https://images.pexels.com/photos/18979435/pexels-photo-18979435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  animals: 'https://images.pexels.com/photos/1059823/pexels-photo-1059823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  entertainment: 'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  geography: 'https://images.pexels.com/photos/41949/earth-earth-at-night-night-lights-41949.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+};
+
+const cardData = [
+  {
+    category: 'Math',
+    description: 'Learn about numbers for kids',
+    image: images.math,
+    rotation: -4
+  },
+  {
+    category: 'History',
+    description: 'Learn about history for kids',
+    image: images.history,
+    rotation: 2
+  },
+  {
+    category: 'Animals',
+    description: 'Learn about animals for kids',
+    image: images.animals,
+    rotation: -1
+  },
+  {
+    category: 'Entertainment',
+    description: 'Learn about entertainment for kids',
+    image: images.entertainment,
+    rotation: 3
+  },
+  {
+    category: 'Geography',
+    description: 'Learn about geography for kids',
+    image: images.geography,
+    rotation: 5
+  }
+];
+
+function App() {
+  return (
+    <div className="App">
+      {/* The SVG and Button are positioned by the App container's CSS */}
+      <svg className="hanging-line" viewBox="0 0 1000 150" preserveAspectRatio="none">
+        {/*
+          This new path creates a much deeper and wider curve.
+          - M 0 20: Starts near the top-left.
+          - C 300 150, 700 150, 1000 20: The control points are pulled way down to 150,
+            creating the "big half circle" effect within the SVG's 150-unit height.
+        */}
+        <path d="M 0 20 C 300 150, 700 150, 1000 20" />
+      </svg>
+      
+      <button className="download-btn">Download App</button>
+      
+      <div className="slider-viewport">
+        <div className="card-container">
+          {cardData.map((card, index) => (
+            <div key={index} className="card-wrapper" style={{ transform: `rotate(${card.rotation}deg)` }}>
+              <div className="clothespin"></div>
+              <div className="card">
+                <img src={card.image} alt={card.category} className="card-image" />
+                <div className="card-content">
+                  <h2 className="card-title">{card.category}</h2>
+                  <p className="card-description">{card.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Basic setup */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa; /* Slightly updated background color */
+  color: #333;
+}
+
+.App {
+  text-align: center;
+  /* Increased padding to make space for the much deeper line */
+  padding-top: 150px; 
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- The Big Half-Circle Line --- */
+.hanging-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px; /* Matched to the App's padding-top */
+  z-index: 1; 
+}
+
+.hanging-line path {
+  fill: none;
+  stroke: #e0e0e0; /* A slightly softer line color */
+  stroke-width: 2; 
+}
+
+/* --- Download Button with Clip --- */
+.download-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 14px 35px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+  transition: all 0.3s ease;
+  
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Pushed way down to sit in the new deep curve */
+  top: 30px; 
+}
+
+.download-btn:hover {
+  background-color: #27ae60;
+  transform: translateX(-50%) translateY(-3px); 
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
+}
+
+/* The new "clip" or "pointer" for the download button */
+.download-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; /* Position it just below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Creating a triangle shape */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #2ecc71; /* Same color as the button */
+}
+
+/* --- Slider & Card Container --- */
+.slider-viewport {
+  width: 100%;
+  overflow-x: auto;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+}
+
+.slider-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.card-container {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 60px;
+  /* Padding adjusted for the new layout */
+  padding: 40px; 
+}
+
+/* --- Card & Clothespin Styles --- */
+.card-wrapper {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
+  flex-shrink: 0;
+}
+
+.card-wrapper:hover {
+    transform: translateY(-10px) scale(1.05) !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.clothespin {
+  width: 24px;
+  height: 35px;
+  background-color: #2ecc71;
+  position: absolute;
+  top: -22px; 
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+  z-index: 2; 
+}
+
+.clothespin::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #f8f9fa; /* Match new background */
+  border: 1px solid #dcdcdc;
+  border-radius: 50%;
+}
+
+.card {
+  width: 280px; /* Slightly wider cards */
+  background-color: white;
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  text-align: left;
+}
+
+.card-image {
+  width: 100%;
+  height: 180px; /* Taller images */
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.card-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+
