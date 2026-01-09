@@ -84,7 +84,7 @@ const Contact = () => {
     setFormData({ name: "", email: "", contactNumber: "", message: "" });
     
     try {
-      const response = await fetch("http://localhost:5000/send-message", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/send-message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataToSend),
