@@ -2,33 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- 1. LUXURY FAVICON (Ensure you put your logo in the public folder as JSP.png) -->
     <link rel="icon" href="%PUBLIC_URL%/JSP.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="theme-color" content="#050505" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Jitendra Parmar</title>
+    <!-- 2. SEO & META TAGS -->
+    <title>Siddhi Homes | Crafting Luxury Legacies</title>
+    <meta name="description" content="Siddhi Homes specializes in premium architectural masterpieces, luxury villas, and high-end residential living. Witness the synthesis of comfort and elegance." />
+    <meta name="keywords" content="Siddhi Homes, Luxury Villas, Real Estate, Premium Architecture, Modern Home Design" />
+    <meta name="author" content="Siddhi Homes" />
+
+    <!-- 3. OPEN GRAPH (For professional looking links on WhatsApp/Facebook/LinkedIn) -->
+    <meta property="og:title" content="Siddhi Homes | Luxury Real Estate" />
+    <meta property="og:description" content="Discover architectural masterpieces and premium living spaces designed for your legacy." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" /> <!-- Recommended: add a nice project photo here -->
+    <meta property="og:type" content="website" />
+
+    <!-- 4. PREMIUM GOOGLE FONTS -->
+    <!-- Playfair Display (Luxury Serif) & Poppins (Modern Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- 5. MANIFEST & APPLE ICONS -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <style>
+      /* Quick Smooth Loading Background */
+      body {
+        margin: 0;
+        background-color: #050505; /* Matches your luxury dark theme */
+        overflow-x: hidden;
+      }
+      /* Prevent FOUC (Flash of Unstyled Content) */
+      #root {
+        min-height: 100vh;
+      }
+    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>You need to enable JavaScript to view the Siddhi Homes Experience.</noscript>
+    
     <div id="root"></div>
-   
+
+    <!-- 
+      Siddhi Homes - Built with Excellence.
+      Architectural Masterpieces in the making.
+    -->
   </body>
 </html>

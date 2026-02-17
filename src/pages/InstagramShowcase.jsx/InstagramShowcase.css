@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --siddhi-maroon: #8b2226;
+  --siddhi-gold: #c5a059;
+  --siddhi-navy: #0a1d37;
+  --siddhi-black: #050505;
+}
+
+.siddhi-insta-section {
+  background-color: var(--siddhi-black);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Luxury Background Glow */
+.siddhi-insta-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 34, 38, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.siddhi-insta-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 25px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Styling */
+.siddhi-insta-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.siddhi-insta-tag {
+  color: var(--siddhi-gold);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.siddhi-insta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.siddhi-insta-title span {
+  color: var(--siddhi-gold);
+}
+
+.siddhi-insta-subtitle {
+  color: #a0a0a0;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Reel Grid */
+.siddhi-insta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 per row on Desktop */
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.siddhi-insta-card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+  min-height: 500px; /* Prevents layout shift */
+}
+
+.siddhi-insta-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--siddhi-gold);
+}
+
+/* Instagram Embed Overrides */
+.instagram-media {
+  margin: 0 !important;
+  border: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+}
+
+/* Footer Button */
+.siddhi-insta-footer {
+  text-align: center;
+}
+
+.siddhi-insta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--siddhi-gold);
+  border: 1px solid var(--siddhi-gold);
+  padding: 15px 35px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.siddhi-insta-btn:hover {
+  background: var(--siddhi-gold);
+  color: #000;
+  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* --- MOBILE RESPONSIVE --- */
+
+@media (max-width: 1200px) {
+  .siddhi-insta-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 per row on Tablet */
+  }
+}
+
+@media (max-width: 992px) {
+  .siddhi-insta-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on smaller tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .siddhi-insta-title { font-size: 2.2rem; }
+  .siddhi-insta-grid {
+    grid-template-columns: 1fr; /* 1 per row on Mobile */
+  }
+  .siddhi-insta-card {
+    min-height: unset;
+  }
+}

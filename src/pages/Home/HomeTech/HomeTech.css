@@ -1,30 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:wght@300;400;600&display=swap');
 
-/* Define color and font variables for consistency */
 :root {
-  --home-technology-stack-primary-green: #00ff00;
-  --home-technology-stack-text-light: #f4f4f4;
-  --home-technology-stack-background-dark: #000;
-  --home-technology-stack-font-logo: 'Orbitron', sans-serif;
-  --home-technology-stack-slide-width: 180px;
-  --home-technology-stack-slide-height: 220px;
-  --home-technology-stack-gap-width: 20px;
+  --siddhi-maroon: #8b2226;
+  --siddhi-gold: #c5a059;
+  --siddhi-navy: #0a1d37;
+  --siddhi-light: #f4f4f4;
+  --slide-width: 180px;
+  --slide-height: 220px;
+  --gap: 20px;
 }
 
-/* --- Main Wrapper & New Background Styles --- */
 .home-technology-stack-body {
   margin: 0;
-  font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--home-technology-stack-background-dark);
+  background-color: #000; /* Deep black for luxury feel */
   display: flex;
   justify-content: center;
   align-items: center;
   perspective: 1000px;
   width: 100%;
-  position: relative; /* Required for positioning the background */
-  overflow: hidden; /* Hides parts of SVG that go outside */
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
 }
 
 .home-technology-stack-bg-lines-container {
@@ -33,9 +29,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Sits behind the content */
+  z-index: 1;
   pointer-events: none;
-  opacity: 0.6;
 }
 
 .home-technology-stack-bg-svg {
@@ -43,43 +38,39 @@
   height: 100%;
 }
 
-/* --- Main container with padding --- */
 .home-technology-stack-main-container {
   width: 100%;
-  max-width: 1800px; /* MODIFIED: Added max-width */
-  margin: 0 auto; /* MODIFIED: Ensures container is centered */
-  padding: 3rem 24px; /* MODIFIED: Added horizontal padding */
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  position: relative; /* Ensures this content is on top of the background */
   z-index: 2;
 }
 
-/* --- Skills Heading --- */
 .home-technology-stack-heading {
-  font-family: var(--home-technology-stack-font-logo);
-  color: var(--home-technology-stack-text-light);
+  font-family: 'Orbitron', sans-serif;
+  color: var(--siddhi-light);
   font-size: 2.5rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
 .home-technology-stack-heading span {
-  background: linear-gradient(90deg, var(--home-technology-stack-text-light), var(--home-technology-stack-primary-green));
+  background: linear-gradient(90deg, var(--siddhi-maroon), var(--siddhi-gold));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-left: 10px;
 }
 
-/* --- Infinite Loop Slider --- */
-
-/* Full-width slider container */
 .home-technology-stack-slider-container {
   width: 100%;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 40px 0;
   cursor: grab;
   user-select: none;
 }
@@ -90,18 +81,16 @@
 
 .home-technology-stack-slider-track {
   display: flex;
-  gap: var(--home-technology-stack-gap-width);
+  gap: var(--gap);
 }
 
-/* --- The 3D Slide (NO HOVER EFFECTS) --- */
 .home-technology-stack-slide {
-  flex: 0 0 var(--home-technology-stack-slide-width);
-  height: var(--home-technology-stack-slide-height);
+  flex: 0 0 var(--slide-width);
+  height: var(--slide-height);
   border-radius: 15px;
-  border: 1px solid #333;
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateY(5deg) rotateX(2deg);
+  transform: rotateY(10deg) rotateX(5deg);
 }
 
 .home-technology-stack-slide-content {
@@ -111,13 +100,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--home-technology-stack-text-light);
+  background-color: var(--siddhi-light);
   border-radius: 15px;
   transform-style: preserve-3d;
-  transform: translateZ(-20px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-bottom: 4px solid var(--siddhi-gold);
 }
 
-/* --- 3D Icon Cylinder Styling (NO HOVER EFFECTS) --- */
 .home-technology-stack-icon-container {
   width: 90px;
   height: 90px;
@@ -125,105 +114,62 @@
   margin-bottom: 15px;
   position: relative;
   transform-style: preserve-3d;
-  transform: translateZ(20px);
 }
 
 .home-technology-stack-icon-front {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #f4f4f4;
+  background-color: #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
-  transform: translateZ(8px);
+  box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateZ(10px);
 }
 
 .home-technology-stack-icon-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #b3b3b3;
+  background: var(--siddhi-maroon);
   border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  transform: translateZ(-8px);
+  transform: translateZ(-10px);
+  opacity: 0.3;
 }
 
 .home-technology-stack-icon-wrapper {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  font-size: 50px;
-  transform-style: preserve-3d;
-  text-shadow:
-    1px 1px 0 #ccc, 2px 2px 0 #ccc, 3px 3px 0 #bbb, 4px 4px 0 #bbb,
-    5px 5px 0 #aaa, 6px 6px 10px rgba(0, 0, 0, 0.5);
-  transform: translateZ(10px);
-  /* *** ADDED THESE LINES TO CENTER THE ICON *** */
+  font-size: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.home-technology-stack-icon-left {
-  position: absolute; width: 100%; height: 100%;
-  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-}
-
-.home-technology-stack-icon-right {
-  position: absolute; width: 100%; height: 100%;
-  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
-}
-
 .home-technology-stack-tech-name {
-  font-family: var(--home-technology-stack-font-logo);
-  font-size: 1.2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   color: #000;
-  text-shadow:
-    1px 1px 0 #d9d9d9,
-    2px 2px 0 #b3b3b3,
-    3px 3px 5px rgba(0,0,0,0.3);
-  transform: translateZ(15px);
+  text-align: center;
+  padding: 0 5px;
 }
 
-/* --- Responsive Design --- */
-
-/* For Tablet */
+/* Tablet & Mobile Fixes */
 @media (max-width: 768px) {
-  .home-technology-stack-icon-container {
-    width: 70px;
-    height: 70px;
-  }
-  .home-technology-stack-icon-wrapper {
-    font-size: 40px;
-  }
-  .home-technology-stack-tech-name {
-    font-size: 1rem;
-  }
-  .home-technology-stack-heading {
-    font-size: 2rem;
+  .home-technology-stack-heading { font-size: 2rem; }
+  :root {
+    --slide-width: 150px;
+    --slide-height: 200px;
   }
 }
 
-/* For Mobile */
 @media (max-width: 480px) {
+  .home-technology-stack-heading { font-size: 1.6rem; }
   :root {
-    --home-technology-stack-gap-width: 15px;
+    --slide-width: 130px;
+    --slide-height: 180px;
   }
-  .home-technology-stack-icon-container {
-    width: 60px;
-    height: 60px;
-  }
-  .home-technology-stack-icon-wrapper {
-    font-size: 35px;
-  }
-  .home-technology-stack-tech-name {
-    font-size: 0.9rem;
-  }
-  .home-technology-stack-heading {
-    font-size: 1.8rem;
-  }
+  .home-technology-stack-icon-container { width: 70px; height: 70px; }
+  .home-technology-stack-icon-wrapper { font-size: 30px; }
 }

@@ -1,21 +1,28 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './HomeTech.css';
 
-// Importing icons from 'react-icons'
-import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaDatabase } from 'react-icons/fa';
-import { IoLogoJavascript } from 'react-icons/io5';
-import { SiExpress, SiMongodb } from 'react-icons/si';
+// Importing high-quality Real Estate Icons
+import { 
+  FaHome, 
+  FaMapMarkerAlt, 
+  FaShieldAlt, 
+  FaCouch, 
+  FaBuilding, 
+  FaTree, 
+  FaCreditCard, 
+  FaUserShield 
+} from 'react-icons/fa';
 
-// List of technologies with their original brand colors
-const technologies = [
-  { name: 'HTML', id: 'html', IconComponent: FaHtml5, color: '#E34F26' },
-  { name: 'CSS', id: 'css', IconComponent: FaCss3Alt, color: '#1572B6' },
-  { name: 'JavaScript', id: 'javascript', IconComponent: IoLogoJavascript, color: '#F7DF1E' },
-  { name: 'React', id: 'react', IconComponent: FaReact, color: '#61DAFB' },
-  { name: 'Node.js', id: 'nodejs', IconComponent: FaNodeJs, color: '#339933' },
-  { name: 'Express', id: 'express', IconComponent: SiExpress, color: '#000000' },
-  { name: 'MongoDB', id: 'mongodb', IconComponent: SiMongodb, color: '#47A248' },
-  { name: 'SQL', id: 'sql', IconComponent: FaDatabase, color: '#4479A1' }
+// Data customized for Siddhi Homes
+const siddhiFeatures = [
+  { name: 'Quality Build', id: 'build', IconComponent: FaBuilding, color: '#8b2226' },
+  { name: 'Prime Location', id: 'location', IconComponent: FaMapMarkerAlt, color: '#c5a059' },
+  { name: '24/7 Security', id: 'security', IconComponent: FaShieldAlt, color: '#8b2226' },
+  { name: 'Smart Layouts', id: 'layouts', IconComponent: FaCouch, color: '#c5a059' },
+  { name: 'Modern Design', id: 'design', IconComponent: FaHome, color: '#8b2226' },
+  { name: 'Green Spaces', id: 'green', IconComponent: FaTree, color: '#c5a059' },
+  { name: 'Easy Finance', id: 'finance', IconComponent: FaCreditCard, color: '#8b2226' },
+  { name: 'Trusted Name', id: 'trust', IconComponent: FaUserShield, color: '#c5a059' }
 ];
 
 const ThreeDSlide = ({ tech }) => {
@@ -37,7 +44,7 @@ const ThreeDSlide = ({ tech }) => {
 };
 
 function HomeTech() {
-  const extendedTechnologies = [...technologies, ...technologies];
+  const extendedFeatures = [...siddhiFeatures, ...siddhiFeatures];
 
   const sliderRef = useRef(null);
   const trackRef = useRef(null);
@@ -83,8 +90,6 @@ function HomeTech() {
 
   const handleDragMove = (e) => {
     if (!isDragging || !trackRef.current) return;
-    e.preventDefault();
-
     const x = getClientX(e);
     const walk = (x - startX.current) * 1.5;
     let newX = scrollStartX.current + walk;
@@ -111,22 +116,22 @@ function HomeTech() {
 
   return (
     <div className="home-technology-stack-body">
-      {/* BACKGROUND LINES from AboutMe */}
+      {/* Dynamic Background SVG Lines */}
       <div className="home-technology-stack-bg-lines-container">
         <svg className="home-technology-stack-bg-svg" viewBox="0 0 1440 1024" preserveAspectRatio="none">
           <path 
             d="M-50,200 C300,50 600,600 1500,100" 
-            stroke="#00ff00" strokeOpacity="0.15" strokeWidth="1" fill="none" 
+            stroke="#8b2226" strokeOpacity="0.2" strokeWidth="1" fill="none" 
           />
           <path 
             d="M-100,600 C400,800 1000,300 1600,900" 
-            stroke="#00ff00" strokeOpacity="0.12" strokeWidth="1" fill="none" 
+            stroke="#c5a059" strokeOpacity="0.15" strokeWidth="1" fill="none" 
           />
         </svg>
       </div>
 
       <div className="home-technology-stack-main-container">
-        <h2 className="home-technology-stack-heading">My<span>Skills</span></h2>
+        <h2 className="home-technology-stack-heading">Siddhi<span>Homes</span> Highlights</h2>
         <div
           className="home-technology-stack-slider-container"
           ref={sliderRef}
@@ -139,7 +144,7 @@ function HomeTech() {
           onTouchEnd={handleDragEnd}
         >
           <div className="home-technology-stack-slider-track" ref={trackRef}>
-            {extendedTechnologies.map((tech, index) => (
+            {extendedFeatures.map((tech, index) => (
               <ThreeDSlide key={`${tech.id}-${index}`} tech={tech} />
             ))}
           </div>

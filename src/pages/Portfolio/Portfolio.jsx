@@ -1,180 +1,150 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Portfolio.css";
+import { FaPlay, FaSearchPlus, FaTimes, FaCamera, FaVideo, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// Assuming this path is correct
-import airline from '../../assets/portfolio/airline-booking-img.png';
-import tweeter from '../../assets/portfolio/tweeter-backend.png';
-import eskaji from '../../assets/portfolio/eskaji.png';
+// --- ASSET IMPORTS (Based on your VS Code screenshot) ---
+import img1 from './1.png.png';
+import img2 from './2.png.png';
+import img3 from './3.png.png';
+import img4 from './4.png.png';
+import img11 from './11.png.jpeg';
+import img12 from './12.png.jpeg';
+import img13 from './13.png.jpeg';
+import img14 from './14.png.jpeg';
+import img15 from './15.png.jpeg';
+import img16 from './16.png.jpeg';
+import img17 from './17.png.jpeg';
+import img18 from './18.png.jpeg';
+import img19 from './19.png.jpeg';
+import img20 from './20.png.jpeg';
+import img21 from './21.png.jpeg';
+
+import mainVid from './2026-01-30-15-37-00-135.mov';
+import sm01 from './sm 01.mp4';
+import sm02 from './sm 02.mp4';
+import sm03 from './sm 03.mp4';
+import sm04 from './sm 04.mp4';
 
 const Portfolio = () => {
-  // References for the cards to animate
-  const cardRefs = useRef([]);
+  const [filter, setFilter] = useState('all');
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [zoom, setZoom] = useState(1);
 
-  // --- Scroll Animation Logic ---
+  const mediaData = [
+    { id: 1, type: 'video', src: mainVid, title: "Modern Elevation", cat: "Exterior", size: "large" },
+    { id: 2, type: 'video', src: sm01, title: "Interior Flow", cat: "Cinema", size: "medium" },
+    { id: 3, type: 'photo', src: img1, title: "Grand Facade", cat: "Exterior", size: "large" },
+    { id: 4, type: 'photo', src: img11, title: "Luxury Living", cat: "Interior", size: "small" },
+    { id: 5, type: 'photo', src: img12, title: "Master Suite", cat: "Interior", size: "medium" },
+    { id: 6, type: 'video', src: sm02, title: "Garden View", cat: "Exterior", size: "small" },
+    { id: 7, type: 'video', src: sm03, title: "Night Ambiance", cat: "Cinema", size: "medium" },
+    { id: 8, type: 'photo', src: img13, title: "Fine Dining", cat: "Interior", size: "large" },
+    { id: 9, type: 'photo', src: img16, title: "Chef's Kitchen", cat: "Interior", size: "medium" },
+    { id: 10, type: 'photo', src: img20, title: "Sky Balcony", cat: "Exterior", size: "large" },
+    { id: 11, type: 'video', src: sm04, title: "Sunrise View", cat: "Cinema", size: "small" },
+    { id: 12, type: 'photo', src: img21, title: "Main Entrance", cat: "Exterior", size: "medium" },
+  ];
+
+  const filteredMedia = filter === 'all' ? mediaData : mediaData.filter(m => m.type === filter);
+
+  const closeLightbox = () => { setSelectedIndex(null); setZoom(1); document.body.style.overflow = 'auto'; };
+  const openLightbox = (index) => { setSelectedIndex(index); document.body.style.overflow = 'hidden'; };
+
+  const nextMedia = useCallback((e) => {
+    e?.stopPropagation();
+    setSelectedIndex((prev) => (prev + 1) % filteredMedia.length);
+    setZoom(1);
+  }, [filteredMedia.length]);
+
+  const prevMedia = useCallback((e) => {
+    e?.stopPropagation();
+    setSelectedIndex((prev) => (prev - 1 + filteredMedia.length) % filteredMedia.length);
+    setZoom(1);
+  }, [filteredMedia.length]);
+
   useEffect(() => {
-    // 1. Copy ref.current to a local variable to satisfy the exhaustive-deps warning
-    const currentCards = cardRefs.current;
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.15, // Trigger when 15% visible
+    const handleKeys = (e) => {
+      if (selectedIndex === null) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextMedia();
+      if (e.key === "ArrowLeft") prevMedia();
     };
+    window.addEventListener("keydown", handleKeys);
+    return () => window.removeEventListener("keydown", handleKeys);
+  }, [selectedIndex, nextMedia, prevMedia]);
 
-    const observerCallback = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target); 
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Use the local variable
-    if (currentCards) {
-      currentCards.forEach((card) => {
-        if (card) observer.observe(card);
-      });
-    }
-
-    return () => {
-      // Use the local variable in cleanup
-      if (currentCards) {
-        currentCards.forEach((card) => {
-          if (card) observer.unobserve(card);
-        });
-      }
-    };
-  }, []);
-
-  // --- Data: Projects ---
-  const projects = [
-    {
-      id: 1,
-      title: "TweetStream (Backend)",
-      description:
-        "Architected a robust monolithic backend for a Twitter-like application. Features advanced tweet search capabilities, secure user authentication using Passport.js, and scalable tweet management.",
-      image: tweeter, 
-      link: "https://github.com/jitendraparmar10/Twitter_Backend", 
-    },
-    {
-      id: 2,
-      title: "Airline Booking Management",
-      description:
-        "A complex microservices-based system including Auth, FlightSearch, and TicketBooking services. Implemented API Gateway, JWT authentication, and automated email reminders using Cron jobs.",
-      image: airline, 
-      link: "https://github.com/jitendraparmar10/API_Gateway", 
-    },
-    {
-      id: 3,
-      title: "EsKaJi Sweets (Full Stack)",
-      description:
-        "A full-stack e-commerce application allowing admin users to manage product inventory. Features responsive design, flexible layouts, and a seamless ordering experience for desktops and mobile.",
-      image: eskaji, 
-      link: "https://eskaji-sweets.vercel.app/", 
-    },
-  ];
-
-  // --- Data: Tech Stack ---
-  const stackList = [
-    "React Js",
-    "Node Js",
-    "Express Js",
-    "MongoDB",
-    "MySQL",
-    "Tailwind CSS",
-    "HTML",
-    "CSS",
-    "JavaScript"
-  ];
-
-  // Helper to add refs to the array
-  const addToRefs = (el) => {
-    if (el && !cardRefs.current.includes(el)) {
-      cardRefs.current.push(el);
-    }
-  };
+  const currentMedia = selectedIndex !== null ? filteredMedia[selectedIndex] : null;
 
   return (
-    <div className="my-portfolio-container">
-      <div className="my-portfolio-wrapper">
-        
-        {/* --- LEFT SIDE: Sticky --- */}
-        <div className="my-portfolio-left">
-          <div className="my-portfolio-left-content">
-            
-            {/* Header */}
-            <div className="my-portfolio-header">
-              <h2 className="my-portfolio-title">My Projects</h2>
-              <p className="my-portfolio-subtitle">
-                I’ve worked on some great Projects, but I won’t blab about them all. 
-                Here are a few best bits.
-              </p>
-            </div>
-            
-            {/* Illustration */}
-            <div className="my-portfolio-illustration-box">
-               <img 
-                 src="https://cdni.iconscout.com/illustration/premium/thumb/web-development-2974925-2477356.png" 
-                 alt="Coder Illustration" 
-                 className="my-portfolio-illustration"
-               />
-            </div>
-
-            {/* Stack Section */}
-            <div className="my-portfolio-stack-section">
-              <p className="my-portfolio-stack-desc">
-                All the sites on your right are built from scratch in the following stack:
-              </p>
-              <div className="my-portfolio-stack-grid">
-                {stackList.map((tech, index) => (
-                  <div key={index} className="my-stack-item">
-                    <span className="my-stack-dot"></span>
-                    <span className="my-stack-text">{tech}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+    <div className="portfolio-section-container">
+      <div className="portfolio-content">
+        <div className="section-header">
+          <span className="accent-text">Siddhi Homes Portfolio</span>
+          <h2>Crafting Legacies</h2>
+          <div className="filter-pills">
+            <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All Projects</button>
+            <button className={filter === 'photo' ? 'active' : ''} onClick={() => setFilter('photo')}><FaCamera /> Photography</button>
+            <button className={filter === 'video' ? 'active' : ''} onClick={() => setFilter('video')}><FaVideo /> Films</button>
           </div>
         </div>
 
-        {/* --- RIGHT SIDE: Scrollable --- */}
-        <div className="my-portfolio-right">
-          {projects.map((project, index) => (
-            <div 
-              className="my-portfolio-card" 
-              key={project.id}
-              ref={addToRefs}
-            >
-              <div className="my-portfolio-image-wrapper">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="my-portfolio-project-img"
-                />
+        <div className="bento-gallery">
+          {filteredMedia.map((item, index) => (
+            <div key={item.id} className={`gallery-card ${item.size}`} onClick={() => openLightbox(index)}>
+              <div className="card-overlay">
+                <div className="play-btn-circle">
+                  {item.type === 'video' ? <FaPlay /> : <FaSearchPlus />}
+                </div>
+                <div className="card-info">
+                  <small>{item.cat}</small>
+                  <h3>{item.title}</h3>
+                </div>
               </div>
-              <div className="my-portfolio-content">
-                <h3 className="my-portfolio-project-title">{project.title}</h3>
-                <p className="my-portfolio-project-desc">
-                  {project.description}
-                </p>
-                <a 
-                  href={project.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="my-portfolio-btn"
-                >
-                  View Code
-                </a>
-              </div>
+              {item.type === 'video' ? (
+                <video muted loop autoPlay playsInline className="media-bg">
+                  <source src={item.src} type="video/mp4" />
+                </video>
+              ) : (
+                <img src={item.src} alt={item.title} className="media-bg" />
+              )}
             </div>
           ))}
         </div>
-
       </div>
+
+      {/* --- ELITE LIGHTBOX (Strictly conditional to prevent leaking into footer) --- */}
+      {selectedIndex !== null && currentMedia && (
+        <div className="elite-lightbox">
+          <div className="lightbox-backdrop" onClick={closeLightbox}></div>
+          
+          <button className="nav-btn left-nav" onClick={prevMedia}><FaChevronLeft /></button>
+          <button className="nav-btn right-nav" onClick={nextMedia}><FaChevronRight /></button>
+          
+          <div className="lightbox-ui">
+            <div className="ui-left">
+               <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(z + 0.5, 3)); }}>Zoom +</button>
+               <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(z - 0.5, 1)); }}>Zoom -</button>
+            </div>
+            <button className="lightbox-close-btn" onClick={closeLightbox}><FaTimes /></button>
+          </div>
+
+          <div className="lightbox-main-stage" onClick={e => e.stopPropagation()}>
+            <div className="media-box" style={{ transform: `scale(${zoom})` }}>
+                {currentMedia.type === 'video' ? (
+                    <video controls autoPlay className="main-media">
+                        <source src={currentMedia.src} />
+                    </video>
+                ) : (
+                    <img src={currentMedia.src} alt="" className="main-media" />
+                )}
+            </div>
+            <div className="lightbox-footer-info">
+                <h3>{currentMedia.title}</h3>
+                <p>{currentMedia.cat} | {selectedIndex + 1} / {filteredMedia.length}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

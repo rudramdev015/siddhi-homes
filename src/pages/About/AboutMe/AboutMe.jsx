@@ -1,20 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './AboutMe.css';
-import { FaPhoneAlt } from 'react-icons/fa';
-import { 
-  SiGmail, 
-  SiLinkedin, 
-  SiGithub,
-  SiJavascript,
-  SiReact,
-  SiNodedotjs,
-  SiMongodb,
-  SiExpress,
-  SiMysql
-} from 'react-icons/si';
+import { FaPhoneAlt, FaWhatsapp, FaMapMarkerAlt, FaHome, FaCheckCircle, FaAward, FaBuilding, FaGopuram } from 'react-icons/fa';
+import { SiGmail, SiInstagram } from 'react-icons/si';
 
-// Ensure the path to your image is correct
-import jitu from '../../../assets/about-me/jitu.jpg';
+// Use a high-quality property or architectural image
+const propertyImg = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop";
 
 const AboutMe = () => {
   const [isTopVisible, setIsTopVisible] = useState(false);
@@ -27,16 +17,11 @@ const AboutMe = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Only trigger if the element is intersecting (visible)
           if (entry.isIntersecting) {
-            
-            // If it's the top section, show it and stop observing
             if (entry.target === topSectionRef.current) {
               setIsTopVisible(true);
               observer.unobserve(entry.target);
             }
-            
-            // If it's the skill section, show it and stop observing
             if (entry.target === skillSectionRef.current) {
               setIsSkillVisible(true);
               observer.unobserve(entry.target);
@@ -44,190 +29,134 @@ const AboutMe = () => {
           }
         });
       },
-      { 
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-      }
+      { threshold: 0.15 }
     );
 
-    const currentTopSection = topSectionRef.current;
-    const currentSkillSection = skillSectionRef.current;
+    if (topSectionRef.current) observer.observe(topSectionRef.current);
+    if (skillSectionRef.current) observer.observe(skillSectionRef.current);
 
-    // Only observe if the state is currently false (not yet animated)
-    if (currentTopSection && !isTopVisible) observer.observe(currentTopSection);
-    if (currentSkillSection && !isSkillVisible) observer.observe(currentSkillSection);
-
-    return () => {
-      if (currentTopSection) observer.unobserve(currentTopSection);
-      if (currentSkillSection) observer.unobserve(currentSkillSection);
-    };
-  }, [isTopVisible, isSkillVisible]); // Added dependencies to ensure logic holds
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="about-me-layout__wrapper">
-      {/* BACKGROUND LINES */}
-      <div className="about-me-layout__bg-lines-container">
-        <svg className="about-me-layout__bg-svg" viewBox="0 0 1440 1024" preserveAspectRatio="none">
-          <path 
-            d="M-50,200 C300,50 600,600 1500,100" 
-            stroke="#00ff00" strokeOpacity="0.15" strokeWidth="1" fill="none" 
-          />
-          <path 
-            d="M-100,600 C400,800 1000,300 1600,900" 
-            stroke="#00ff00" strokeOpacity="0.12" strokeWidth="1" fill="none" 
-          />
+    <div className="siddhi-about__wrapper">
+      <div className="siddhi-about__bg-lines">
+        <svg viewBox="0 0 1440 1024" preserveAspectRatio="none">
+          <path d="M-50,200 C300,50 600,600 1500,100" stroke="#D4AF37" strokeOpacity="0.1" fill="none" />
         </svg>
       </div>
 
-      <div className="about-me-layout__container">
-        
+      <div className="siddhi-about__container">
         {/* --- TOP SECTION --- */}
-        <div 
-          className={`about-me-layout__top-section ${isTopVisible ? 'section-in-view' : ''}`}
-          ref={topSectionRef}
-        >
-          <div className="about-me-layout__intro">
-            
-            <div className="about-me-layout__title-bleed animate-left delay-1">
-              <h1 className="about-me-layout__title">
-                <span className="about-me-layout__title-text">About me</span>
+        <div className={`siddhi-about__top-section ${isTopVisible ? 'in-view' : ''}`} ref={topSectionRef}>
+          <div className="siddhi-about__intro">
+            <div className="siddhi-about__title-bleed animate-left delay-1">
+              <h1 className="siddhi-about__title">
+                <span className="siddhi-about__title-text">Our Legacy</span>
               </h1>
             </div>
             
-            <div className="about-me-layout__bio">
-              <p className="about-me-layout__greet animate-zoom delay-2">Hi!</p>
-              <p className="about-me-layout__name-line animate-zoom delay-3">
-                My name is <strong className="highlight-text">Jitendra Parmar.</strong>
+            <div className="siddhi-about__bio">
+              <p className="siddhi-about__greet animate-zoom delay-2">Welcome to</p>
+              <h2 className="siddhi-about__name-line animate-zoom delay-3">
+                SHREE MAHAVEER <strong className="gold-text">REAL ESTATES</strong>
+              </h2>
+              <p className="siddhi-about__text animate-zoom delay-4">
+                Founded by four visionary partners, we are driven by the dream to transform Jodhpur into a hub of world-class residential living. <strong>Siddhi Homes</strong> exemplifies our commitment to blending <strong>Modern Architectural Excellence</strong> with Rajasthan's rich heritage.
               </p>
-              <p className="about-me-layout__text animate-zoom delay-4">
-                I am a <strong>Full Stack Developer</strong> passionate about building scalable web applications and exploring the depths of Data Science. Currently pursuing my degree, I focus on creating seamless user experiences combined with efficient, data-driven backend logic.
-              </p>
-              <p className="about-me-layout__text animate-zoom delay-5">
-                <strong>My objective:</strong> To leverage my full-stack expertise and analytical skills in a challenging environment where I can contribute to innovative digital solutions and drive impactful results.
+              <p className="siddhi-about__text animate-zoom delay-5">
+                <strong>Our Vision:</strong> To create premium living spaces accessible at affordable prices, ensuring every family finds their perfect sanctuary in a safe, secured, and beautiful gated community.
               </p>
             </div>
             
-            <div className="about-me-layout__contact-area animate-left delay-6">
-              <h2 className="about-me-layout__contact-label">Contact</h2>
-              <div className="about-me-layout__contact-grid">
-                
-                <a href="mailto:jitparmar993@gmail.com" className="about-me-layout__contact-link">
-                  <div className="about-me-layout__icon-wrapper">
-                    <span className="about-me-layout__icon-circle"><SiGmail /></span>
-                  </div>
-                  <span className="about-me-layout__contact-text">jitparmar993@gmail.com</span>
+            <div className="siddhi-about__contact-area animate-left delay-6">
+              <h2 className="siddhi-about__label">Get In Touch</h2>
+              <div className="siddhi-about__contact-grid">
+                <a href="mailto:shreemahaveerrealestates@gmail.com" className="contact-link">
+                  <span className="icon-circle"><SiGmail /></span>
+                  <span className="contact-text">shreemahaveer@gmail.com</span>
                 </a>
-                
-                <div className="about-me-layout__contact-link">
-                  <div className="about-me-layout__icon-wrapper">
-                    <span className="about-me-layout__icon-circle"><FaPhoneAlt /></span>
-                  </div>
-                  <span className="about-me-layout__contact-text">+91 7424908900</span>
+                <div className="contact-link">
+                  <span className="icon-circle"><FaPhoneAlt /></span>
+                  <span className="contact-text">+91 82333 94004</span>
                 </div>
-                
-                <a href="https://www.linkedin.com/in/jitendraparmar10/" target="_blank" rel="noreferrer" className="about-me-layout__contact-link">
-                  <div className="about-me-layout__icon-wrapper">
-                    <span className="about-me-layout__icon-circle"><SiLinkedin /></span>
-                  </div>
-                  <span className="about-me-layout__contact-text">linkedin.com/in/jitendraparmar10</span>
+                <a href="https://wa.me/918233394004" className="contact-link">
+                  <span className="icon-circle"><FaWhatsapp /></span>
+                  <span className="contact-text">Chat on WhatsApp</span>
                 </a>
-                
-                <a href="https://github.com/jitendraparmar10" target="_blank" rel="noreferrer" className="about-me-layout__contact-link">
-                  <div className="about-me-layout__icon-wrapper">
-                    <span className="about-me-layout__icon-circle"><SiGithub /></span>
-                  </div>
-                  <span className="about-me-layout__contact-text">github.com/jitendraparmar10</span>
+                <a href="https://www.instagram.com/shreemahaveerrealestates/" className="contact-link">
+                  <span className="icon-circle"><SiInstagram /></span>
+                  <span className="contact-text">@shreemahaveerrealestates</span>
                 </a>
-
               </div>
             </div>
           </div>
 
-          {/* Image Section */}
-          <div className="about-me-layout__image-section">
-            <div className="about-me-layout__image-wrapper animate-right delay-2">
-              <div className="about-me-layout__image-mask">
-                <img src={jitu} alt="Jitendra Parmar" />
+          <div className="siddhi-about__image-section">
+            <div className="siddhi-about__image-wrapper animate-right delay-2">
+              <div className="siddhi-about__image-mask">
+                <img src={propertyImg} alt="Siddhi Homes Exterior" />
               </div>
-              <div className="about-me-layout__image-accent-curve"></div>
+              <div className="image-accent"></div>
+              <div className="rera-tag">RERA APPROVED: RAJ/P/2023/2610</div>
             </div>
           </div>
         </div>
 
-        {/* --- BOTTOM SECTION (Skills Card) --- */}
-        <div 
-          className={`about-me-layout__skills-card ${isSkillVisible ? 'section-in-view' : ''} delay-card`}
-          ref={skillSectionRef}
-        >
-          <div className="about-me-layout__skills-content">
+        {/* --- BOTTOM SECTION (PROJECT EXCELLENCE) --- */}
+        <div className={`siddhi-about__specs-card ${isSkillVisible ? 'in-view' : ''}`} ref={skillSectionRef}>
+          <div className="siddhi-about__specs-content">
             
-            <div className="about-me-layout__skill-column education-column">
-              <div className="about-me-layout__heading-row">
-                <h3 className="about-me-layout__heading">Education</h3>
-                <div className="about-me-layout__tag">2021 - 2025</div>
+            <div className="spec-column">
+              <div className="heading-row">
+                <h3>Project Address</h3>
+                <div className="status-tag">PAL, JODHPUR</div>
               </div>
-              <p className="about-me-layout__para-muted education-text">
-                B.Tech from Jodhpur Institute of Engineering and Technology. 
-                Computer Science (Specialization in Data Science).
+              <p className="para-muted">
+                Kh. No. 147/1, Behind Reliance Petrol Pump, Jodhpur (Rajasthan).
               </p>
             </div>
             
-            <div className="about-me-layout__skill-column">
-              <h3 className="about-me-layout__heading">Soft skill</h3>
-              <div className="about-me-layout__list-container">
-                <ul className="about-me-layout__list">
-                  <li>Problem Solving</li>
-                  <li>Analytical Thinking</li>
+            <div className="spec-column">
+              <h3>Core Features</h3>
+              <div className="list-container">
+                <ul className="spec-list">
+                  <li><FaCheckCircle className="gold-icon" /> 62 Premium Units</li>
+                  <li><FaCheckCircle className="gold-icon" /> Individual JDA Patta</li>
                 </ul>
-                <div className="about-me-layout__vertical-line"></div>
-                <ul className="about-me-layout__list">
-                  <li>Team Collaboration</li>
-                  <li>Adaptability</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="about-me-layout__skill-column">
-              <h3 className="about-me-layout__heading">Technical skill</h3>
-              <div className="about-me-layout__software-grid-3x3">
-                <div className="about-me-layout__sw-icon about-me-layout__brand-js"><SiJavascript /></div>
-                <div className="about-me-layout__sw-icon about-me-layout__brand-react"><SiReact /></div>
-                <div className="about-me-layout__sw-icon about-me-layout__brand-node"><SiNodedotjs /></div>
-                <div className="about-me-layout__sw-icon about-me-layout__brand-mongo"><SiMongodb /></div>
-                <div className="about-me-layout__sw-icon about-me-layout__brand-express"><SiExpress /></div>
-                <div className="about-me-layout__sw-icon about-me-layout__brand-mysql"><SiMysql /></div>
-              </div>
-            </div>
-
-            <div className="about-me-layout__skill-column">
-              <h3 className="about-me-layout__heading">Skill set</h3>
-               <div className="about-me-layout__list-container">
-                <ul className="about-me-layout__list">
-                  <li>RESTful APIs</li>
-                  <li>MERN Stack</li>
-                  <li>Database Mgmt</li>
-                </ul>
-                <div className="about-me-layout__vertical-line"></div>
-                <ul className="about-me-layout__list">
-                  <li>System Design</li>
-                  <li>Data Analysis</li>
-                  <li>Git Version Control</li>
+                <div className="v-line"></div>
+                <ul className="spec-list">
+                  <li><FaCheckCircle className="gold-icon" /> Ready-to-Move</li>
+                  <li><FaCheckCircle className="gold-icon" /> Gated Community</li>
                 </ul>
               </div>
             </div>
 
-            <div className="about-me-layout__skill-column">
-              <h3 className="about-me-layout__heading">Interest</h3>
-              <p className="about-me-layout__para-muted education-text">
-                Technology <span className="about-me-layout__pipe">|</span> Drawing
-              </p>
+            <div className="spec-column">
+              <h3>Key Highlights</h3>
+              <div className="amenity-grid">
+                <div className="am-icon" title="Temple"><FaGopuram /></div>
+                <div className="am-icon" title="Architecture"><FaBuilding /></div>
+                <div className="am-icon" title="Modern Living"><FaHome /></div>
+                <div className="am-icon" title="Quality"><FaAward /></div>
+              </div>
             </div>
 
-            <div className="about-me-layout__skill-column">
-              <h3 className="about-me-layout__heading">Language</h3>
-              <p className="about-me-layout__para-muted education-text">
-                Hindi <span className="about-me-layout__pipe">|</span> English
-              </p>
+            <div className="spec-column">
+              <h3>Modern Amenities</h3>
+               <div className="list-container">
+                <ul className="spec-list">
+                  <li>Dedicated Temple</li>
+                  <li>30ft Wide Roads</li>
+                  <li>Open Air Gym</li>
+                </ul>
+                <div className="v-line"></div>
+                <ul className="spec-list">
+                  <li>Lush Landscaping</li>
+                  <li>Proper Drainage</li>
+                  <li>24x7 Water/Power</li>
+                </ul>
+              </div>
             </div>
 
           </div>

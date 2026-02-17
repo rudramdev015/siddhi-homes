@@ -1,18 +1,12 @@
-// Navbar.js
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaLinkedinIn, FaGithub, FaInstagram } from 'react-icons/fa';
+import { FaLinkedinIn, FaInstagram, FaFacebookF, FaPhoneAlt } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import './Navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    
-    // REMOVED: The activeLink state is no longer needed.
-    // const [activeLink, setActiveLink] = useState('/');
-
     const location = useLocation();
 
     useEffect(() => {
@@ -23,12 +17,6 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // REMOVED: This useEffect caused the flicker. We will get the active
-    // link directly from the 'location' object during render.
-    // useEffect(() => {
-    //     setActiveLink(location.pathname);
-    // }, [location]);
-
     useEffect(() => {
         if(isMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -37,35 +25,31 @@ const Navbar = () => {
         }
     }, [isMenuOpen]);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const handleLinkClick = () => setIsMenuOpen(false);
 
-    const handleLinkClick = () => {
-        setIsMenuOpen(false);
-    };
-
+    // UPDATED: Redirected 'Properties' path to '/portfolio' (Your Gallery)
     const links = [
         { path: '/', label: 'Home' },
-        { path: '/about', label: 'About' },
-        { path: '/portfolio', label: 'Portfolio' },
-        { path: '/contact', label: 'Contact' }
+        { path: '/portfolio', label: 'Gallery' }, // This was Properties
+        { path: '/about', label: 'Our Legacy' },
+        { path: '/contact', label: 'Contact Us' }
     ];
 
     const socialLinks = [
-        { name: 'LinkedIn', icon: <FaLinkedinIn />, url: 'https://www.linkedin.com/in/jitendraparmar10/' },
-        { name: 'GitHub', icon: <FaGithub />, url: 'https://github.com/jitendraparmar10' },
-        { name: 'Instagram', icon: <FaInstagram />, url: 'https://www.instagram.com/jitendraparmar_10/' },
-        { name: 'X', icon: <FaXTwitter />, url: 'https://x.com/jituparmar993' }
+        { name: 'Instagram', icon: <FaInstagram />, url: '#' },
+        { name: 'LinkedIn', icon: <FaLinkedinIn />, url: '#' },
+        { name: 'Facebook', icon: <FaFacebookF />, url: '#' },
+        { name: 'X', icon: <FaXTwitter />, url: '#' }
     ];
 
     return (
-        <div className="jsparmar-nav-wrapper">
-            <header className={`navbar-of-jsparmar-header ${isScrolled ? 'scrolled' : ''}`}>
-                <div className="navbar-of-jsparmar-container">
-                    <div className="navbar-of-jsparmar-left-section">
+        <div className="siddhi-nav-wrapper">
+            <header className={`siddhi-header ${isScrolled ? 'scrolled' : ''}`}>
+                <div className="siddhi-container">
+                    <div className="siddhi-left-section">
                         <div 
-                            className={`navbar-of-jsparmar-hamburger ${isMenuOpen ? 'hidden' : ''}`} 
+                            className={`siddhi-hamburger ${isMenuOpen ? 'active' : ''}`} 
                             onClick={toggleMenu}
                         >
                             <span className="bar"></span>
@@ -73,20 +57,18 @@ const Navbar = () => {
                             <span className="bar"></span>
                         </div>
 
-                        <Link to="/" className="navbar-of-jsparmar-logo" onClick={handleLinkClick}>
-                            Jitendra<span>Parmar</span>
+                        <Link to="/" className="siddhi-logo" onClick={handleLinkClick}>
+                            SIDDHI<span>HOMES</span>
                         </Link>
                     </div>
 
-                    <nav className="navbar-of-jsparmar-desktop-nav">
+                    <nav className="siddhi-desktop-nav">
                         <ul>
                             {links.map(link => (
                                 <li key={link.path}>
                                     <Link 
                                         to={link.path} 
-                                        // CHANGED: Compare directly with location.pathname
                                         className={location.pathname === link.path ? 'active' : ''}
-                                        onClick={handleLinkClick}
                                     >
                                         {link.label}
                                     </Link>
@@ -94,37 +76,35 @@ const Navbar = () => {
                             ))}
                         </ul>
                     </nav>
+
+                    <div className="siddhi-contact-cta">
+                        <a href="tel:+91XXXXXXXXXX" className="cta-button">
+                            <FaPhoneAlt /> <span>BOOK A VISIT</span>
+                        </a>
+                    </div>
                 </div>
             </header>
 
+            {/* Side Menu Overlay */}
             <div 
-                className={`navbar-of-jsparmar-overlay ${isMenuOpen ? 'active' : ''}`} 
+                className={`siddhi-overlay ${isMenuOpen ? 'active' : ''}`} 
                 onClick={toggleMenu}
             ></div>
 
-            <div className={`navbar-of-jsparmar-side-menu ${isMenuOpen ? 'active' : ''}`}>
-                <div className="navbar-of-jsparmar-side-header">
-                    <div className="navbar-of-jsparmar-close-btn" onClick={toggleMenu}>
-                        <span className="arrow-icon"></span>
-                        Close menu
+            {/* Animated Side Menu */}
+            <div className={`siddhi-side-menu ${isMenuOpen ? 'active' : ''}`}>
+                <div className="siddhi-side-header">
+                    <div className="siddhi-close-btn" onClick={toggleMenu}>
+                        <span className="close-icon">&times;</span>
+                        CLOSE
                     </div>
                 </div>
 
-                <div className="navbar-of-jsparmar-social-row">
-                    {socialLinks.map((item, index) => (
-                        <a key={index} href={item.url} className="navbar-of-jsparmar-social-item" target="_blank" rel="noopener noreferrer">
-                            <span className="social-icon">{item.icon}</span>
-                            <span className="social-label">{item.name}</span>
-                        </a>
-                    ))}
-                </div>
-
-                <ul className="navbar-of-jsparmar-side-links">
+                <ul className="siddhi-side-links">
                     {links.map(link => (
-                        <li key={link.path}>
+                        <li key={link.path} style={{ transitionDelay: `${links.indexOf(link) * 0.1}s` }}>
                             <Link 
                                 to={link.path} 
-                                // CHANGED: Compare directly with location.pathname here as well
                                 className={location.pathname === link.path ? 'active' : ''}
                                 onClick={handleLinkClick}
                             >
@@ -133,6 +113,17 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
+
+                <div className="siddhi-side-footer">
+                    <p className="side-footer-label">Connect With Us</p>
+                    <div className="siddhi-social-row">
+                        {socialLinks.map((item, index) => (
+                            <a key={index} href={item.url} className="siddhi-social-item" target="_blank" rel="noopener noreferrer">
+                                {item.icon}
+                            </a>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

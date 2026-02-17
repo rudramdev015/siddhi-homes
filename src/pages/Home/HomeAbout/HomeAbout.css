@@ -1,278 +1,187 @@
-/* Import the Orbitron font */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap');
 
-/* --- THEME VARIABLES (Prefixed) --- */
 :root {
-  --home-about-part-primary-green: #00ff00;
-  --home-about-part-text-light: #f4f4f4;
-  --home-about-part-font-logo: 'Orbitron', sans-serif;
-  --home-about-part-bg-dark: #000;
+  --siddhi-gold: #D4AF37;
+  --siddhi-black: #0a0a0a;
+  --siddhi-white: #ffffff;
+  --siddhi-font-serif: 'Playfair Display', serif;
+  --siddhi-font-sans: 'Montserrat', sans-serif;
 }
 
-/* --- SECTION CONTAINER (Added for max-width) --- */
-#home-about-part-section {
-  max-width: 1800px;
-  margin: 0 auto; /* This centers the section */
-  position: relative; /* Ensures child positioning is relative to this container */
+#siddhi-about-section {
   width: 100%;
-}
-
-/* --- GENERAL STYLES --- */
-.home-about-part-body-styles {
-  margin: 0;
-  font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--home-about-part-bg-dark);
-  overflow-x: hidden; 
-}
-
-.home-about-part-split-container {
+  background-color: var(--siddhi-black);
   position: relative;
-  width: 100%;
-  /* Default Desktop Height is 100vh */
-  height: 100vh; 
   overflow: hidden;
 }
 
-/* --- BACKGROUND IMAGE STYLES --- */
-.home-about-part-bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
+.siddhi-about-container {
+  position: relative;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Desktop behavior: Cover 100vh */
+  height: 100vh; 
+  display: flex;
+}
+
+/* --- IMAGE & OVERLAY --- */
+.siddhi-about-image-wrapper {
+  position: absolute;
+  inset: 0;
   z-index: 0;
 }
 
-/* --- PANEL STYLES --- */
-.home-about-part-panel {
+.siddhi-about-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5); /* Darken image globally */
+  transition: transform 8s ease-out;
+}
+
+.siddhi-visible .siddhi-about-bg-image {
+  transform: scale(1.1);
+}
+
+/* Extra gradient to ensure text on right is 100% visible */
+.siddhi-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 50%, rgba(0,0,0,0.8) 100%);
+}
+
+/* --- PANELS --- */
+.siddhi-about-panel {
   position: absolute;
   top: 0;
   height: 100%;
   width: 100%;
-  /* Controls the Slide In/Out Speed */
-  transition: transform 1.2s cubic-bezier(0.86, 0, 0.07, 1);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  z-index: 1; /* Sit on top of image */
+  transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 1;
 }
 
-.home-about-part-left-panel {
+.siddhi-left-panel {
   left: 0;
-  background: rgb(0 0 0 / 14%);
-  clip-path: polygon(0 0, 65% 0, 45% 100%, 0 100%);
-  transform: translateX(-100%); /* Start hidden left */
+  clip-path: polygon(0 0, 50% 0, 35% 100%, 0 100%);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  transform: translateX(-100%);
 }
 
-.home-about-part-right-panel {
+.siddhi-right-panel {
   right: 0;
-  background: rgba(0, 255, 0, 0.1);
-  clip-path: polygon(65% 0, 100% 0, 100% 100%, 45% 100%);
-  transform: translateX(100%); /* Start hidden right */
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 35% 100%);
+  background: rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
 }
 
-/* Animation Trigger Class */
-.home-about-part-panel.home-about-part-visible {
+.siddhi-visible .siddhi-about-panel {
   transform: translateX(0);
 }
 
-/* --- TEXT CONTENT WRAPPERS --- */
-.home-about-part-panel-content {
+/* --- CONTENT --- */
+.siddhi-about-content {
   position: absolute;
   top: 0;
   height: 100%;
   display: flex;
+  flex-direction: column;
   opacity: 0;
+  transition: opacity 1s ease-out 1.2s, transform 1s ease-out 1.2s;
   transform: translateY(20px);
-  box-sizing: border-box; 
-  
-  /* When reversing (going out): Fade out fast so it disappears before panel slides */
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-/* Text Visible State */
-.home-about-part-panel.home-about-part-visible .home-about-part-panel-content {
+.siddhi-visible .siddhi-about-content {
   opacity: 1;
   transform: translateY(0);
-  /* When entering: Delay fading in until panel has slid in */
-  transition: opacity 0.8s ease-out 1.2s, transform 0.8s ease-out 1.2s;
 }
 
-/* --- DESKTOP POSITIONS (Your Diagonal Layout) --- */
-.home-about-part-content-left {
-  left: 0;
-  width: 45%; 
+.siddhi-content-left {
+  left: 5%;
+  width: 40%;
   justify-content: center;
-  align-items: flex-start; /* Align Top */
-  padding-top: 25vh;       /* Spacing from Top */
 }
 
-.home-about-part-content-right {
-  right: 0;
-  width: 55%; 
+.siddhi-content-right {
+  right: 5%;
+  width: 50%;
   justify-content: center;
-  align-items: flex-end;   /* Align Bottom */
-  padding-bottom: 25vh;    /* Spacing from Bottom */
+  align-items: flex-end;
 }
 
-/* --- TITLE STYLES --- */
-.home-about-part-content-left #home-about-part-title {
-  font-family: var(--home-about-part-font-logo);
-  font-size: 5rem;
-  font-weight: 700;
-  letter-spacing: 3px;
+/* --- TEXT STYLING (EYE CATCHING) --- */
+.siddhi-subtitle {
+  color: var(--siddhi-gold);
+  letter-spacing: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#siddhi-about-title {
+  font-family: var(--siddhi-font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--siddhi-white);
+  line-height: 0.9;
   text-transform: uppercase;
-  margin: 0;
-  text-align: center;
-  color: transparent;
-  background: linear-gradient(90deg, var(--home-about-part-text-light) 50%, var(--home-about-part-primary-green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-.home-about-part-right-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem; 
+#siddhi-about-title span {
+  color: var(--siddhi-gold);
+  display: block;
 }
 
-.home-about-part-content-right #home-about-part-description {
+/* Card backdrop for text visibility */
+.siddhi-text-card {
+  max-width: 500px;
+  text-align: right;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.5); /* Semi-black box to make text pop */
+  border-right: 3px solid var(--siddhi-gold);
+  backdrop-filter: blur(10px);
+}
+
+#siddhi-about-description {
   font-size: 1.25rem;
   line-height: 1.6;
-  max-width: 450px;
-  text-align: center;
-  margin: 0;
-  padding: 0 2rem;
-  color: var(--home-about-part-text-light);
-  font-weight: 500;
+  color: var(--siddhi-white);
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
-/* --- BUTTON STYLES --- */
-#home-about-part-read-more-btn {
-  font-family: var(--home-about-part-font-logo);
+.siddhi-secondary-desc {
   font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--home-about-part-text-light);
-  background-color: transparent;
-  border: 2px solid var(--home-about-part-primary-green);
-  padding: 12px 24px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); 
-  text-decoration: none; /* Add this to remove underline from the link */
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 30px;
+  font-weight: 300;
 }
 
-#home-about-part-read-more-btn:hover {
-  background-color: var(--home-about-part-primary-green);
-  color: var(--home-about-part-bg-dark); 
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); 
+/* --- BUTTON --- */
+#siddhi-about-btn {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--siddhi-white);
+  border: 1px solid var(--siddhi-gold);
+  padding: 15px 40px;
+  text-decoration: none;
+  background: linear-gradient(to right, var(--siddhi-gold) 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
 }
 
-/* 
-   ==========================================================================
-   --- RESPONSIVE SECTION ---
-   Keeps Diagonal Layout (Top/Bottom) but adapts to Image Height
-   ==========================================================================
-*/
-
-/* 1. MEDIUM DEVICES (Laptops/Tablets: 769px to 1200px) */
-@media screen and (max-width: 1200px) {
-  
-  /* Reduce padding to keep content inside the view */
-  .home-about-part-content-left {
-    padding-top: 15vh;
-  }
-  .home-about-part-content-right {
-    padding-bottom: 15vh;
-  }
-
-  /* Scale Text Down */
-  .home-about-part-content-left #home-about-part-title {
-    font-size: 3.5rem; 
-  }
-
-  .home-about-part-content-right #home-about-part-description {
-    font-size: 1rem;
-    max-width: 350px;
-  }
+#siddhi-about-btn:hover {
+  background-position: left bottom;
+  color: #000;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-/* 2. SMALL DEVICES (Mobile: Max 768px) */
-@media screen and (max-width: 768px) {
-  
-  /* Force Auto Height so container matches image exactly */
-  .home-about-part-split-container {
-    height: auto !important; 
-    min-height: auto;
-  }
-
-  /* Image becomes static flow element to define height */
-  .home-about-part-bg-image {
-    position: relative;
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  /* Panels match the image height */
-  .home-about-part-panel {
-    height: 100%; 
-  }
-
-  /* Adjust Geometry slightly for mobile screens */
-  .home-about-part-left-panel {
-    clip-path: polygon(0 0, 65% 0, 35% 100%, 0 100%);
-  }
-  .home-about-part-right-panel {
-    clip-path: polygon(65% 0, 100% 0, 100% 100%, 35% 100%);
-  }
-
-  /* --- LEFT CONTENT (ABOUT ME) --- */
-  /* Maintain "Top" alignment (Diagonal) but use % padding */
-  .home-about-part-content-left {
-    width: 45%; 
-    align-items: flex-start; 
-    padding-top: 15%; 
-  }
-
-  .home-about-part-content-left #home-about-part-title {
-    font-size: 5vw; /* Responsive scaling */
-    margin-top: 0;
-    padding-left: 5px;
-  }
-
-  /* --- RIGHT CONTENT (TEXT) --- */
-  /* Maintain "Bottom" alignment (Diagonal) but use % padding */
-  .home-about-part-content-right {
-    width: 55%;
-    align-items: flex-end; 
-    padding-bottom: 15%;
-  }
-
-  .home-about-part-right-content-wrapper {
-    gap: 0.5rem; 
-    padding-right: 5px;
-    padding-left: 10px;
-  }
-
-  .home-about-part-content-right #home-about-part-description {
-    font-size: 2.5vw; /* Responsive scaling */
-    line-height: 1.2;
-    padding: 0;
-    text-align: center;
-    max-width: 100%;
-  }
-
-  #home-about-part-read-more-btn {
-    font-size: 2vw;
-    padding: 1vw 2vw;
-    border-width: 1px;
-  }
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+  .siddhi-about-container { height: auto; flex-direction: column; padding: 80px 20px; }
+  .siddhi-about-panel { position: relative; clip-path: none; transform: none; background: none; width: 100%; height: auto; }
+  .siddhi-about-content { position: relative; width: 100%; left: 0; right: 0; opacity: 1; transform: none; align-items: center; text-align: center; }
+  .siddhi-text-card { text-align: center; border-right: none; border-bottom: 3px solid var(--siddhi-gold); background: rgba(0,0,0,0.8); }
+  #siddhi-about-title { font-size: 3.5rem; margin-bottom: 30px; }
 }

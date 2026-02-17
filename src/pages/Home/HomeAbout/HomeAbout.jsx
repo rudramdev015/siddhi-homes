@@ -1,77 +1,63 @@
 import React, { useState, useEffect, useRef } from 'react';
-// ADDED: Import the Link component from react-router-dom
 import { Link } from 'react-router-dom';
 import './HomeAbout.css';
 
-// Make sure this path is correct for your project structure
-import aboutmeBackgroundImage from '../../../assets/home/about.png';
+// Using a high-end architectural image
+const LUXURY_IMG = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop";
 
 function HomeAbout() {
   const [isAnimated, setIsAnimated] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Add prefix-specific body class
-    document.body.classList.add('home-about-part-body-styles');
-
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          // Animate IN when visible
+        if (entries[0].isIntersecting) {
           setIsAnimated(true);
         } else {
-          // Animate OUT (Reverse) when not visible
           setIsAnimated(false);
         }
       },
-      { 
-        threshold: 0.2 
-      }
+      { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      document.body.classList.remove('home-about-part-body-styles');
-      if (sectionRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
   }, []); 
 
   return (
-    <section id="home-about-part-section" ref={sectionRef}>
-      <div className={`home-about-part-split-container ${isAnimated ? 'home-about-part-visible' : ''}`}>
+    <section id="siddhi-about-section" ref={sectionRef}>
+      <div className={`siddhi-about-container ${isAnimated ? 'siddhi-visible' : ''}`}>
         
-        {/* Real Image Tag: Ensures responsive auto-height on mobile */}
-        <img 
-          src={aboutmeBackgroundImage} 
-          alt="About Background" 
-          className="home-about-part-bg-image" 
-        />
+        {/* Background Image with extra dark overlay for text visibility */}
+        <div className="siddhi-about-image-wrapper">
+            <img src={LUXURY_IMG} alt="Luxury Real Estate" className="siddhi-about-bg-image" />
+            <div className="siddhi-dark-overlay"></div>
+        </div>
 
-        {/* Left Panel (About Me) */}
-        <div className={`home-about-part-panel home-about-part-left-panel ${isAnimated ? 'home-about-part-visible' : ''}`}>
-          <div className="home-about-part-panel-content home-about-part-content-left">
-            <h1 id="home-about-part-title">ABOUT ME</h1>
+        {/* Left Panel: Brand & Title */}
+        <div className={`siddhi-about-panel siddhi-left-panel ${isAnimated ? 'siddhi-visible' : ''}`}>
+          <div className="siddhi-about-content siddhi-content-left">
+            <h4 className="siddhi-subtitle">SHREE MAHAVEER REAL ESTATES</h4>
+            <h1 id="siddhi-about-title">OUR <span>LEGACY</span></h1>
           </div>
         </div>
 
-        {/* Right Panel (Description) */}
-        <div className={`home-about-part-panel home-about-part-right-panel ${isAnimated ? 'home-about-part-visible' : ''}`}>
-          <div className="home-about-part-panel-content home-about-part-content-right">
-            <div className="home-about-part-right-content-wrapper">
-              <p id="home-about-part-description">
-                I’m Jitendra Parmar, a passionate Full Stack Developer skilled in
-                building scalable apps.
+        {/* Right Panel: Mission & Description (Now with dark backdrop for visibility) */}
+        <div className={`siddhi-about-panel siddhi-right-panel ${isAnimated ? 'siddhi-visible' : ''}`}>
+          <div className="siddhi-about-content siddhi-content-right">
+            <div className="siddhi-text-card">
+              <p id="siddhi-about-description">
+                Founded by four visionary partners, <strong>Siddhi Homes</strong> was 
+                born from the belief that quality, trust, and innovation can 
+                redefine a city's skyline.
               </p>
-              {/* CHANGED: The <button> is now a <Link> component */}
-              <Link to="/about" id="home-about-part-read-more-btn">
-                READ MORE
+              <p className="siddhi-secondary-desc">
+                We don't just build houses — we craft dream homes where families 
+                create lifelong memories through modern architectural excellence.
+              </p>
+              <Link to="/about" id="siddhi-about-btn">
+                LEARN OUR STORY
               </Link>
             </div>
           </div>

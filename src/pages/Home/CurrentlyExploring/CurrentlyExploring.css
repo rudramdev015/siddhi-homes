@@ -1,265 +1,192 @@
-/* Import fonts to match the reference style */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-/*
-  =========================================
-  CSS VARIABLES & KEYFRAMES
-  =========================================
-*/
 :root {
-  --animation-duration: 1s;
-  --animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --color-primary-glow: #00ff00;
+  --animation-duration: 0.9s;
+  --animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  --siddhi-maroon: #8b2226;
+  --siddhi-gold: #c5a059;
+  --siddhi-glow: #c5a059; /* Gold Glow for the sweeping effect */
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-150px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/*
-  =========================================
-  MAIN STYLES
-  =========================================
-*/
 .exploring-layout__wrapper {
   background-color: #000000;
   font-family: 'Poppins', sans-serif;
-  padding: 120px 24px;
+  padding: 100px 24px;
   position: relative;
   overflow: hidden;
 }
 
 .exploring-layout__container {
-  max-width: 1152px;
+  max-width: 1100px;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
 }
 
 .exploring-layout__header {
   text-align: center;
-  margin-bottom: 64px;
-}
-
-/* --- TITLE: Cleaned up as requested --- */
-.exploring-layout__title-bleed {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: center;
+  margin-bottom: 70px;
 }
 
 .exploring-layout__title {
-  background: transparent;
-  padding: 1.2rem 0; /* Adjusted padding for better visual alignment */
-  margin: 0;
-  display: inline-block;
-  line-height: 1.2;
   font-family: 'Orbitron', sans-serif;
   font-size: 2.8rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: #ffffff;
-  /* REMOVED: text-transform: uppercase; */
+  margin: 0;
+  line-height: 1.1;
 }
 
 .exploring-layout__title-text {
-  background: linear-gradient(90deg, #ffffff, var(--color-primary-glow));
+  background: linear-gradient(90deg, #ffffff, var(--siddhi-gold));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  /* REMOVED: margin-left: 0.8rem; to make the words touch */
+  margin-left: 12px;
 }
 
 .exploring-layout__subtitle {
-  font-size: 18px;
-  color: #c0c0c0;
-  max-width: 520px;
-  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  max-width: 600px;
+  margin: 20px auto 0;
   line-height: 1.6;
+  font-weight: 300;
 }
 
+/* --- GRID SYSTEM --- */
 .exploring-layout__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 30px;
 }
 
-/*
-  =========================================
-  CARD STYLES WITH CORRECTED SWEEPING GLOW
-  =========================================
-*/
+/* --- THE SWEEPING ORB CARD EFFECT --- */
 .exploring-layout__card-border {
-  border-radius: 18px;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.5s ease;
-  background: transparent;
-  padding: 1px;
+  padding: 1px; /* The border width */
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease;
 }
 
 .exploring-layout__card-border:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
 }
 
-/* This is the correct sweeping orb effect from your reference */
-.exploring-layout__card-border::before,
+/* Sweeping Orb Before (Maroon) */
+.exploring-layout__card-border::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -90px;
+  left: -90px;
+  background-image: radial-gradient(circle, var(--siddhi-maroon) 0%, transparent 70%);
+  z-index: 1;
+  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sweeping Orb After (Gold) */
 .exploring-layout__card-border::after {
   content: '';
   position: absolute;
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
+  bottom: -90px;
+  right: -90px;
+  background-image: radial-gradient(circle, var(--siddhi-gold) 0%, transparent 70%);
   z-index: 1;
-  transition: left 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
-              right 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: right 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* TOP ORB (White): Starts top-left */
-.exploring-layout__card-border::before {
-  top: -80px;
-  left: -80px;
-  background-image: radial-gradient(circle, #FFFFFF 0%, transparent 40%);
-}
-
-/* BOTTOM ORB (Green): Starts bottom-right */
-.exploring-layout__card-border::after {
-  bottom: -80px;
-  right: -80px;
-  background-image: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 40%);
-}
-
-/* On hover, move the TOP orb to the top-right */
 .exploring-layout__card-border:hover::before {
-  left: calc(100% - 80px);
+  left: calc(100% - 90px);
 }
 
-/* On hover, move the BOTTOM orb to the bottom-left */
 .exploring-layout__card-border:hover::after {
-  right: calc(100% - 80px);
+  right: calc(100% - 90px);
 }
 
 .exploring-layout__card {
-  background-color: rgba(17, 17, 17, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 17px;
-  padding: 24px;
+  background: #0a0a0a;
+  border-radius: 19px;
+  padding: 30px 24px;
   height: 100%;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: 20px;
   position: relative;
-  z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 2; /* Sits above the orbs */
 }
 
 .exploring-layout__icon-container {
-  flex-shrink: 0;
-  color: #A1A1AA;
-  transition: color 0.3s ease;
+  color: #666;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 
 .exploring-layout__card-border:hover .exploring-layout__icon-container {
-  color: #FFFFFF;
+  color: var(--siddhi-gold);
+  transform: scale(1.1);
 }
 
 .exploring-layout__text-content {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.5;
-  color: #f4f4f4;
+  color: #e0e0e0;
+  line-height: 1.3;
 }
 
 .exploring-layout__text-line {
   display: block;
 }
 
-/* 
-  =========================================
-  ANIMATIONS
-  =========================================
-*/
-.animate-left,
-.animate-zoom {
-  opacity: 0;
-}
+/* --- ANIMATIONS --- */
+.animate-left, .animate-zoom { opacity: 0; }
+
 .section-in-view .animate-left {
   animation: slideInLeft var(--animation-duration) var(--animation-timing-function) forwards;
 }
 .section-in-view .animate-zoom {
-  animation: zoomIn 0.8s ease-out forwards;
+  animation: zoomIn var(--animation-duration) var(--animation-timing-function) forwards;
 }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.5s; }
-.delay-4 { animation-delay: 0.6s; }
-.delay-5 { animation-delay: 0.7s; }
-.delay-6 { animation-delay: 0.8s; }
-.delay-7 { animation-delay: 0.9s; }
-.delay-8 { animation-delay: 1.0s; }
 
-/* 
-  =========================================
-  RESPONSIVE DESIGN 
-  =========================================
-*/
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }
+.delay-8 { animation-delay: 0.8s; }
+
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1024px) {
-  .exploring-layout__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .exploring-layout__title {
-    font-size: 2.5rem;
-  }
+  .exploring-layout__grid { grid-template-columns: repeat(2, 1fr); }
+  .exploring-layout__title { font-size: 2.2rem; }
 }
 
 @media (max-width: 768px) {
-    .exploring-layout__wrapper {
-        padding: 100px 20px;
-    }
-    .exploring-layout__title {
-        font-size: 2.2rem;
-    }
-    .exploring-layout__subtitle {
-        font-size: 17px;
-    }
-    .exploring-layout__card {
-        flex-direction: column;
-        text-align: center;
-    }
+    .exploring-layout__grid { grid-template-columns: 1fr; gap: 20px; }
+    .exploring-layout__title { font-size: 1.8rem; }
+    .exploring-layout__card { padding: 25px; }
 }
 
-@media (max-width: 640px) {
-  .exploring-layout__wrapper {
-    padding: 80px 16px;
-  }
-  .exploring-layout__grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .exploring-layout__title {
-    padding: 1rem 0;
-    font-size: 1.8rem;
-  }
-  .exploring-layout__subtitle {
-    font-size: 16px;
-  }
+@media (max-width: 480px) {
+    .exploring-layout__wrapper { padding: 60px 16px; }
+    .exploring-layout__title { font-size: 1.6rem; display: flex; flex-direction: column; align-items: center; }
+    .exploring-layout__title-text { margin-left: 0; margin-top: 5px; }
+    .exploring-layout__subtitle { font-size: 0.95rem; }
 }

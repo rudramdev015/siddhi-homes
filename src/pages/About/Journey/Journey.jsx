@@ -1,16 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-// Added FaUserGraduate, FaChartBar, FaLaptopCode to imports for your specific data
 import { 
-  FaShapes, 
-  FaRocket, 
   FaCalendarAlt, 
-  FaCode, 
-  FaServer, 
-  FaUserTie, 
-  FaUserGraduate, 
-  FaChartBar, 
-  FaLaptopCode 
+  FaCity, 
+  FaMapMarkedAlt, 
+  FaShieldAlt, 
+  FaRoad, 
+  FaKey, 
+  FaAward 
 } from 'react-icons/fa';
 import './Journey.css';
 
@@ -18,50 +15,50 @@ const journeyData = [
   {
     id: '01',
     theme: 'my-journey-layout-theme-orange',
-    year: 'September 2021',
-    flapContent: <FaUserGraduate />,
-    title: 'Engineering Start',
-    description: 'Enrolled in B.Tech CSE (Data Science) at JIET, Jodhpur. The beginning of my technical foundation.',
+    year: '2022',
+    flapContent: <FaCity />,
+    title: 'The Foundation',
+    description: 'Shree Mahaveer Real Estates was founded with a vision to redefine Jodhpur’s luxury residential landscape.',
   },
   {
     id: '02',
     theme: 'my-journey-layout-theme-yellow',
-    year: 'May 2023',
-    flapContent: <FaCode />,
-    title: 'MERN Training',
-    description: 'Trained at SSDN Technologies. Mastered React, Node, & Mongo. Built "ESKAJI Sweets" full-stack app.',
+    year: 'January 2023',
+    flapContent: <FaMapMarkedAlt />,
+    title: 'Strategic Acquisition',
+    description: 'Secured prime land in Pal, Jodhpur. Chosen for its superior connectivity and investment growth potential.',
   },
   {
     id: '03',
     theme: 'my-journey-layout-theme-purple',
-    year: 'June 2024 - August 2024',
-    flapContent: <FaChartBar />,
-    title: 'Power BI Intern',
-    description: 'Internship at Celebal Technologies. Created interactive dashboards and visualized complex business data.',
+    year: 'July 2023',
+    flapContent: <FaShieldAlt />,
+    title: 'RERA Milestone',
+    description: 'Received official RERA registration (RAJ/P/2023/2610), ensuring 100% transparency and trust for our clients.',
   },
   {
     id: '04',
     theme: 'my-journey-layout-theme-red',
-    year: 'June 2024 - August 2024',
-    flapContent: <FaLaptopCode />,
-    title: 'Frontend Intern',
-    description: 'Developer at Aarvy Technologies. Built responsive React UIs and integrated Node.js backend systems.',
+    year: 'Early 2024',
+    flapContent: <FaRoad />,
+    title: 'Infrastructure Phase',
+    description: 'Successfully completed 30ft wide internal roads, underground drainage, and a grand premium entrance gate.',
   },
   {
     id: '05',
     theme: 'my-journey-layout-theme-blue',
     year: 'May 2025',
-    flapContent: <FaRocket />,
-    title: 'Graduation',
-    description: 'B.Tech Completed with 8.82 CGPA. Specialized in Data Science & Full Stack Development.',
+    flapContent: <FaKey />,
+    title: 'The Grand Reveal',
+    description: 'Siddhi Homes reached 95% completion. Ready-to-move premium units opened for possession and site visits.',
   },
   {
     id: '06',
     theme: 'my-journey-layout-theme-green',
     year: 'Future',
-    flapContent: <FaUserTie />,
-    title: 'Professional',
-    description: 'Ready for the industry. Combining System Design, strong logic, and experience to build scalable solutions.',
+    flapContent: <FaAward />,
+    title: 'Future Legacy',
+    description: 'Continuing to build secure, integrated communities that blend modern luxury with Rajasthan’s rich heritage.',
   },
 ];
 
@@ -74,19 +71,19 @@ const Journey = () => {
         <svg className="my-journey-layout-bg-svg" viewBox="0 0 1440 1024" preserveAspectRatio="none">
           <path 
             d="M-50,200 C300,50 600,600 1500,100" 
-            stroke="#00ff00" strokeOpacity="0.15" strokeWidth="1" fill="none" 
+            stroke="#D4AF37" strokeOpacity="0.15" strokeWidth="1" fill="none" 
           />
           <path 
             d="M-100,600 C400,800 1000,300 1600,900" 
-            stroke="#00ff00" strokeOpacity="0.12" strokeWidth="1" fill="none" 
+            stroke="#D4AF37" strokeOpacity="0.12" strokeWidth="1" fill="none" 
           />
         </svg>
       </div>
 
       {/* HEADER SECTION */}
       <div className="my-journey-layout-header">
-        <h1 className="my-journey-layout-title">My Journey</h1>
-        <p className="my-journey-layout-subtitle">From Student to Professional Developer</p>
+        <h1 className="my-journey-layout-title">The Siddhi <span>Legacy</span></h1>
+        <p className="my-journey-layout-subtitle">A Timeline of Architectural Excellence & Commitment</p>
       </div>
 
       <div className="my-journey-layout-grid">
@@ -130,7 +127,7 @@ const Journey = () => {
               variants={wrapperVariants}
             >
 
-              {/* BACK - Now receives the theme class to match Bottom Div */}
+              {/* BACK */}
               <div className={`my-journey-layout-pocket-back ${item.theme}`} />
 
               {/* FLAP */}
@@ -138,14 +135,14 @@ const Journey = () => {
                 <div className="my-journey-layout-flap-shape"></div>
               </div>
 
-              {/* CARD - Dark Theme with White Separator */}
+              {/* CARD */}
               <motion.div
                 className={`my-journey-layout-content-card ${item.theme}-card`}
                 variants={cardVariants}
               >
                 <div className="my-journey-layout-card-top">
                   <span className="my-journey-layout-card-year"><FaCalendarAlt /> {item.year}</span>
-                  <FaCode style={{ color: '#888' }} />
+                  <FaCity style={{ color: '#888' }} />
                 </div>
                 <div className="my-journey-layout-card-body">
                   <h3>{item.title}</h3>
@@ -153,7 +150,7 @@ const Journey = () => {
                 </div>
               </motion.div>
 
-              {/* FRONT - Matches Back */}
+              {/* FRONT */}
               <div className={`my-journey-layout-pocket-front ${item.theme}`}>
                 <div className="my-journey-layout-bottom-icon-container">
                   {item.flapContent}
