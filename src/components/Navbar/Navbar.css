@@ -111,23 +111,50 @@
     width: 100%;
 }
 
-/* --- CTA BUTTON --- */
-.cta-button {
-    background: transparent;
-    border: 1px solid var(--gold-primary);
-    color: var(--gold-primary);
-    padding: 0.8rem 1.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+/* --- ACTION BUTTONS (Right Side) --- */
+.siddhi-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.action-btn {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
-.cta-button:hover {
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+/* WhatsApp Button Style */
+.whatsapp-btn {
+    color: var(--text-white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.whatsapp-btn:hover {
+    border-color: #25D366;
+    color: #25D366;
+}
+
+/* Contact/Book Visit Button Style */
+.contact-btn {
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.contact-btn:hover {
     background: var(--gold-primary);
     color: var(--luxury-black);
 }
@@ -160,6 +187,7 @@
     flex-direction: column;
     padding: 40px;
     transition: left 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+    border-right: 1px solid rgba(212, 175, 55, 0.1);
 }
 
 .siddhi-side-menu.active {
@@ -174,33 +202,69 @@
     gap: 10px;
     font-size: 0.9rem;
     letter-spacing: 2px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
-.siddhi-close-icon {
+.close-icon {
     font-size: 2rem;
 }
 
 .siddhi-side-links {
     list-style: none;
+    margin-bottom: 30px;
 }
 
 .siddhi-side-links li {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .siddhi-side-links li a {
     color: var(--text-white);
     text-decoration: none;
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     transition: 0.3s;
 }
 
 .siddhi-side-links li a:hover,
 .siddhi-side-links li a.active {
     color: var(--gold-primary);
-    padding-left: 15px;
+    padding-left: 10px;
+}
+
+/* Mobile Action Buttons (Inside Side Menu) */
+.mobile-menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+}
+
+.mobile-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.whatsapp-mobile {
+    background-color: rgba(37, 211, 102, 0.1);
+    color: #25D366;
+    border: 1px solid #25D366;
+}
+
+.contact-mobile {
+    background-color: var(--gold-primary);
+    color: var(--luxury-black);
 }
 
 .siddhi-side-footer {
@@ -231,6 +295,7 @@
     transform: translateY(-3px);
 }
 
+/* --- OVERLAY --- */
 .siddhi-overlay {
     position: fixed;
     inset: 0;
@@ -250,6 +315,12 @@
 /* --- MOBILE RESPONSIVE --- */
 @media screen and (max-width: 900px) {
     .siddhi-container { padding: 0 1.5rem; }
-    .siddhi-desktop-nav, .siddhi-contact-cta { display: none; }
-    .siddhi-side-menu { width: 100%; }
+    
+    /* Hide Desktop Nav and Actions on Tablet/Mobile */
+    .siddhi-desktop-nav, 
+    .siddhi-actions { 
+        display: none; 
+    }
+    
+    .siddhi-side-menu { width: 85%; max-width: 350px; }
 }

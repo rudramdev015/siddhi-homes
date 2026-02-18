@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaLinkedinIn, FaInstagram, FaFacebookF, FaPhoneAlt } from 'react-icons/fa';
+import { FaLinkedinIn, FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { RiCalendarCheckFill } from "react-icons/ri"; // Icon for Book Visit
 import './Navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
+
+    // Replace with your actual WhatsApp number (Country code + Number, no symbols)
+    const whatsappNumber = "918829040290"; 
+    const whatsappMessage = "Hello, I am interested in Siddhi Homes project.";
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,10 +33,9 @@ const Navbar = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const handleLinkClick = () => setIsMenuOpen(false);
 
-    // UPDATED: Redirected 'Properties' path to '/portfolio' (Your Gallery)
     const links = [
         { path: '/', label: 'Home' },
-        { path: '/portfolio', label: 'Gallery' }, // This was Properties
+        { path: '/portfolio', label: 'Gallery' },
         { path: '/about', label: 'Our Legacy' },
         { path: '/contact', label: 'Contact Us' }
     ];
@@ -47,6 +51,8 @@ const Navbar = () => {
         <div className="siddhi-nav-wrapper">
             <header className={`siddhi-header ${isScrolled ? 'scrolled' : ''}`}>
                 <div className="siddhi-container">
+                    
+                    {/* LEFT: Hamburger & Logo */}
                     <div className="siddhi-left-section">
                         <div 
                             className={`siddhi-hamburger ${isMenuOpen ? 'active' : ''}`} 
@@ -62,6 +68,7 @@ const Navbar = () => {
                         </Link>
                     </div>
 
+                    {/* CENTER: Desktop Nav */}
                     <nav className="siddhi-desktop-nav">
                         <ul>
                             {links.map(link => (
@@ -77,10 +84,24 @@ const Navbar = () => {
                         </ul>
                     </nav>
 
-                    <div className="siddhi-contact-cta">
-                        <a href="tel:+91XXXXXXXXXX" className="cta-button">
-                            <FaPhoneAlt /> <span>BOOK A VISIT</span>
+                    {/* RIGHT: Action Buttons */}
+                    <div className="siddhi-actions">
+                        {/* WhatsApp Button */}
+                        <a 
+                            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
+                            className="action-btn whatsapp-btn"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaWhatsapp className="btn-icon" />
+                            <span className="btn-text">WhatsApp</span>
                         </a>
+
+                        {/* Contact Page Link */}
+                        <Link to="/contact" className="action-btn contact-btn">
+                            <RiCalendarCheckFill className="btn-icon" />
+                            <span className="btn-text">BOOK A VISIT</span>
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -101,8 +122,8 @@ const Navbar = () => {
                 </div>
 
                 <ul className="siddhi-side-links">
-                    {links.map(link => (
-                        <li key={link.path} style={{ transitionDelay: `${links.indexOf(link) * 0.1}s` }}>
+                    {links.map((link, index) => (
+                        <li key={link.path} style={{ transitionDelay: `${index * 0.1}s` }}>
                             <Link 
                                 to={link.path} 
                                 className={location.pathname === link.path ? 'active' : ''}
@@ -113,6 +134,22 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
+
+                {/* Mobile Actions (Visible inside menu on phones) */}
+                <div className="mobile-menu-actions">
+                    <a 
+                        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
+                        className="mobile-action-btn whatsapp-mobile"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaWhatsapp /> Chat on WhatsApp
+                    </a>
+                    
+                    <Link to="/contact" className="mobile-action-btn contact-mobile" onClick={handleLinkClick}>
+                        <RiCalendarCheckFill /> Book a Visit
+                    </Link>
+                </div>
 
                 <div className="siddhi-side-footer">
                     <p className="side-footer-label">Connect With Us</p>

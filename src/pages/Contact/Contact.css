@@ -1,4 +1,3 @@
-/* Import Modern Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
 :root {
@@ -6,18 +5,10 @@
   --siddhi-navy: #0a1d37;
   --siddhi-gold: #c5a059;
   --siddhi-text: #333333;
-  --siddhi-light: #f4f4f4;
-  
-  --bg-duration: 1.2s;
-  --text-start-delay: 0.5s;
-  --ease-custom: cubic-bezier(0.25, 1, 0.5, 1);
+  --bg-light: #f9f9f9;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 .contact-page-container {
   width: 100%;
@@ -28,83 +19,55 @@
   overflow-x: hidden;
 }
 
-/* --- Layout Grid --- */
+/* Main Grid Layout */
 .contact-main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 40% 60%;
   min-height: 100vh;
 }
 
-/* --- Left Side: Brand & Info --- */
+/* --- Left Side: Info --- */
 .contact-info-section {
   background-color: var(--siddhi-maroon);
   color: white;
-  padding: 80px 10%;
+  padding: 60px 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
-}
-
-.brand-logo-area {
-  margin-bottom: 40px;
 }
 
 .brand-logo-area h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 2.8rem;
   letter-spacing: 2px;
   line-height: 1;
 }
 
 .brand-logo-area span {
   color: var(--siddhi-gold);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 4px;
 }
 
 .contact-tagline {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+  font-size: 1.1rem;
+  margin: 30px 0;
   border-left: 3px solid var(--siddhi-gold);
   padding-left: 20px;
   font-weight: 300;
+  line-height: 1.5;
 }
 
-.details-list {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+.details-list { display: flex; flex-direction: column; gap: 25px; }
+.detail-item { display: flex; gap: 15px; align-items: flex-start; }
+.detail-icon { color: var(--siddhi-gold); font-size: 1.4rem; margin-top: 3px; flex-shrink: 0; }
+.detail-content h4 { font-size: 0.85rem; text-transform: uppercase; color: var(--siddhi-gold); margin-bottom: 3px; }
+.detail-content p { font-size: 0.95rem; opacity: 0.9; }
 
-.detail-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-}
-
-.detail-icon {
-  color: var(--siddhi-gold);
-  font-size: 1.5rem;
-  margin-top: 5px;
-}
-
-.detail-content h4 {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  color: var(--siddhi-gold);
-  margin-bottom: 5px;
-}
-
-.detail-content p {
-  font-size: 1rem;
-  opacity: 0.9;
-}
-
-/* --- Right Side: Form & Map --- */
+/* --- Right Side: Form --- */
 .contact-form-section {
-  padding: 80px 10%;
+  padding: 60px 8%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -115,44 +78,65 @@
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   color: var(--siddhi-navy);
-  margin-bottom: 10px;
 }
 
-.form-subtitle {
-  margin-bottom: 40px;
-  color: #666;
-}
+.form-subtitle { margin-bottom: 30px; color: #666; font-size: 0.95rem; }
 
-/* Form Styles */
-.siddhi-form {
-  display: grid;
-  gap: 20px;
-}
+.siddhi-form { display: grid; gap: 20px; }
 
+/* Form Grid Logic */
 .input-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.siddhi-input, .siddhi-textarea {
+/* Labels for Date/Select fields */
+.date-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.input-label {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+/* Inputs, Textareas, Selects */
+.siddhi-input, .siddhi-textarea, .siddhi-select {
   width: 100%;
-  padding: 15px;
+  padding: 14px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-family: inherit;
-  transition: border 0.3s;
+  font-size: 0.95rem;
+  background-color: var(--bg-light);
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+/* Select Arrow Styling */
+.siddhi-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230a1d37%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 10px auto;
 }
 
 .siddhi-input:focus, .siddhi-textarea:focus {
   outline: none;
-  border-color: var(--siddhi-maroon);
+  border-color: var(--siddhi-navy);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(10, 29, 55, 0.1);
 }
 
 .siddhi-submit-btn {
   background-color: var(--siddhi-navy);
   color: white;
-  padding: 18px;
+  padding: 16px;
   border: none;
   border-radius: 4px;
   font-weight: 600;
@@ -160,68 +144,62 @@
   letter-spacing: 2px;
   cursor: pointer;
   transition: background 0.3s;
+  margin-top: 10px;
 }
+.siddhi-submit-btn:hover { background-color: var(--siddhi-gold); color: var(--siddhi-navy); }
 
-.siddhi-submit-btn:hover {
-  background-color: var(--siddhi-maroon);
-}
-
-/* --- Map Container --- */
+/* Map */
 .map-wrapper {
-  margin-top: 50px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  height: 300px;
-}
-
-/* --- Success Alert --- */
-.success-alert {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--siddhi-navy);
-  color: white;
-  padding: 20px 30px;
+  margin-top: 30px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  z-index: 1000;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  transform: translateX(120%);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  height: 250px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
-.success-alert.show {
-  transform: translateX(0);
+/* Success Alert */
+.success-alert {
+  position: fixed; top: 20px; right: 20px;
+  background: var(--siddhi-navy); color: white;
+  padding: 15px 25px; border-radius: 6px;
+  display: flex; align-items: center; gap: 15px;
+  z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transform: translateX(150%); transition: transform 0.4s ease-out;
 }
+.success-alert.show { transform: translateX(0); }
 
-/* --- Mobile Responsive --- */
-@media (max-width: 1024px) {
-  .contact-main-grid {
-    grid-template-columns: 1fr;
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) {
+  .contact-main-grid { grid-template-columns: 1fr; }
+  
+  .contact-info-section { 
+    padding: 50px 20px; 
+    text-align: center; 
+    align-items: center;
   }
   
-  .contact-info-section {
-    padding: 60px 5%;
+  .contact-tagline { 
+    border-left: none; 
+    border-bottom: 3px solid var(--siddhi-gold); 
+    padding-bottom: 20px; 
+    padding-left: 0; 
   }
-
-  .contact-form-section {
-    padding: 60px 5%;
+  
+  .details-list { 
+    align-items: flex-start; /* Keeps icons aligned nicely on mobile */
+    text-align: left; 
+    width: 100%;
+    max-width: 400px; /* Prevents it from getting too wide */
   }
+  
+  .contact-form-section { padding: 40px 20px; }
 }
 
 @media (max-width: 600px) {
-  .input-row {
-    grid-template-columns: 1fr;
-  }
+  /* IMPORTANT: Stacks the input pairs vertically on phones */
+  .input-row { grid-template-columns: 1fr; gap: 15px; } 
   
-  .brand-logo-area h1 {
-    font-size: 2.2rem;
-  }
-
-  .form-title {
-    font-size: 2rem;
-  }
+  .brand-logo-area h1 { font-size: 2rem; }
+  .form-title { font-size: 1.8rem; }
+  .siddhi-submit-btn { width: 100%; }
 }
