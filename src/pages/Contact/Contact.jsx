@@ -41,7 +41,7 @@ const Contact = () => {
     setErrorMessage(""); 
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const apiUrl = process.env.REACT_APP_API_URL || 'https://backendsiddhihomes.onrender.com';
       const response = await fetch(`${apiUrl}/send-message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
