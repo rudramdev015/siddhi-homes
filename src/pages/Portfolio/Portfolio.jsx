@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Portfolio.css";
-import { FaPlay, FaSearchPlus, FaTimes, FaCamera, FaVideo, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaPlay, FaSearchPlus, FaTimes, FaCamera, FaVideo, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// --- ASSET IMPORTS (Based on your VS Code screenshot) ---
+// --- ASSET IMPORTS ---
+// Ensure these images actually exist in your folder
 import img1 from './1.png.png';
 import img2 from './2.png.png';
 import img3 from './3.png.png';
@@ -19,7 +20,7 @@ import img19 from './19.png.jpeg';
 import img20 from './20.png.jpeg';
 import img21 from './21.png.jpeg';
 
-import mainVid from './2026-01-30-15-37-00-135.mov';
+// --- VIDEO IMPORTS ---
 import sm01 from './sm 01.mp4';
 import sm02 from './sm 02.mp4';
 import sm03 from './sm 03.mp4';
@@ -31,17 +32,26 @@ const Portfolio = () => {
   const [zoom, setZoom] = useState(1);
 
   const mediaData = [
-    { id: 1, type: 'video', src: mainVid, title: "Modern Elevation", cat: "Exterior", size: "large" },
-    { id: 2, type: 'video', src: sm01, title: "Interior Flow", cat: "Cinema", size: "medium" },
+    { 
+      id: 1, 
+      type: 'video', 
+      // Using a reliable public URL for the first video
+      src: "https://videos.pexels.com/video-files/7578552/7578552-uhd_2560_1440_30fps.mp4",
+      poster: img1, // CRITICAL: Shows this image if video is loading/broken
+      title: "Modern Elevation", 
+      cat: "Exterior", 
+      size: "large" 
+    },
+    { id: 2, type: 'video', src: sm01, poster: img12, title: "Interior Flow", cat: "Cinema", size: "medium" },
     { id: 3, type: 'photo', src: img1, title: "Grand Facade", cat: "Exterior", size: "large" },
     { id: 4, type: 'photo', src: img11, title: "Luxury Living", cat: "Interior", size: "small" },
     { id: 5, type: 'photo', src: img12, title: "Master Suite", cat: "Interior", size: "medium" },
-    { id: 6, type: 'video', src: sm02, title: "Garden View", cat: "Exterior", size: "small" },
-    { id: 7, type: 'video', src: sm03, title: "Night Ambiance", cat: "Cinema", size: "medium" },
+    { id: 6, type: 'video', src: sm02, poster: img13, title: "Garden View", cat: "Exterior", size: "small" },
+    { id: 7, type: 'video', src: sm03, poster: img16, title: "Night Ambiance", cat: "Cinema", size: "medium" },
     { id: 8, type: 'photo', src: img13, title: "Fine Dining", cat: "Interior", size: "large" },
     { id: 9, type: 'photo', src: img16, title: "Chef's Kitchen", cat: "Interior", size: "medium" },
     { id: 10, type: 'photo', src: img20, title: "Sky Balcony", cat: "Exterior", size: "large" },
-    { id: 11, type: 'video', src: sm04, title: "Sunrise View", cat: "Cinema", size: "small" },
+    { id: 11, type: 'video', src: sm04, poster: img21, title: "Sunrise View", cat: "Cinema", size: "small" },
     { id: 12, type: 'photo', src: img21, title: "Main Entrance", cat: "Exterior", size: "medium" },
   ];
 
@@ -52,12 +62,14 @@ const Portfolio = () => {
 
   const nextMedia = useCallback((e) => {
     e?.stopPropagation();
+    if (filteredMedia.length === 0) return;
     setSelectedIndex((prev) => (prev + 1) % filteredMedia.length);
     setZoom(1);
   }, [filteredMedia.length]);
 
   const prevMedia = useCallback((e) => {
     e?.stopPropagation();
+    if (filteredMedia.length === 0) return;
     setSelectedIndex((prev) => (prev - 1 + filteredMedia.length) % filteredMedia.length);
     setZoom(1);
   }, [filteredMedia.length]);
@@ -100,9 +112,19 @@ const Portfolio = () => {
                   <h3>{item.title}</h3>
                 </div>
               </div>
+              
+              {/* VIDEO LOGIC: Added Poster and Fallback */}
               {item.type === 'video' ? (
-                <video muted loop autoPlay playsInline className="media-bg">
+                <video 
+                  muted 
+                  loop 
+                  autoPlay 
+                  playsInline 
+                  className="media-bg"
+                  poster={item.poster} // THIS FIXES THE BLACK SCREEN
+                >
                   <source src={item.src} type="video/mp4" />
+                  Your browser does not support the video tag.
                 </video>
               ) : (
                 <img src={item.src} alt={item.title} className="media-bg" />
@@ -112,7 +134,7 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* --- ELITE LIGHTBOX (Strictly conditional to prevent leaking into footer) --- */}
+      {/* --- LIGHTBOX --- */}
       {selectedIndex !== null && currentMedia && (
         <div className="elite-lightbox">
           <div className="lightbox-backdrop" onClick={closeLightbox}></div>
@@ -131,7 +153,7 @@ const Portfolio = () => {
           <div className="lightbox-main-stage" onClick={e => e.stopPropagation()}>
             <div className="media-box" style={{ transform: `scale(${zoom})` }}>
                 {currentMedia.type === 'video' ? (
-                    <video controls autoPlay className="main-media">
+                    <video controls autoPlay className="main-media" poster={currentMedia.poster}>
                         <source src={currentMedia.src} />
                     </video>
                 ) : (

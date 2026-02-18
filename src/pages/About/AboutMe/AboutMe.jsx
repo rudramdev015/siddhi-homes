@@ -74,19 +74,19 @@ const AboutMe = () => {
               <div className="siddhi-about__contact-grid">
                 <a href="mailto:shreemahaveerrealestates@gmail.com" className="contact-link">
                   <span className="icon-circle"><SiGmail /></span>
-                  <span className="contact-text">shreemahaveer@gmail.com</span>
+                  <span className="contact-text">Email Us</span>
                 </a>
-                <div className="contact-link">
+                <a href="tel:+918233394004" className="contact-link">
                   <span className="icon-circle"><FaPhoneAlt /></span>
                   <span className="contact-text">+91 82333 94004</span>
-                </div>
-                <a href="https://wa.me/918233394004" className="contact-link">
-                  <span className="icon-circle"><FaWhatsapp /></span>
-                  <span className="contact-text">Chat on WhatsApp</span>
                 </a>
-                <a href="https://www.instagram.com/shreemahaveerrealestates/" className="contact-link">
+                <a href="https://wa.me/918233394004" className="contact-link" target="_blank" rel="noopener noreferrer">
+                  <span className="icon-circle"><FaWhatsapp /></span>
+                  <span className="contact-text">WhatsApp Chat</span>
+                </a>
+                <a href="https://www.instagram.com/shreemahaveerrealestates/" className="contact-link" target="_blank" rel="noopener noreferrer">
                   <span className="icon-circle"><SiInstagram /></span>
-                  <span className="contact-text">@shreemahaveerrealestates</span>
+                  <span className="contact-text">Instagram</span>
                 </a>
               </div>
             </div>
@@ -97,51 +97,47 @@ const AboutMe = () => {
               <div className="siddhi-about__image-mask">
                 <img src={propertyImg} alt="Siddhi Homes Exterior" />
               </div>
-              <div className="image-accent"></div>
-              <div className="rera-tag">RERA APPROVED: RAJ/P/2023/2610</div>
+              {/* Removed decorative accent div for cleaner mobile look */}
+              <div className="rera-tag">RERA: RAJ/P/2023/2610</div>
             </div>
           </div>
         </div>
 
         {/* --- BOTTOM SECTION (PROJECT EXCELLENCE) --- */}
         <div className={`siddhi-about__specs-card ${isSkillVisible ? 'in-view' : ''}`} ref={skillSectionRef}>
-          <div className="siddhi-about__specs-content">
+          <div className="siddhi-about__specs-grid">
             
-            <div className="spec-column">
+            {/* Column 1: Address */}
+            <div className="spec-column address-column">
               <div className="heading-row">
                 <h3>Project Address</h3>
-                <div className="status-tag">PAL, JODHPUR</div>
+                <span className="status-tag">PAL, JODHPUR</span>
               </div>
               <p className="para-muted">
-                Kh. No. 147/1, Behind Reliance Petrol Pump, Jodhpur (Rajasthan).
+                Kh. No. 147/1, Behind Reliance Petrol Pump,<br/> Pal Gaon, Jodhpur (Raj).
               </p>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="map-link">
+                <FaMapMarkerAlt /> View on Google Maps
+              </a>
             </div>
             
+            {/* Column 2: Features */}
             <div className="spec-column">
               <h3>Core Features</h3>
               <div className="list-container">
                 <ul className="spec-list">
                   <li><FaCheckCircle className="gold-icon" /> 62 Premium Units</li>
-                  <li><FaCheckCircle className="gold-icon" /> Individual JDA Patta</li>
+                  <li><FaCheckCircle className="gold-icon" /> JDA Patta</li>
                 </ul>
                 <div className="v-line"></div>
                 <ul className="spec-list">
                   <li><FaCheckCircle className="gold-icon" /> Ready-to-Move</li>
-                  <li><FaCheckCircle className="gold-icon" /> Gated Community</li>
+                  <li><FaCheckCircle className="gold-icon" /> Gated Society</li>
                 </ul>
               </div>
             </div>
 
-            <div className="spec-column">
-              <h3>Key Highlights</h3>
-              <div className="amenity-grid">
-                <div className="am-icon" title="Temple"><FaGopuram /></div>
-                <div className="am-icon" title="Architecture"><FaBuilding /></div>
-                <div className="am-icon" title="Modern Living"><FaHome /></div>
-                <div className="am-icon" title="Quality"><FaAward /></div>
-              </div>
-            </div>
-
+            {/* Column 3: Amenities Text */}
             <div className="spec-column">
               <h3>Modern Amenities</h3>
                <div className="list-container">
@@ -152,10 +148,33 @@ const AboutMe = () => {
                 </ul>
                 <div className="v-line"></div>
                 <ul className="spec-list">
-                  <li>Lush Landscaping</li>
-                  <li>Proper Drainage</li>
-                  <li>24x7 Water/Power</li>
+                  <li>Lush Garden</li>
+                  <li>Underground Light</li>
+                  <li>24x7 Water</li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Column 4: Highlights Icons */}
+            <div className="spec-column highlights-column">
+              <h3>Highlights</h3>
+              <div className="amenity-grid">
+                <div className="am-icon-box">
+                  <FaGopuram className="am-icon" />
+                  <span>Temple</span>
+                </div>
+                <div className="am-icon-box">
+                  <FaBuilding className="am-icon" />
+                  <span>Design</span>
+                </div>
+                <div className="am-icon-box">
+                  <FaHome className="am-icon" />
+                  <span>Living</span>
+                </div>
+                <div className="am-icon-box">
+                  <FaAward className="am-icon" />
+                  <span>Quality</span>
+                </div>
               </div>
             </div>
 
