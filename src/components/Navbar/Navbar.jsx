@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaLinkedinIn, FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { RiCalendarCheckFill } from "react-icons/ri"; // Icon for Book Visit
+import { RiCalendarCheckFill } from "react-icons/ri"; 
 import './Navbar.css';
+
+// IMPORT YOUR LOGO
+import LogoImage from './SMRE.png'; 
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
 
-    // Replace with your actual WhatsApp number (Country code + Number, no symbols)
+    // WhatsApp Config
     const whatsappNumber = "918829040290"; 
     const whatsappMessage = "Hello, I am interested in Siddhi Homes project.";
 
@@ -22,6 +25,7 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Lock body scroll when menu is open
     useEffect(() => {
         if(isMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -52,7 +56,7 @@ const Navbar = () => {
             <header className={`siddhi-header ${isScrolled ? 'scrolled' : ''}`}>
                 <div className="siddhi-container">
                     
-                    {/* LEFT: Hamburger & Logo */}
+                    {/* LEFT: Hamburger & Big Logo */}
                     <div className="siddhi-left-section">
                         <div 
                             className={`siddhi-hamburger ${isMenuOpen ? 'active' : ''}`} 
@@ -63,12 +67,13 @@ const Navbar = () => {
                             <span className="bar"></span>
                         </div>
 
-                        <Link to="/" className="siddhi-logo" onClick={handleLinkClick}>
-                            SIDDHI<span>HOMES</span>
+                        {/* Logo Image Link */}
+                        <Link to="/" className="siddhi-logo-link" onClick={handleLinkClick}>
+                            <img src={LogoImage} alt="Siddhi Homes" className="siddhi-logo-img" />
                         </Link>
                     </div>
 
-                    {/* CENTER: Desktop Nav */}
+                    {/* CENTER: Desktop Navigation */}
                     <nav className="siddhi-desktop-nav">
                         <ul>
                             {links.map(link => (
@@ -86,7 +91,6 @@ const Navbar = () => {
 
                     {/* RIGHT: Action Buttons */}
                     <div className="siddhi-actions">
-                        {/* WhatsApp Button */}
                         <a 
                             href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
                             className="action-btn whatsapp-btn"
@@ -97,7 +101,6 @@ const Navbar = () => {
                             <span className="btn-text">WhatsApp</span>
                         </a>
 
-                        {/* Contact Page Link */}
                         <Link to="/contact" className="action-btn contact-btn">
                             <RiCalendarCheckFill className="btn-icon" />
                             <span className="btn-text">BOOK A VISIT</span>
@@ -106,13 +109,13 @@ const Navbar = () => {
                 </div>
             </header>
 
-            {/* Side Menu Overlay */}
+            {/* Overlay */}
             <div 
                 className={`siddhi-overlay ${isMenuOpen ? 'active' : ''}`} 
                 onClick={toggleMenu}
             ></div>
 
-            {/* Animated Side Menu */}
+            {/* Side Menu */}
             <div className={`siddhi-side-menu ${isMenuOpen ? 'active' : ''}`}>
                 <div className="siddhi-side-header">
                     <div className="siddhi-close-btn" onClick={toggleMenu}>
@@ -135,7 +138,6 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                {/* Mobile Actions (Visible inside menu on phones) */}
                 <div className="mobile-menu-actions">
                     <a 
                         href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
@@ -145,7 +147,6 @@ const Navbar = () => {
                     >
                         <FaWhatsapp /> Chat on WhatsApp
                     </a>
-                    
                     <Link to="/contact" className="mobile-action-btn contact-mobile" onClick={handleLinkClick}>
                         <RiCalendarCheckFill /> Book a Visit
                     </Link>

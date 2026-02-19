@@ -3,8 +3,8 @@ import './AboutMe.css';
 import { FaPhoneAlt, FaWhatsapp, FaMapMarkerAlt, FaHome, FaCheckCircle, FaAward, FaBuilding, FaGopuram } from 'react-icons/fa';
 import { SiGmail, SiInstagram } from 'react-icons/si';
 
-// Use a high-quality property or architectural image
-const propertyImg = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop";
+// IMPORT YOUR LOCAL IMAGE HERE
+import propertyImg from './hero section SMRS (12).png';
 
 const AboutMe = () => {
   const [isTopVisible, setIsTopVisible] = useState(false);
@@ -97,7 +97,6 @@ const AboutMe = () => {
               <div className="siddhi-about__image-mask">
                 <img src={propertyImg} alt="Siddhi Homes Exterior" />
               </div>
-              {/* Removed decorative accent div for cleaner mobile look */}
               <div className="rera-tag">RERA: RAJ/P/2023/2610</div>
             </div>
           </div>

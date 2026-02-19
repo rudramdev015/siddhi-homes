@@ -2,9 +2,8 @@
 
 .siddhi-nav-wrapper {
     --gold-primary: #D4AF37;
-    --gold-light: #F2D479;
-    --luxury-black: #0f0f0f;
-    --luxury-gray: #1a1a1a;
+    --gold-hover: #F2D479;
+    --luxury-black: #050505;
     --text-white: #ffffff;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Montserrat', sans-serif;
@@ -13,36 +12,43 @@
 }
 
 .siddhi-nav-wrapper * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
 }
 
-/* --- HEADER --- */
+/* =========================================
+   1. STUNNING HEADER BACKGROUND
+   ========================================= */
 .siddhi-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 90px; 
+    top: 0; left: 0; width: 100%;
+    height: 110px; /* Big height for impact */
     z-index: 9999;
     display: flex;
     align-items: center;
-    background: transparent; 
+    
+    /* THE FIX: "Cinema Gradient" - Makes text visible on any background */
+    background: linear-gradient(
+        180deg, 
+        rgba(0,0,0,0.95) 0%, 
+        rgba(0,0,0,0.7) 40%, 
+        transparent 100%
+    );
+    
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Scrolled State: Glassmorphism + Gold Border */
 .siddhi-header.scrolled {
-    background: rgba(15, 15, 15, 0.95); 
-    height: 75px;
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: rgba(5, 5, 5, 0.9); /* Deep luxury black */
+    height: 85px; 
+    backdrop-filter: blur(20px); /* Frosted glass effect */
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3); /* Subtle Gold Line */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8); /* Deep shadow */
 }
 
 .siddhi-container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1450px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -50,44 +56,56 @@
     padding: 0 4rem;
 }
 
+/* =========================================
+   2. LOGO VISIBILITY FIX (MAKE IT WHITE)
+   ========================================= */
 .siddhi-left-section {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
 }
 
-/* --- LOGO --- */
-.siddhi-logo {
-    color: var(--text-white);
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 800;
+.siddhi-logo-link {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: 2px;
+    height: 100%;
 }
 
-.siddhi-logo span {
-    color: var(--gold-primary);
-    font-weight: 400;
-    margin-left: 5px;
+.siddhi-logo-img {
+    height: 90px; /* Desktop Size */
+    width: auto;
+    object-fit: contain;
+    transition: all 0.4s ease;
+    
+    /* !!! THE MAGIC FIX !!! */
+    /* This turns black text logo into WHITE text */
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
-/* --- DESKTOP NAV --- */
+.siddhi-header.scrolled .siddhi-logo-img {
+    height: 65px; 
+}
+
+/* =========================================
+   3. NAVIGATION & BUTTONS
+   ========================================= */
 .siddhi-desktop-nav ul {
     display: flex;
     list-style: none;
-    gap: 2.5rem;
+    gap: 3rem;
 }
 
 .siddhi-desktop-nav ul li a {
     color: var(--text-white);
     text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     position: relative;
     transition: color 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Text shadow for visibility */
 }
 
 .siddhi-desktop-nav ul li a:hover,
@@ -95,15 +113,13 @@
     color: var(--gold-primary);
 }
 
+/* Underline Animation */
 .siddhi-desktop-nav ul li a::after {
     content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 0%;
-    height: 1px;
+    position: absolute; bottom: -8px; left: 0; width: 0%; height: 2px;
     background: var(--gold-primary);
     transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--gold-primary); /* Gold Glow */
 }
 
 .siddhi-desktop-nav ul li a:hover::after,
@@ -111,216 +127,145 @@
     width: 100%;
 }
 
-/* --- ACTION BUTTONS (Right Side) --- */
+/* Buttons */
 .siddhi-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    display: flex; align-items: center; gap: 20px;
 }
 
 .action-btn {
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0.7rem 1.2rem;
-    font-size: 0.75rem;
+    display: flex; align-items: center; gap: 10px;
+    padding: 0.8rem 1.4rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    border-radius: 2px;
+    border-radius: 4px;
 }
+.btn-icon { font-size: 1.2rem; }
 
-.btn-icon {
-    font-size: 1.1rem;
-}
-
-/* WhatsApp Button Style */
 .whatsapp-btn {
     color: var(--text-white);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0,0,0,0.3); /* Semi-transparent bg */
 }
-
 .whatsapp-btn:hover {
-    border-color: #25D366;
-    color: #25D366;
+    border-color: #25D366; color: #25D366; background: rgba(37, 211, 102, 0.1);
 }
 
-/* Contact/Book Visit Button Style */
 .contact-btn {
-    background: transparent;
+    background: rgba(212, 175, 55, 0.1); /* Gold tint bg */
     border: 1px solid var(--gold-primary);
     color: var(--gold-primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
 }
-
 .contact-btn:hover {
-    background: var(--gold-primary);
-    color: var(--luxury-black);
+    background: var(--gold-primary); color: #000;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-/* --- HAMBURGER --- */
+/* Hamburger */
 .siddhi-hamburger {
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: flex; flex-direction: column; gap: 7px;
+    padding: 10px;
 }
-
 .siddhi-hamburger .bar {
-    width: 25px;
-    height: 1px;
+    width: 35px; height: 2px;
     background: var(--gold-primary);
     transition: 0.3s;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-/* --- SIDE MENU --- */
+/* =========================================
+   4. SIDE MENU (MOBILE DRAWER)
+   ========================================= */
 .siddhi-side-menu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 350px;
-    height: 100vh;
-    background: var(--luxury-black);
+    position: fixed; top: 0; left: -100%;
+    width: 350px; height: 100vh;
+    background: #000000; /* Pure Black */
     z-index: 10000;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     padding: 40px;
     transition: left 0.6s cubic-bezier(0.8, 0, 0.2, 1);
-    border-right: 1px solid rgba(212, 175, 55, 0.1);
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
 }
-
-.siddhi-side-menu.active {
-    left: 0;
-}
+.siddhi-side-menu.active { left: 0; }
 
 .siddhi-close-btn {
-    color: var(--gold-primary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
+    color: var(--gold-primary); cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 50px;
 }
+.close-icon { font-size: 2.2rem; }
 
-.close-icon {
-    font-size: 2rem;
-}
-
-.siddhi-side-links {
-    list-style: none;
-    margin-bottom: 30px;
-}
-
-.siddhi-side-links li {
-    margin-bottom: 1.5rem;
-}
-
+.siddhi-side-links { list-style: none; margin-bottom: 30px; }
+.siddhi-side-links li { margin-bottom: 1.8rem; }
 .siddhi-side-links li a {
-    color: var(--text-white);
-    text-decoration: none;
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
+    color: var(--text-white); text-decoration: none;
+    font-family: var(--font-heading); font-size: 1.8rem;
     transition: 0.3s;
 }
-
-.siddhi-side-links li a:hover,
-.siddhi-side-links li a.active {
-    color: var(--gold-primary);
-    padding-left: 10px;
+.siddhi-side-links li a:hover {
+    color: var(--gold-primary); padding-left: 15px;
 }
 
-/* Mobile Action Buttons (Inside Side Menu) */
+/* Mobile Actions */
 .mobile-menu-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
+    display: flex; flex-direction: column; gap: 15px;
+    margin-bottom: 30px; padding-top: 30px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 30px;
 }
-
 .mobile-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px; text-decoration: none; font-size: 0.95rem;
+    text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; font-weight: 600;
 }
+.whatsapp-mobile { background: rgba(37, 211, 102, 0.1); color: #25D366; border: 1px solid #25D366; }
+.contact-mobile { background: var(--gold-primary); color: #000; }
 
-.whatsapp-mobile {
-    background-color: rgba(37, 211, 102, 0.1);
-    color: #25D366;
-    border: 1px solid #25D366;
-}
-
-.contact-mobile {
-    background-color: var(--gold-primary);
-    color: var(--luxury-black);
-}
-
-.siddhi-side-footer {
-    margin-top: auto;
-}
-
+.siddhi-side-footer { margin-top: auto; }
 .side-footer-label {
-    color: #555;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    color: #666; font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 20px;
 }
+.siddhi-social-row { display: flex; gap: 25px; }
+.siddhi-social-item { color: var(--text-white); font-size: 1.4rem; transition: 0.3s; }
+.siddhi-social-item:hover { color: var(--gold-primary); transform: translateY(-3px); }
 
-.siddhi-social-row {
-    display: flex;
-    gap: 20px;
-}
-
-.siddhi-social-item {
-    color: var(--text-white);
-    font-size: 1.2rem;
-    transition: 0.3s;
-}
-
-.siddhi-social-item:hover {
-    color: var(--gold-primary);
-    transform: translateY(-3px);
-}
-
-/* --- OVERLAY --- */
+/* Overlay */
 .siddhi-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    z-index: 9998;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.5s;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px); z-index: 9998;
+    opacity: 0; visibility: hidden; transition: 0.5s;
 }
+.siddhi-overlay.active { opacity: 1; visibility: visible; }
 
-.siddhi-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* --- MOBILE RESPONSIVE --- */
+/* =========================================
+   5. MOBILE RESPONSIVE
+   ========================================= */
 @media screen and (max-width: 900px) {
     .siddhi-container { padding: 0 1.5rem; }
     
-    /* Hide Desktop Nav and Actions on Tablet/Mobile */
-    .siddhi-desktop-nav, 
-    .siddhi-actions { 
-        display: none; 
+    /* Header stays distinct on mobile */
+    .siddhi-header { 
+        height: 90px;
+        background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, transparent 100%);
+    }
+    .siddhi-header.scrolled { height: 75px; }
+
+    .siddhi-left-section { gap: 1.5rem; }
+
+    /* BIG VISIBLE LOGO ON MOBILE */
+    .siddhi-logo-img {
+        height: 55px; /* Huge for mobile */
     }
     
-    .siddhi-side-menu { width: 85%; max-width: 350px; }
+    .siddhi-header.scrolled .siddhi-logo-img {
+        height: 48px;
+    }
+    
+    .siddhi-desktop-nav, .siddhi-actions { display: none; }
+    .siddhi-side-menu { width: 85%; max-width: 320px; }
 }

@@ -4,7 +4,7 @@ import { FaInstagram } from 'react-icons/fa';
 
 const InstagramShowcase = () => {
   
-  // This effect ensures Instagram's embed script re-runs when the component mounts
+  // Force Instagram script to re-run to render embeds correctly
   useEffect(() => {
     if (window.instgrm) {
       window.instgrm.Embeds.process();
@@ -17,13 +17,9 @@ const InstagramShowcase = () => {
   }, []);
 
   const reels = [
-    "https://www.instagram.com/reel/DS7lOXUD9XB/",
+    "https://www.instagram.com/reel/DS7lOXUD9XB/", 
     "https://www.instagram.com/reel/DSuIcuPCdnl/",
-    "https://www.instagram.com/reel/DQofyLyCbsR/",
-    "https://www.instagram.com/reel/DQRE2NmiRql/",
-    "https://www.instagram.com/reel/DUX5I6diR0j/",
-    "https://www.instagram.com/reel/DUAgpcwCQkL/",
-    "https://www.instagram.com/reel/DUdG_yWiXHK/",
+    "https://www.instagram.com/reel/DUX5I6diR0j/", // <--- REPLACED LINK (Different Reel)
     "https://www.instagram.com/reel/DSH5p9dCWfK/"
   ];
 
@@ -32,11 +28,12 @@ const InstagramShowcase = () => {
       <div className="siddhi-insta-bg-glow"></div>
       
       <div className="siddhi-insta-container">
+        
         <header className="siddhi-insta-header">
-          <span className="siddhi-insta-tag">Experience Our Journey</span>
-          <h2 className="siddhi-insta-title">Life at <span>Siddhi Homes</span></h2>
+          <span className="siddhi-insta-tag">Social Feed</span>
+          <h2 className="siddhi-insta-title">Trending at <span>Siddhi Homes</span></h2>
           <p className="siddhi-insta-subtitle">
-            Follow our latest project updates, site visits, and luxury interiors directly from our Instagram feed.
+            A glimpse into our premium developments and happy homeowners.
           </p>
         </header>
 
@@ -48,8 +45,7 @@ const InstagramShowcase = () => {
                 data-instgrm-permalink={`${url}?utm_source=ig_embed&amp;utm_campaign=loading`}
                 data-instgrm-version="14"
               >
-                {/* Fallback link while loading */}
-                <a href={url} target="_blank" rel="noopener noreferrer">View Reel</a>
+                <a href={url} target="_blank" rel="noopener noreferrer">View on Instagram</a>
               </blockquote>
             </div>
           ))}

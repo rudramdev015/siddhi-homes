@@ -13,12 +13,14 @@
   background-color: var(--siddhi-black);
   position: relative;
   overflow: hidden;
+  /* Ensure it doesn't overflow horizontally */
+  max-width: 100vw; 
 }
 
 .siddhi-about-container {
   position: relative;
   width: 100%;
-  height: 100vh; 
+  min-height: 100vh; 
   display: flex;
 }
 
@@ -27,49 +29,60 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: #000; /* Fallback color */
 }
 
 .siddhi-about-bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.5); /* Darken image globally */
+  /* Darken the image so text pops nicely */
+  filter: brightness(0.6) contrast(1.1); 
   transition: transform 8s ease-out;
 }
 
 .siddhi-visible .siddhi-about-bg-image {
-  transform: scale(1.1);
+  transform: scale(1.05); /* Slow Zoom Effect */
 }
 
-/* Extra gradient to ensure text on right is 100% visible */
+/* Gradient Overlay: Makes text readable on any image */
 .siddhi-dark-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 50%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(
+    to right, 
+    rgba(0,0,0,0.7) 0%, 
+    rgba(0,0,0,0.3) 50%, 
+    rgba(0,0,0,0.8) 100%
+  );
+  z-index: 1;
 }
 
-/* --- PANELS --- */
+/* --- PANELS (Split Screen Effect) --- */
 .siddhi-about-panel {
   position: absolute;
   top: 0;
   height: 100%;
   width: 100%;
-  transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-  z-index: 1;
+  transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+  z-index: 2;
 }
 
 .siddhi-left-panel {
   left: 0;
-  clip-path: polygon(0 0, 50% 0, 35% 100%, 0 100%);
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
+  /* Diagonal Cut */
+  clip-path: polygon(0 0, 55% 0, 40% 100%, 0 100%);
+  /* Frosted Glass Effect on Left */
+  background: rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(3px);
   transform: translateX(-100%);
 }
 
 .siddhi-right-panel {
   right: 0;
-  clip-path: polygon(50% 0, 100% 0, 100% 100%, 35% 100%);
-  background: rgba(0, 0, 0, 0.2);
+  /* Diagonal Cut Matching Left */
+  clip-path: polygon(55% 0, 100% 0, 100% 100%, 40% 100%);
+  background: transparent;
   transform: translateX(100%);
 }
 
@@ -77,7 +90,7 @@
   transform: translateX(0);
 }
 
-/* --- CONTENT --- */
+/* --- CONTENT POSITIONING --- */
 .siddhi-about-content {
   position: absolute;
   top: 0;
@@ -85,8 +98,8 @@
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transition: opacity 1s ease-out 1.2s, transform 1s ease-out 1.2s;
-  transform: translateY(20px);
+  transition: opacity 1s ease-out 0.8s, transform 1s ease-out 0.8s;
+  transform: translateY(30px);
 }
 
 .siddhi-visible .siddhi-about-content {
@@ -95,93 +108,137 @@
 }
 
 .siddhi-content-left {
-  left: 5%;
+  left: 8%;
   width: 40%;
   justify-content: center;
 }
 
 .siddhi-content-right {
-  right: 5%;
-  width: 50%;
+  right: 8%;
+  width: 45%;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-end; /* Align text to right */
 }
 
-/* --- TEXT STYLING (EYE CATCHING) --- */
+/* --- TYPOGRAPHY --- */
 .siddhi-subtitle {
   color: var(--siddhi-gold);
-  letter-spacing: 5px;
-  font-size: 0.85rem;
+  letter-spacing: 4px;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  font-family: var(--siddhi-font-sans);
 }
 
 #siddhi-about-title {
   font-family: var(--siddhi-font-serif);
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   color: var(--siddhi-white);
-  line-height: 0.9;
+  line-height: 0.95;
   text-transform: uppercase;
 }
 
 #siddhi-about-title span {
-  color: var(--siddhi-gold);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--siddhi-gold);
   display: block;
+  font-weight: 900;
 }
 
-/* Card backdrop for text visibility */
+/* Text Card with Glassmorphism */
 .siddhi-text-card {
-  max-width: 500px;
+  max-width: 550px;
   text-align: right;
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.5); /* Semi-black box to make text pop */
-  border-right: 3px solid var(--siddhi-gold);
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.6); /* Dark background for readability */
+  border-right: 4px solid var(--siddhi-gold);
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 #siddhi-about-description {
-  font-size: 1.25rem;
-  line-height: 1.6;
+  font-family: var(--siddhi-font-sans);
+  font-size: 1.15rem;
+  line-height: 1.7;
   color: var(--siddhi-white);
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  margin-bottom: 20px;
 }
 
 .siddhi-secondary-desc {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 30px;
+  font-family: var(--siddhi-font-sans);
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 35px;
   font-weight: 300;
+  line-height: 1.6;
 }
 
-/* --- BUTTON --- */
+/* --- BUTTON STYLING --- */
 #siddhi-about-btn {
   display: inline-block;
-  font-size: 0.8rem;
+  font-family: var(--siddhi-font-sans);
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 3px;
-  color: var(--siddhi-white);
-  border: 1px solid var(--siddhi-gold);
-  padding: 15px 40px;
+  letter-spacing: 2px;
+  color: var(--siddhi-black);
+  padding: 16px 45px;
   text-decoration: none;
-  background: linear-gradient(to right, var(--siddhi-gold) 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.5s ease-out;
+  background: var(--siddhi-gold);
+  border: 1px solid var(--siddhi-gold);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
 #siddhi-about-btn:hover {
-  background-position: left bottom;
-  color: #000;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  background: transparent;
+  color: var(--siddhi-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
-/* --- MOBILE --- */
-@media (max-width: 768px) {
-  .siddhi-about-container { height: auto; flex-direction: column; padding: 80px 20px; }
-  .siddhi-about-panel { position: relative; clip-path: none; transform: none; background: none; width: 100%; height: auto; }
-  .siddhi-about-content { position: relative; width: 100%; left: 0; right: 0; opacity: 1; transform: none; align-items: center; text-align: center; }
-  .siddhi-text-card { text-align: center; border-right: none; border-bottom: 3px solid var(--siddhi-gold); background: rgba(0,0,0,0.8); }
-  #siddhi-about-title { font-size: 3.5rem; margin-bottom: 30px; }
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+  .siddhi-about-container {
+    height: auto;
+    flex-direction: column;
+    padding: 60px 0;
+  }
+  
+  .siddhi-about-panel {
+    position: relative;
+    clip-path: none;
+    transform: none !important;
+    background: none;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+  
+  .siddhi-about-content {
+    position: relative;
+    width: 100%;
+    left: 0; right: 0;
+    opacity: 1;
+    transform: none !important;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .siddhi-content-left {
+    margin-bottom: 40px;
+  }
+  
+  .siddhi-text-card {
+    text-align: center;
+    border-right: none;
+    border-bottom: 4px solid var(--siddhi-gold);
+    background: rgba(0,0,0,0.7);
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  
+  #siddhi-about-title {
+    font-size: 3rem;
+  }
 }

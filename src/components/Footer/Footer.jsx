@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-// Using your specific file names
+// Your file imports
 import ProjectLogo from './SMRE.png';
 import GroupLogo from './Clients Logos (3) (1).png';
 
@@ -16,92 +16,118 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return (
-    <footer className="stunning-footer">
-      {/* 1. TOP GRADIENT ACCENT */}
-      <div className="footer-glow-line"></div>
+  const currentYear = new Date().getFullYear();
 
-      <div className="footer-max-container">
+  return (
+    <footer className="luxury-footer">
+      {/* Top Gradient Border */}
+      <div className="footer-border-gradient"></div>
+
+      <div className="footer-container">
         
-        {/* 2. DUAL LOGO HERO SECTION */}
-        <div className="footer-hero-branding">
-          <div className="dual-logo-designer-box">
-            <div className="logo-unit project-anim">
-              <img src={ProjectLogo} alt="Siddhi Homes" />
-            </div>
-            <div className="logo-divider-gold"></div>
-            <div className="logo-unit group-anim">
-              <img src={GroupLogo} alt="Shree Mahaveer Group" />
+        {/* === BRANDING SECTION (HERO) === */}
+        <div className="footer-brand-section">
+          {/* Spotlight Effect Container */}
+          <div className="logo-spotlight-wrapper">
+            <div className="brand-logos">
+              {/* Project Logo */}
+              <div className="logo-wrapper project-logo">
+                <img src={ProjectLogo} alt="Siddhi Homes" />
+              </div>
+              
+              {/* Vertical Divider */}
+              <div className="brand-divider"></div>
+              
+              {/* Group Logo */}
+              <div className="logo-wrapper group-logo">
+                <img src={GroupLogo} alt="Shree Mahaveer Group" />
+              </div>
             </div>
           </div>
-          <p className="footer-motto">
-            "Crafting Legacies, Building Trust. Jodhpur's Premier Luxury Residential Landmark."
+          
+          <p className="brand-quote">
+            "Crafting Legacies, Building Trust. <br className="mobile-break" />
+            Jodhpur's Premier Luxury Residential Landmark."
           </p>
         </div>
 
-        {/* 3. INFORMATION GRID */}
-        <div className="footer-main-grid">
+        {/* === MAIN GRID CONTENT === */}
+        <div className="footer-content-grid">
           
-          {/* COLUMN: QUICK LINKS */}
-          <div className="footer-grid-col">
-            <h4 className="footer-col-title">Navigation</h4>
-            <ul className="footer-nav-links">
-              <li><Link to="/"><FaChevronRight className="nav-arrow"/> Home</Link></li>
-              <li><Link to="/about"><FaChevronRight className="nav-arrow"/> About Project</Link></li>
-              <li><Link to="/portfolio"><FaChevronRight className="nav-arrow"/> Gallery</Link></li>
-              <li><Link to="/hometech"><FaChevronRight className="nav-arrow"/> Amenities</Link></li>
-              <li><Link to="/contact"><FaChevronRight className="nav-arrow"/> Contact Us</Link></li>
+          {/* 1. Navigation */}
+          <div className="footer-col nav-col">
+            <h4 className="col-header">Explore</h4>
+            <ul className="footer-links">
+              <li><Link to="/" onClick={scrollToTop}><FaChevronRight className="link-arrow"/> Home</Link></li>
+              <li><Link to="/about" onClick={scrollToTop}><FaChevronRight className="link-arrow"/> About Project</Link></li>
+              <li><Link to="/portfolio" onClick={scrollToTop}><FaChevronRight className="link-arrow"/> Gallery</Link></li>
+              <li><Link to="/hometech" onClick={scrollToTop}><FaChevronRight className="link-arrow"/> Amenities</Link></li>
+              <li><Link to="/contact" onClick={scrollToTop}><FaChevronRight className="link-arrow"/> Contact Us</Link></li>
             </ul>
           </div>
 
-          {/* COLUMN: CONTACT DETAILS */}
-          <div className="footer-grid-col">
-            <h4 className="footer-col-title">Get In Touch</h4>
-            <div className="footer-contact-stack">
-              <div className="contact-row">
-                <FaMapMarkerAlt className="icon-gold"/>
-                <p>E78/79 Near Bal Vidhya Mandir, Shastri Nagar, Jodhpur, RJ</p>
+          {/* 2. Contact Info */}
+          <div className="footer-col contact-col">
+            <h4 className="col-header">Get In Touch</h4>
+            <div className="contact-list">
+              <div className="contact-item">
+                <div className="icon-box"><FaMapMarkerAlt /></div>
+                <p>E78/79 Near Bal Vidhya Mandir,<br/>Shastri Nagar, Jodhpur, RJ</p>
               </div>
-              <div className="contact-row">
-                <FaPhoneAlt className="icon-gold"/>
-                <p>+91 88279 040290 <br/> +91 82333 94004</p>
+              <div className="contact-item">
+                <div className="icon-box"><FaPhoneAlt /></div>
+                <p>
+                  <a href="tel:+9188279040290">+91 88279 040290</a> <br/> 
+                  <a href="tel:+918233394004">+91 82333 94004</a>
+                </p>
               </div>
-              <div className="contact-row">
-                <FaEnvelope className="icon-gold"/>
-                <p>shreemahaveer@gmail.com</p>
+              <div className="contact-item">
+                <div className="icon-box"><FaEnvelope /></div>
+                <p><a href="mailto:shreemahaveer@gmail.com">shreemahaveer@gmail.com</a></p>
               </div>
             </div>
           </div>
 
-          {/* COLUMN: CTA DESIGNER CARD */}
-          <div className="footer-grid-col cta-column">
-            <div className="footer-designer-card">
-              <FaBuilding className="card-bg-icon" />
-              <h5>Ready to Move?</h5>
-              <p>Schedule a private site visit today and see your future home.</p>
-              <Link to="/contact" className="footer-btn-gold">Book Site Visit</Link>
+          {/* 3. CTA Card */}
+          <div className="footer-col cta-col">
+            <div className="premium-cta-card">
+              <FaBuilding className="bg-watermark" />
+              <div className="cta-content">
+                <h5>Ready to Move?</h5>
+                <p>Experience luxury firsthand. Schedule your private viewing today.</p>
+                <Link to="/contact" className="gold-button" onClick={scrollToTop}>
+                  Book Site Visit
+                </Link>
+              </div>
             </div>
           </div>
 
         </div>
 
-        {/* 4. SOCIAL & COPYRIGHT BAR */}
-        <div className="footer-bottom-designer">
-          <div className="designer-separator"></div>
-          <div className="bottom-content-wrap">
-            <div className="social-icon-row">
-              <a href="https://wa.me/918233394004" target="_blank" rel="noreferrer" className="s-icon wa"><FaWhatsapp /></a>
-              <a href="https://www.instagram.com/shreemahaveerrealestates/" target="_blank" rel="noreferrer" className="s-icon ig"><FaInstagram /></a>
-              <a href="mailto:shreemahaveer@gmail.com" className="s-icon em"><FaEnvelope /></a>
-            </div>
-            
-            <div className="copyright-designer">
-              &copy; {new Date().getFullYear()} <span className="gold-txt">SIDDHI HOMES</span> | 
-              Developed by <span className="maroon-txt">Shree Mahaveer Group</span>
+        {/* === FOOTER BOTTOM === */}
+        <div className="footer-bottom">
+          <div className="footer-divider"></div>
+          
+          <div className="bottom-wrapper">
+            <div className="social-links">
+              <a href="https://wa.me/918233394004" target="_blank" rel="noreferrer" className="social-btn whatsapp">
+                <FaWhatsapp />
+              </a>
+              <a href="https://www.instagram.com/shreemahaveerrealestates/" target="_blank" rel="noreferrer" className="social-btn insta">
+                <FaInstagram />
+              </a>
+              <a href="mailto:shreemahaveer@gmail.com" className="social-btn mail">
+                <FaEnvelope />
+              </a>
             </div>
 
-            <button onClick={scrollToTop} className="footer-scroll-top">
-              <FaArrowUp /> <span>TOP</span>
+            <div className="copyright-text">
+              © {currentYear} <span className="highlight-gold">SIDDHI HOMES</span>. 
+              Developed by <span className="highlight-maroon">Shree Mahaveer Group</span>.
+            </div>
+
+            <button className="scroll-top-btn" onClick={scrollToTop}>
+              <FaArrowUp />
             </button>
           </div>
         </div>

@@ -1,78 +1,53 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Portfolio.css";
-import { FaPlay, FaSearchPlus, FaTimes, FaCamera, FaVideo, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaPlay, FaSearchPlus, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// --- ASSET IMPORTS ---
-// Ensure these images actually exist in your folder
-import img1 from './1.png.png';
-import img2 from './2.png.png';
-import img3 from './3.png.png';
-import img4 from './4.png.png';
-import img11 from './11.png.jpeg';
-import img12 from './12.png.jpeg';
-import img13 from './13.png.jpeg';
-import img14 from './14.png.jpeg';
-import img15 from './15.png.jpeg';
-import img16 from './16.png.jpeg';
-import img17 from './17.png.jpeg';
-import img18 from './18.png.jpeg';
-import img19 from './19.png.jpeg';
-import img20 from './20.png.jpeg';
-import img21 from './21.png.jpeg';
-
-// --- VIDEO IMPORTS ---
-import sm01 from './sm 01.mp4';
-import sm02 from './sm 02.mp4';
-import sm03 from './sm 03.mp4';
-import sm04 from './sm 04.mp4';
+// --- LOCAL ASSET IMPORTS (Using your specific files) ---
+import hero12 from './hero section SMRS (12).png'; // Main Exterior
+import hero15 from './hero section SMRS (15).png'; // Interior/Detail
+import vid02 from './sm 02.mp4'; // Video 1
+import vid03 from './sm 03.mp4'; // Video 2
+import h10 from './hero section SMRS (10).png'; // Poster for video
+import h17 from './hero section SMRS (17).png'; // Poster for video
 
 const Portfolio = () => {
-  const [filter, setFilter] = useState('all');
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [zoom, setZoom] = useState(1);
 
+  // EXACTLY 4 ITEMS FOR THE HOME PAGE
   const mediaData = [
     { 
-      id: 1, 
-      type: 'video', 
-      // Using a reliable public URL for the first video
-      src: "https://videos.pexels.com/video-files/7578552/7578552-uhd_2560_1440_30fps.mp4",
-      poster: img1, // CRITICAL: Shows this image if video is loading/broken
-      title: "Modern Elevation", 
-      cat: "Exterior", 
-      size: "large" 
+      id: 1, type: 'photo', src: hero12, 
+      title: "The Grand Elevation", cat: "Exterior", size: "large" 
     },
-    { id: 2, type: 'video', src: sm01, poster: img12, title: "Interior Flow", cat: "Cinema", size: "medium" },
-    { id: 3, type: 'photo', src: img1, title: "Grand Facade", cat: "Exterior", size: "large" },
-    { id: 4, type: 'photo', src: img11, title: "Luxury Living", cat: "Interior", size: "small" },
-    { id: 5, type: 'photo', src: img12, title: "Master Suite", cat: "Interior", size: "medium" },
-    { id: 6, type: 'video', src: sm02, poster: img13, title: "Garden View", cat: "Exterior", size: "small" },
-    { id: 7, type: 'video', src: sm03, poster: img16, title: "Night Ambiance", cat: "Cinema", size: "medium" },
-    { id: 8, type: 'photo', src: img13, title: "Fine Dining", cat: "Interior", size: "large" },
-    { id: 9, type: 'photo', src: img16, title: "Chef's Kitchen", cat: "Interior", size: "medium" },
-    { id: 10, type: 'photo', src: img20, title: "Sky Balcony", cat: "Exterior", size: "large" },
-    { id: 11, type: 'video', src: sm04, poster: img21, title: "Sunrise View", cat: "Cinema", size: "small" },
-    { id: 12, type: 'photo', src: img21, title: "Main Entrance", cat: "Exterior", size: "medium" },
+    { 
+      id: 2, type: 'video', src: vid02, poster: h10, 
+      title: "Luxury Walkthrough", cat: "Cinema", size: "medium" 
+    },
+    { 
+      id: 3, type: 'photo', src: hero15, 
+      title: "Modern Interiors", cat: "Design", size: "small" 
+    },
+    { 
+      id: 4, type: 'video', src: vid03, poster: h17, 
+      title: "Elite Lifestyle", cat: "Cinema", size: "small" 
+    }
   ];
-
-  const filteredMedia = filter === 'all' ? mediaData : mediaData.filter(m => m.type === filter);
 
   const closeLightbox = () => { setSelectedIndex(null); setZoom(1); document.body.style.overflow = 'auto'; };
   const openLightbox = (index) => { setSelectedIndex(index); document.body.style.overflow = 'hidden'; };
 
   const nextMedia = useCallback((e) => {
     e?.stopPropagation();
-    if (filteredMedia.length === 0) return;
-    setSelectedIndex((prev) => (prev + 1) % filteredMedia.length);
+    setSelectedIndex((prev) => (prev + 1) % mediaData.length);
     setZoom(1);
-  }, [filteredMedia.length]);
+  }, [mediaData.length]);
 
   const prevMedia = useCallback((e) => {
     e?.stopPropagation();
-    if (filteredMedia.length === 0) return;
-    setSelectedIndex((prev) => (prev - 1 + filteredMedia.length) % filteredMedia.length);
+    setSelectedIndex((prev) => (prev - 1 + mediaData.length) % mediaData.length);
     setZoom(1);
-  }, [filteredMedia.length]);
+  }, [mediaData.length]);
 
   useEffect(() => {
     const handleKeys = (e) => {
@@ -85,23 +60,18 @@ const Portfolio = () => {
     return () => window.removeEventListener("keydown", handleKeys);
   }, [selectedIndex, nextMedia, prevMedia]);
 
-  const currentMedia = selectedIndex !== null ? filteredMedia[selectedIndex] : null;
+  const currentMedia = selectedIndex !== null ? mediaData[selectedIndex] : null;
 
   return (
     <div className="portfolio-section-container">
       <div className="portfolio-content">
         <div className="section-header">
-          <span className="accent-text">Siddhi Homes Portfolio</span>
-          <h2>Crafting Legacies</h2>
-          <div className="filter-pills">
-            <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All Projects</button>
-            <button className={filter === 'photo' ? 'active' : ''} onClick={() => setFilter('photo')}><FaCamera /> Photography</button>
-            <button className={filter === 'video' ? 'active' : ''} onClick={() => setFilter('video')}><FaVideo /> Films</button>
-          </div>
+          <span className="accent-text">Siddhi Homes Gallery</span>
+          <h2>Crafting Your Legacy</h2>
         </div>
 
         <div className="bento-gallery">
-          {filteredMedia.map((item, index) => (
+          {mediaData.map((item, index) => (
             <div key={item.id} className={`gallery-card ${item.size}`} onClick={() => openLightbox(index)}>
               <div className="card-overlay">
                 <div className="play-btn-circle">
@@ -113,18 +83,9 @@ const Portfolio = () => {
                 </div>
               </div>
               
-              {/* VIDEO LOGIC: Added Poster and Fallback */}
               {item.type === 'video' ? (
-                <video 
-                  muted 
-                  loop 
-                  autoPlay 
-                  playsInline 
-                  className="media-bg"
-                  poster={item.poster} // THIS FIXES THE BLACK SCREEN
-                >
+                <video muted loop autoPlay playsInline className="media-bg" poster={item.poster}>
                   <source src={item.src} type="video/mp4" />
-                  Your browser does not support the video tag.
                 </video>
               ) : (
                 <img src={item.src} alt={item.title} className="media-bg" />
@@ -138,14 +99,13 @@ const Portfolio = () => {
       {selectedIndex !== null && currentMedia && (
         <div className="elite-lightbox">
           <div className="lightbox-backdrop" onClick={closeLightbox}></div>
-          
           <button className="nav-btn left-nav" onClick={prevMedia}><FaChevronLeft /></button>
           <button className="nav-btn right-nav" onClick={nextMedia}><FaChevronRight /></button>
           
           <div className="lightbox-ui">
             <div className="ui-left">
-               <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(z + 0.5, 3)); }}>Zoom +</button>
-               <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(z - 0.5, 1)); }}>Zoom -</button>
+               <button className="zoom-btn" onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(z + 0.5, 3)); }}>+</button>
+               <button className="zoom-btn" onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(z - 0.5, 1)); }}>-</button>
             </div>
             <button className="lightbox-close-btn" onClick={closeLightbox}><FaTimes /></button>
           </div>
@@ -162,7 +122,7 @@ const Portfolio = () => {
             </div>
             <div className="lightbox-footer-info">
                 <h3>{currentMedia.title}</h3>
-                <p>{currentMedia.cat} | {selectedIndex + 1} / {filteredMedia.length}</p>
+                <p>{currentMedia.cat} | {selectedIndex + 1} / {mediaData.length}</p>
             </div>
           </div>
         </div>
